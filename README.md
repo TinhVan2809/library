@@ -1,6 +1,5 @@
-## BACKEND ##
 
-# Library Management System 
+# Backend - Library Management System 
 
 A simple library management system built with PHP, React, and a MySQL/MariaDB database. This project provides core functionalities to manage books, students, and book loans in a school library environment.
 
