@@ -1,0 +1,86 @@
+.series-container{
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+.series-container .series-main-content{
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 0 auto;
+}
+.series-container .series-main-content .series-card{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    margin: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden; /* Đảm bảo bo góc được áp dụng cho ảnh */
+}
+
+.series-container .series-main-content .series-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.series-container .series-main-content .series-card .series-left img{
+    width: 110px;
+    height: 160px;
+    object-fit: cover;
+    display: block; /* Loại bỏ khoảng trống thừa dưới ảnh */
+}
+
+.series-container .series-main-content .series-card .series-right {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 180px; /* Cho chiều rộng cố định để các card đều nhau */
+}
+
+.series-container .series-main-content .series-card .series-right p {
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    /* Giới hạn text nếu quá dài */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.series-container .series-main-content .series-card .series-btn {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.series-container .series-main-content .series-card .series-btn button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.series-container .series-main-content .series-card .series-btn .edit-btn {
+    background-color: #17a2b8; /* Màu xanh thông tin */
+}
+.series-container .series-main-content .series-card .series-btn .edit-btn:hover {
+    background-color: #138496;
+}
+
+.series-container .series-main-content .series-card .series-btn .delete-btn {
+    background-color: #dc3545; /* Màu đỏ nguy hiểm */
+}
+.series-container .series-main-content .series-card .series-btn .delete-btn:hover {
+    background-color: #c82333;
+}
+}

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.header-container-categories{
+    font-family: "Inter", sans-serif;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.header-container-categories .link-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.header-container-categories .link-categories a {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    color: #121212;
+    transition:  all .3s;
+    background-color: #fff;
+}
+
+.publisheryears-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.publisheryears-container .publisheryears {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.publisheryears-container .publisheryears span {
+    margin-right: 15px;
+    transition: all 0.3s;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.publisheryears-container .publisheryears span:hover,
+.header-container-categories .link-categories a:hover,
+.header-container-categories .link-categories .categories-active,
+.publisheryears-container .publisheryears .year-active { 
+    background-color: #000;
+    color:  #fff;
+}
+
+

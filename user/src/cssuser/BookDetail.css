@@ -1,0 +1,845 @@
+/* --- Book Detail Page Styles --- */
+.book-detail-container {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Thay đổi để cột ảnh linh hoạt hơn */
+    gap: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.book-detail-images-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-detail-image {
+    width: 300px;
+    height: 420px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.book-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động mượt mà */
+}
+
+.book-detail-image:hover img {
+    transform: scale(1.1); /* Phóng to 10% khi di chuột qua */
+}
+
+.supplementary-images-detail {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    max-width: 300px; /* Giới hạn chiều rộng bằng ảnh chính */
+}
+
+.supplementary-images-detail img {
+    width: 65px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.supplementary-images-detail img.active,
+.supplementary-images-detail img:hover {
+    border-color: #006400;
+}
+
+.book-detail-info h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* --- Average Rating Display --- */
+.average-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.average-rating-display .stars {
+    color: #ffc107; /* Màu vàng cho sao */
+    font-size: 1.3rem;
+}
+
+.average-rating-display .rating-text {
+    font-weight: bold;
+}
+
+.average-rating-display .review-count {
+    color: #666;
+}
+
+.book-detail-info p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0.5rem 0;
+}
+
+.book-detail-description {
+    margin-top: 2rem;
+}
+
+.book-detail-description h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.book-detail-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.book-detail-actions .btn-borrow {
+    padding: 0.7rem 1.5rem;
+    border-radius: 3px;
+    border: 2px solid transparent;
+    background-color: #1db954;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+/* .book-detail-actions .btn-add-list{
+    background-color: #F54927;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0 10px;
+    cursor: pointer;
+    transition:  all .3s;
+} */
+.book-detail-actions .btn-borrow:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+/* .book-detail-actions .btn-add-list:hover{
+    background-color: #C82909;
+} */
+
+/* From Uiverse.io by andrew-demchenk0 */ 
+.book-detail-actions .btn-add-list{
+  position: relative;
+  width: 160px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #34974d;
+  background-color: #3aa856;
+}
+
+.book-detail-actions .btn-add-list, 
+.button__icon, 
+.button__text {
+  transition: all 0.3s;
+}
+
+.book-detail-actions .btn-add-list .button__text {
+  transform: translateX(30px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.book-detail-actions .btn-add-list .button__icon {
+  position: absolute;
+  transform: translateX(120px);
+  height: 100%;
+  width: 39px;
+  background-color: #34974d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-detail-actions .btn-add-list .svg {
+  width: 30px;
+  stroke: #fff;
+}
+
+.book-detail-actions .btn-add-list:hover {
+  background: #34974d;
+}
+
+.book-detail-actions .btn-add-list:hover .button__text {
+  color: transparent;
+}
+
+.book-detail-actions .btn-add-list:hover .button__icon {
+  width: 151px;
+  transform: translateX(0);
+}
+
+.book-detail-actions .btn-add-list:active .button__icon {
+  background-color: #2e8644;
+}
+
+.book-detail-actions .btn-add-list:active {
+  border: 1px solid #2e8644;
+}
+
+.book-detail-actions .btn-contact{
+    padding: 0 20px;
+    color: #fff;
+    background-color: #1E90FF;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.book-detail-actions .btn-pdf{
+    padding: 0 12px;
+    border: none;
+    border-radius: 3px;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+}
+
+.book-detail-actions .button-dowload {
+  --width: 100px;
+  --height: 48px;
+  --tooltip-height: 35px;
+  --tooltip-width: 90px;
+  --gap-between-tooltip-to-button: 18px;
+  --button-color: #1163ff;
+  --tooltip-color: #e1d3d3;
+   width: var(--width);
+  height: var(--height);
+  background: var(--button-color);
+  position: relative;
+  text-align: center;
+  border-radius: 3px;
+  font-family: "Arial";
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.book-detail-actions .button-dowload::before {
+  position: absolute;
+  content: attr(data-tooltip);
+  width: var(--tooltip-width);
+  height: var(--tooltip-height);
+  background-color: var(--tooltip-color);
+  font-size: 0.9rem;
+  color: #111;
+  border-radius: .25em;
+  line-height: var(--tooltip-height);
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
+  left: calc(50% - var(--tooltip-width) / 2);
+}
+
+.book-detail-actions .button-dowload::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: var(--tooltip-color);
+  left: calc(50% - 10px);
+  bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
+}
+
+.book-detail-actions .button-dowload::after,.book-detail-actions .button-dowload::before {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+}
+
+.book-detail-actions .button-dowload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-detail-actions .button-dowload .button-wrapper,.book-detail-actions .button-dowload .text,.book-detail-actions .button-dowload .icon {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  color: #fff;
+}
+
+.book-detail-actions .button-dowload .text {
+  top: 0
+}
+
+.book-detail-actions .button-dowload .text,.icon {
+  transition: top 0.5s;
+}
+
+.book-detail-actions .button-dowload .icon {
+  color: #fff;
+  top: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-detail-actions .button-dowload .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.book-detail-actions .button-dowload:hover {
+  background: #6c18ff;
+}
+
+.book-detail-actions .button-dowload:hover .text {
+  top: -100%;
+}
+
+.book-detail-actions .button-dowload:hover .icon {
+  top: 0;
+}
+
+.book-detail-actions .button-dowload:hover:before,.button-dowload:hover:after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.book-detail-actions .button-dowload:hover:after {
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
+}
+
+.book-detail-actions .button-dowload:hover:before {
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
+}
+
+
+/* --- Related Books Section --- */
+.related-books-section {
+    margin-top: 2rem;
+}
+
+/* .related-books-section h2 {
+    font-size: 1.8rem;
+    color: #33333395;
+    margin-bottom: 1.5rem;
+} */
+
+/* From Uiverse.io by alexmaracinaru */ 
+.related-books-section .cta {
+  position: relative;
+  margin: auto;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+.related-books-section .cta:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50px;
+  background: #b1dae7;
+  width: 45px;
+  height: 45px;
+  transition: all 0.3s ease;
+}
+
+.related-books-section .cta span {
+  position: relative;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #234567;
+}
+
+.related-books-section .cta svg {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #234567;
+  stroke-width: 2;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.related-books-section .cta:hover:before {
+  width: 100%;
+  background: #b1dae7;
+}
+
+.related-books-section .cta:hover svg {
+  transform: translateX(0);
+}
+
+.related-books-section .cta:active {
+  transform: scale(0.95);
+}
+
+
+/* --- CSS cho Slideshow sách liên quan --- */
+
+/* Wrapper cho mỗi slide để tạo khoảng cách */
+.related-books-section .slide-item-wrapper {
+    padding: 0 10px; /* Tạo khoảng cách ngang giữa các slide */
+}
+
+/* Style cho card bên trong slideshow, kế thừa từ Home.css nhưng có điều chỉnh */
+.related-books-section .card {
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column; /* Giữ lại để dự phòng */
+    height: 220px; /* Chiều cao bằng với .img-wrap */
+    width: 100%; /* Chiều rộng sẽ được Slider quản lý */
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0; /* Màu nền cho trường hợp ảnh lỗi */
+    border-radius: 4px;
+}
+
+.related-books-section .card .img-wrap {
+    width: 100%;
+    height: 100%; /* Chiếm toàn bộ chiều cao của card */
+    overflow: hidden;
+    display: block;
+}
+
+.related-books-section .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.related-books-section .card:hover img {
+    transform: scale(1.1);
+}
+
+/* Định vị lại card-body để nằm trên ảnh */
+.related-books-section .card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 8px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.444), transparent);
+    color: #fff;
+    opacity: 0; /* Ẩn đi ban đầu */
+    transform: translateY(100%); /* Đẩy xuống dưới */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Hiển thị card-body khi hover vào card */
+.related-books-section .card:hover .card-body {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Tùy chỉnh mũi tên cho slideshow */
+.related-books-section .slick-arrow {
+    background-color: rgba(0, 0, 0, 0.112);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+}
+.related-books-section .slick-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.366);
+}
+.related-books-section .slick-prev {
+    left: -15px;
+}
+.related-books-section .slick-next {
+    right: -15px;
+}
+.related-books-section .slick-arrow::before {
+    color: white;
+}
+
+
+
+/* Style cho tiêu đề bên trong card-body */
+.related-books-section .card .card-title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    /* Xử lý nếu tiêu đề quá dài */
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+/* --- FIX: Căn trái slideshow khi không đủ item --- */
+.related-books-section .slick-track {
+    margin-left: 0;
+}
+/* --------------------------------------------- */
+
+.btn-cancel-request {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel-request:hover {
+    background-color: #c82333;
+}
+.btn-contact-request{
+    padding: 6px 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .3s;
+}
+.btn-contact-request:hover{
+    border-color: rgba(0,0,0,0.5);
+}
+
+/* Keyframes cho hiệu ứng */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.borrow-request-message {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #e9f7ef;
+    color: #146c43;
+}
+
+/* style for reivew */
+.review-container{
+    background-color: #fff;
+    margin-top: 10rem;
+    border-radius: 3px;
+    padding: 1rem 2rem;
+}
+.review-container .review-textarea form {
+    display: flex;
+    position: relative;
+}
+.review-container textarea{
+    width: 100%;
+    height: 120px;
+    min-height: 80px;
+    border: 0.5px solid rgba(0,0,0,0.08);
+    padding: 10px;
+    border-radius: 5px;
+    padding: 15px 20px;
+    outline: none;
+    resize: vertical;
+    font-size: 1rem;
+}
+.review-container .review-textarea button{
+    position: absolute;
+    right: 10px;
+    top: 85%;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    transform: translateY(-50%);
+}
+.review-container .rating-start {
+    display: flex;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.review-container .rating-start span{
+    font-size: 2rem;
+}
+.review-container .rating-start span{
+    transition:  color .2s;
+}
+.review-container .rating-start span:hover,
+.review-container .rating-start span.active{
+    color: #ffc107;
+}
+
+/* --- Review List Styles --- */
+.review-list {
+    margin-top: 2.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+}
+
+.review-item {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f0f0f0;
+}
+
+.reviewer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewer-info strong {
+    font-size: 1.1rem;
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.review-item-body .review-rating {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-item-body .review-rating span {
+    color: #ccc;
+}
+
+.review-item-body .review-rating span.active {
+    color: #ffc107;
+}
+
+.review-comment {
+    line-height: 1.6;
+    color: #444;
+}
+
+.btn-reply {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.2rem 0;
+    margin-top: 0.5rem;
+}
+
+.btn-reply:hover {
+    text-decoration: underline;
+}
+
+.reply-form {
+    margin-top: 1rem;
+    margin-left: 3.5rem; /* Căn lề với nội dung bình luận */
+}
+
+.reply-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.reply-form textarea {
+    width: 100%;
+    min-height: 60px;
+}
+
+.reply-form button {
+    align-self: flex-end;
+    padding: 0.4rem 1rem;
+    background-color: #007bff;
+    color: white;
+}
+
+.review-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btn-reply, .btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.2rem 0;
+}
+
+.btn-reply, .btn-edit {
+    color: #007bff;
+}
+
+.btn-delete {
+    color: #dc3545;
+}
+
+.btn-reply:hover, .btn-edit:hover, .btn-delete:hover {
+    text-decoration: underline;
+}
+
+.edit-form {
+    margin-top: 0.5rem;
+}
+
+.edit-form textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.edit-form-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.edit-form-actions button {
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-form-actions .saveChange{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+.edit-form-actions .cancelChange{
+    border: 0.5px solid rgba(0,0,0,0.08);
+    background-color: rgba(0,0,0,0.010);
+}
+
+
+/* From Uiverse.io by Priyanshu02020 */ 
+#heart {
+  display: none;
+}
+
+.like-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 136px;
+  border-radius: 16px;
+  border: none;
+  background-color: #1d1d1d;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.like-icon {
+  fill: #505050;
+  height: 28px;
+  width: 28px;
+}
+
+.like-text {
+  color: #fcfcfc;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #717070;
+  font-size: 16px;
+  border-left: 2px solid #4e4e4e;
+  transition: all 0.5s ease-out;
+}
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: #fcfcfc;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}

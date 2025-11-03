@@ -1,0 +1,114 @@
+/* section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5em;
+}
+
+section h2{
+    color: #121212;
+    margin-bottom: 1rem;
+}
+
+.active{
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+section.container-list-admin{
+    margin: 3rem 0;
+}
+section.container-list-admin > table{
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid;
+}
+section.container-list-admin > table  td, 
+section.container-list-admin > table  th {
+    border-bottom: 1px solid #000;
+    padding: 9px;
+}
+section.container-list-admin > table button {
+    padding: 5px 10px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    background-color: #2534b9;
+    color: #fff;
+}
+section.container-add-admin > form{
+    width: 600px;
+    border: 1px solid #6f6f66;
+    padding: 2rem 1rem;
+    border-radius: 8px;
+    background-color: #fff;
+}
+section.container-add-admin > form input,
+section.container-add-admin > form select{
+    padding: 0 0.5rem;
+    height: 2rem;
+    border-radius: 3px;
+    border: 1px solid #f6f6f6;
+    transition: all 0.375s;
+    outline: transparent;
+}
+section.container-add-admin > form input:hover,
+section.container-add-admin > form select:hover,
+section.container-add-admin > form input:focus,
+section.container-add-admin > form select:focus{
+    border: 1px solid #189945;
+}
+section.container-add-admin > form button{
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    background-color: #189945;
+    color: #f6f6f6;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+section.container-add-admin > form button:hover{
+    background-color: #127434;
+}
+
+hr{
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.bookDetail{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+.bookDetail button{
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: #127434;
+    color: white;
+    cursor: pointer;
+    transition:  all 0.3s;
+    font-weight: 600;
+}
+.bookDetail button:hover{
+    background-color: #0d5e29;
+}
+.bookDetail .bookDetail-content{
+    padding: 1rem 2rem;
+}
+.bookDetail .bookDetail-content .mainContent{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+section.container-editing-admin{
+    position: fixed;
+    top: -10%;
+    background-color: #127434;
+} */

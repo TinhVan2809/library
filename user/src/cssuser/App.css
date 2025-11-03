@@ -1,0 +1,877 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Licorice&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav > ul > li > a {
+  color: inherit; /* Kế thừa màu chữ từ thẻ li */
+  text-decoration: none; /* Bỏ gạch chân mặc định */
+}
+body{
+    /* background-color: #222121;   */
+    /* background-color: #2a2a2a; */
+    
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+   
+}
+body::-webkit-scrollbar {
+    width: 6px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #16543f;
+    border-radius: 36px;
+}
+nav.nav-container{
+    /* background-color: #0f1416; */
+    background-color: #f6f6f6;
+    padding: 13px;
+}
+
+nav > ul{
+    display: flex;
+    color: #000;
+    gap: 4em;
+    justify-content: center;
+    align-items: center;
+}
+
+nav > ul > .list-icon {
+  display: none;
+}
+nav > ul > li{
+    list-style: none;
+    cursor: pointer;
+    font-size: 13px;
+    
+    text-underline-offset: 10px;
+    text-underline-position: auto;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+nav > ul > li .navlink-login:hover{
+    text-decoration: none;
+}
+nav > ul > li > a:hover,
+nav > ul > li > a.li-active{
+    text-decoration: 1.5px #006633 underline;
+}
+nav > ul > li.logo{
+   font-family: "Licorice", sans-serif;
+   color: #006633;
+   font-weight: 600;
+   font-size: 20px;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+
+/* nav > ul  > li button{
+    padding: 10px 15px;
+    border-radius: 3px;
+    background-image: linear-gradient(to right, #288866 0%, #198e44  51%,   #1e7d5c  100%);
+     background-size: 200% auto;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-transform: uppercase;
+    font-weight: 550;
+}
+nav > ul  > li button:hover{
+    
+     background-position: right center; 
+}
+*/
+
+
+/* nav > ul > li .animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 4px solid;
+  border-color: transparent;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: greenyellow;
+  box-shadow: 0 0 0 2px greenyellow;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+} */
+
+nav > ul > li .animated-button{
+    position: relative;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    border: 2px solid;
+    border-color: transparent;
+    background-color: inherit;
+    color: #1d9b34;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 11 0.23, 1);
+    box-shadow: 0 0 0 2px rgb(7, 203, 10);
+    border-radius: 100px;
+}
+
+nav > ul > li .animated-button svg {
+  position: absolute;
+  width: 15px;
+  fill: #1d9b34;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+nav > ul > li .animated-button .arr-1 {
+  right: 16px;
+}
+
+nav > ul > li .animated-button .arr-2 {
+  left: -25%;
+}
+
+nav > ul > li .animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: greenyellow;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+nav > ul > li .animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+nav > ul > li .animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+nav > ul > li .animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+nav > ul > li .animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+nav > ul > li .animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+nav > ul > li .animated-button:hover svg {
+  fill: #212121;
+}
+
+nav > ul > li .animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px greenyellow;
+}
+
+nav > ul > li .animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+
+
+
+
+
+.search-wrap{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Điều chỉnh padding-left để nhường chỗ cho icon */
+.search-input{
+  padding: 8px 16px 8px 40px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  border: navajowhite;
+  box-shadow: 0 0 0 1px #585858;
+  outline: none;
+  background-color: #f6f6ff;
+  color: #000;
+}
+
+.search-input::placeholder{
+    color: #484848;
+    transition: all 0.2s;
+}
+.search-input::placeholder:focus{
+    color: #fff;
+}
+/* Icon nằm bên trái, ở giữa theo chiều dọc */
+.search-icon{
+  position: absolute;
+  left: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.05rem;
+  pointer-events: none; /* để click vào input được bình thường */
+}
+
+.contact{
+    display: flex;
+    gap: 10px;
+}
+
+nav > ul > li.phone{
+    text-decoration: none;
+}
+nav > ul > li.phone:hover{
+    text-decoration: none;
+}
+nav > ul > li.phone .contact p {
+    transition: all .3s;
+}
+nav > ul > li.phone .contact p:hover{
+    color: #a19d9d;
+}
+nav > ul > li img {
+    width: 30px;
+}
+nav > ul > li > img.image-avata{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* CONTAINER */
+.container{
+    /* background-color: #0f1416; */
+    background-color: #f4f0f0;
+    width: 1140px;
+    margin: auto;
+    margin-top: 0.5%;
+    padding: 50px;
+}
+
+/* User Menu Styles */
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+    width: 200px;
+}
+
+.user-dropdown button {
+  background-color: #fff;
+  border: 2px solid rgba(0,0,0,0.05);
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition:  all .2s;
+}
+.user-dropdown button:hover{
+  background-color: #143BE6;
+  color: #fff;
+}
+
+/* BookCase style */
+.my-bookcase{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 15px;
+}
+.bookcase-dropdown{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f5f5f5;
+    width: 24rem;
+    height: 19rem;
+    z-index: 10;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.bookcase-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.bookcase-item-info p {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; 
+}
+
+.btn-delete-bookcase {
+    background: none;
+    border: 1px solid #ddd;
+    color: #dc3545;
+    padding: 2px 6px;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-delete-bookcase:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.bookcase-dropdown p {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.bookcase-list {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.bookcase-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.bookcase-item:last-child {
+    border-bottom: none;
+}
+
+.bookcase-item img {
+    width: 40px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* Notification Bell Styles */
+.notifications-bell {
+    position: relative;
+    cursor: pointer;
+}
+
+.notifications-bell .ri-notification-3-line {
+    font-size: 24px;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid white;
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 20;
+}
+
+.notification-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* MyBorrows Page Styles */
+.my-borrows-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-height: 600px;
+    overflow-y: auto;
+}
+.my-borrows-container::-webkit-scrollbar,
+.my-brrows-request::-webkit-scrollbar{
+    width: 6px;
+}
+.my-borrows-container::-webkit-scrollbar-thumb,
+.my-brrows-request::-webkit-scrollbar-thumb{
+    background-color: #33333337;
+    border-radius: 40px;
+}
+
+.my-borrows-container h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.borrow-status {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 2rem;
+}
+
+.borrow-status.error {
+    color: #dc3545;
+}
+
+.borrow-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.borrow-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: box-shadow 0.2s;
+}
+
+.borrow-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.borrow-item-image {
+    width: 80px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.borrow-item-info h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.borrow-item-info p {
+    margin: 0.3rem 0;
+    color: #555;
+}
+
+.borrow-item-info .status-borrowed {
+    color: #007bff;
+    font-weight: bold;
+}
+.borrow-item-info .status-returned {
+    color: #28a745;
+    font-weight: bold;
+}
+.borrow-item-info .status-overdue {
+    color: #dc3545;
+    font-weight: bold;
+}
+.borrow-item-info .status-pending {
+    color: #ffc107; /* Màu vàng */
+    font-weight: bold;
+}
+
+.my-brrows-request{
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 30px 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.anyquestion-with-mybrrow{
+    display: flex;
+    margin: 2rem 0 0 0 ;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.anyquestion-with-mybrrow button{
+    padding: 0.5rem 0.7rem;
+    border-radius: 3px;
+    border: none;
+    background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC  51%, #02AAB0  100%);
+    color: #ffffffff;
+    font-size: 15px;
+    cursor: pointer;
+    background-size: 200% auto;
+    text-align: center;
+}
+
+/* Multi-level menu styles */
+nav .multi-menu { position: relative; }
+nav .multi-menu .menu-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+nav .multi-menu ul { list-style: none; margin: 0; padding: 6px 0; display: none; position: absolute; background: #fff; border: 1px solid #ddd; min-width: 180px; z-index: 50; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+nav .multi-menu ul li { padding: 6px 12px; }
+nav .multi-menu ul li a, nav .multi-menu ul li button { color: #333; text-decoration: none; background: none; border: none; padding: 0; cursor: pointer; font: inherit; display: block; width: 100%; text-align: left; }
+nav .multi-menu ul li:hover { background: #f5f5f5; }
+nav .multi-menu .menu-level-1 { top: 100%; left: 0; }
+nav .multi-menu .menu-level-2 { top: 0; left: 100%; position: absolute; display: none; white-space: nowrap; }
+nav .multi-menu .menu-level-3 { top: 0; left: 100%; position: absolute; display: none; white-space: nowrap; }
+
+/* show on hover for desktop */
+nav .multi-menu:hover > .menu-level-1,
+nav .multi-menu .menu-level-1.open { 
+    display: block;
+}
+nav .multi-menu .menu-level-1 li:hover > .menu-level-2,
+nav .multi-menu .menu-level-2.open { 
+    display: block; 
+}
+nav .multi-menu .menu-level-2 li:hover > .menu-level-3,
+nav .multi-menu .menu-level-3.open { 
+    display: block; 
+}
+
+/* Multi-level menu (for Navigation > MultiLevelMenu) */
+nav .multi-menu {
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+}
+nav .multi-menu .li-main{
+    padding: 10px;
+}
+/* Toggle buttons */
+nav .multi-menu .menu-toggle,
+nav .multi-menu .submenu-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;    
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* Root dropdown (level 1) */
+nav .multi-menu .menu-level-1 {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  display: none; /* hidden by default */
+  position: absolute;
+  top: calc(80% + 6px);
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  z-index: 100;
+  border-radius: 4px;
+}
+
+/* Nested menus (level 2 / 3) */
+nav .multi-menu .menu-level-1 li {
+  position: relative;
+}
+nav .multi-menu .menu-level-1 li > ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border-radius: 4px;
+}
+
+/* Specific level classes (optional, for clarity) */
+nav .multi-menu ul.menu-level-2 { 
+    
+}
+nav .multi-menu .menu-level-3 { 
+    left: 100%; top: 0;
+}
+
+/* Items */
+nav .multi-menu li > a,
+nav .multi-menu li > button {
+  display: block;
+  padding: 8px 12px;
+  color: #222;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Hover / focus */
+nav .multi-menu li > a:hover,
+nav .multi-menu li > button:hover,
+nav .multi-menu li > a:focus,
+nav .multi-menu li > button:focus {
+  background: #f5f5f5;
+  color: #000;
+  outline: none;
+}
+
+/* Show when open class set by React */
+nav .multi-menu .menu-level-1.open { display: block; }
+nav .multi-menu .menu-level-1 li .menu-level-2.open,
+nav .multi-menu .menu-level-1 li .menu-level-3.open { display: block; }
+
+/* Also show on hover for desktop convenience */
+@media (hover: hover) and (min-width: 801px) {
+  nav .multi-menu:hover > .menu-level-1 { display: block; }
+  nav .multi-menu .menu-level-1 li:hover > ul { display: block; }
+}
+
+/* Small screens: switch to stacked static menus */
+@media (max-width: 800px) {
+  nav .multi-menu {
+    width: 100%;
+  }
+  nav .multi-menu .menu-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+  nav .multi-menu .menu-level-1,
+  nav .multi-menu .menu-level-1 li > ul {
+    position: static;
+    display: block; /* allow React openKeys to control visibility by .open class or hide with CSS if desired */
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding-left: 0;
+  }
+  nav .multi-menu .menu-level-1 li > a,
+  nav .multi-menu .menu-level-1 li > button {
+    padding-left: 18px;
+  }
+  nav .multi-menu .menu-level-1 li > ul li > a,
+  nav .multi-menu .menu-level-1 li > ul li > button {
+    padding-left: 32px;
+  }
+}
+
+/* Accessibility helpers */
+nav .multi-menu .menu-toggle:focus,
+nav .multi-menu .submenu-toggle:focus {
+  box-shadow: 0 0 0 3px rgba(21,156,228,0.15);
+  border-radius: 4px;
+}
+
+
+
+
+/* From Uiverse.io by vinodjangid07 */ 
+
+
+.list-icon #checkbox {
+  display: none;
+}
+
+.list-icon .toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition-duration: .5s;
+}
+
+.list-icon .bars {
+  width: 100%;
+  height: 4px;
+  background-color: rgb(176, 92, 255);
+  border-radius: 4px;
+}
+
+.list-icon #bar2 {
+  transition-duration: .8s;
+}
+
+.list-icon #bar1,#bar3 {
+  width: 70%;
+}
+
+.list-icon #checkbox:checked + .toggle .bars {
+  position: absolute;
+  transition-duration: .5s;
+}
+
+.list-icon #checkbox:checked + .toggle #bar2 {
+  transform: scaleX(0);
+  transition-duration: .5s;
+}
+
+.list-icon #checkbox:checked + .toggle #bar1 {
+  width: 100%;
+  transform: rotate(45deg);
+  transition-duration: .5s;
+}
+
+.list-icon #checkbox:checked + .toggle #bar3 {
+  width: 100%;
+  transform: rotate(-45deg);
+  transition-duration: .5s;
+}
+
+.list-icon #checkbox:checked + .toggle {
+  transition-duration: .5s;
+  transform: rotate(180deg);
+}
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet ngang và laptop nhỏ */
+  nav {
+    position: relative;
+  }
+  nav > ul {
+    justify-content: flex-end;
+  }
+  nav > ul > li {
+    display: none !important;
+  }
+ 
+  nav > ul > .list-icon{
+    display: block;
+  }
+
+  nav > ul .list-icon .toggle {
+    width: px;
+    height: 30px;
+  }
+
+  /* Tối ưu hóa menu trượt ra */
+  nav > ul .list-icon .showList {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #f6f6f6; /* Đồng bộ màu nền với navbar */
+    padding: 2rem 1rem;
+    height: 100vh;
+    z-index: 100;
+    width: 250px; /* Thêm chiều rộng cho menu */
+    transform: translateX(-100%); /* Ẩn menu ra ngoài màn hình bên trái */
+    transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng chuyển động mượt */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Thêm bóng đổ cho đẹp hơn */
+  }
+
+  /* Khi checkbox được check, hiện menu ra */
+  nav > ul .list-icon #checkbox:checked ~ .showList {
+    transform: translateX(0);
+  }
+
+}
+
+@media (max-width: 768px) {
+ nav {
+    position: relative;
+  }
+  nav > ul {
+    justify-content: flex-end;
+  }
+  nav > ul > li {
+    display: none !important;
+  }
+ 
+  nav > ul > .list-icon{
+    display: block;
+  }
+
+  nav > ul .list-icon .toggle {
+    width: px;
+    height: 30px;
+  }
+
+  /* Tối ưu hóa menu trượt ra */
+  nav > ul .list-icon .showList {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #f6f6f6; /* Đồng bộ màu nền với navbar */
+    padding: 2rem 1rem;
+    height: 100vh;
+    z-index: 100;
+    width: 250px; /* Thêm chiều rộng cho menu */
+    transform: translateX(-100%); /* Ẩn menu ra ngoài màn hình bên trái */
+    transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng chuyển động mượt */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Thêm bóng đổ cho đẹp hơn */
+  }
+
+  /* Khi checkbox được check, hiện menu ra */
+  nav > ul .list-icon #checkbox:checked ~ .showList {
+    transform: translateX(0);
+  }
+}

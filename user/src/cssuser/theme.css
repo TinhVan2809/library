@@ -1,0 +1,64 @@
+
+
+.theme-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 6px 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 4px;
+}
+
+.theme-btn:hover,
+.theme-btn:focus {
+  background: rgba(0,0,0,0.04);
+}
+
+.theme-btn.active {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+:root {
+  /* màu mặc định (sáng) */
+  --bg: #ffffff;
+  --surface: #f8faf8;
+  --text: #000000;
+  --muted: #6b7280;
+  --accent: #00b388;
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  --border: #e6e6e6;
+  --background-container: #f4f0f0;
+  --nav-container: #f6f6f6;
+}
+
+/* dark theme overrides */
+.theme-dark {
+  --bg: #000000dc;
+  --surface: #0b1220;
+  --text: #e6eef6;
+  --muted: #9aa6b2;
+  --accent: #36d399;
+  --card-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  --border: #1f2937;
+   --background-container: #2f2f2f7d;
+   --nav-container: #0f1416;
+}
+
+/* apply variables to common elements */
+body {
+  background: var(--bg);
+  transition: background .24s ease, color .24s ease;
+}
+body .container {
+    background-color: var(--background-container);
+}
+nav.nav-container {
+    background-color: var(--nav-container) !important;
+}
+nav > ul > li {
+    color: var(--text);
+}

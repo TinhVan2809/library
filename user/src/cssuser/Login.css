@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Licorice&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.login-form-container{
+    background: linear-gradient(45deg, rgb(250, 218, 97) 0%, rgb(255, 145, 136) 50%, rgb(255, 90, 205) 100%);
+    font-family: "Josefin Sans", sans-serif;
+    padding: 8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column  ;
+}
+.login-form-container header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.login-form-container header h2 {
+    font-size: 2.5rem;
+    margin-top: 5px;
+}
+.login-form-container header span{
+    font-size: 19px;    
+    padding: 5px 10px;
+    background-color: #FDDA0D;
+    border-radius: 10px;
+}
+.login-form-container form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 45px 40px;
+    border: 1px solid #00000039;
+    border-radius: 3px;
+    gap: 25px;
+    width: 390px;
+}
+.login-form-container form section.input-submit {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+.login-form-container form > section.input-submit > label {
+    margin-left: 10px;
+}
+.login-form-container form > section.input-submit > input,
+.login-form-container form > section.input-submit .pass > input {
+    padding: 10px 13px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    transition: all .3s;
+    color: #616161;
+}
+.login-form-container form > section.input-submit .pass > input{
+    padding-right: 35px;
+}
+.login-form-container form > section.input-submit .pass{
+    position: relative;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+.login-form-container form > section.input-submit i{
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+.login-form-container form > section.input-submit > input:focus{
+    border-color: #fd0d0d
+}
+.login-form-container form > section.input-submit > input::placeholder{
+    font-size: 14px;
+    color: #6b63638a;
+}
+.login-form-container form > section.forget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: 5px;
+}
+.login-form-container form > section.forget > p{
+    display: flex;
+    gap: 5px;
+    color: #6b6363;
+}
+.login-form-container form > section.forget > p > input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: all .2s;
+    
+}
+.login-form-container form >section.forget > p >input[type="radio"]:checked {
+    background-color: #fff;
+    border-color: #fff;
+}
+/* Tạo hiệu ứng chấm bên trong */
+.login-form-container form > section.forget > p > input[type="radio"]:checked::after {
+   content: "✓";
+  color: #000;
+  font-size: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+}
+.login-form-container form > section.forget > a{
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+}
+.login-form-container form > section.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 40px;
+}
+.login-form-container form > section.btn .btn-more{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+.login-form-container form > section.btn > button,
+.login-form-container form > section.btn .btn-more > button.submit-with,
+.login-form-container form > section.btn .btn-more > button.btn-dangky   {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 550;
+}
+.login-form-container form > section.btn > button.submit {
+    background-color: #1B1212;
+    color: #fff;
+}
+.login-form-container form > section.btn > hr {
+    width: 73%;
+    border-radius: 50px;
+    border-color: #f6f6f657 ;
+}
+.login-form-container form > section.btn .btn-more > button.submit-with {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;    
+}
+.login-form-container form > section.btn > .btn-more  button.submit-with img{
+    width: 30px;
+}
+.login-form-container form > section.btn > .btn-more button.btn-dangky{
+    background-color: #fff;
+}

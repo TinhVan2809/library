@@ -1,0 +1,22 @@
+.dashboard-container {
+    width: 100%;
+    padding: 2rem 3rem;
+}
+.dashboard-container .stats-grid{
+    display: flex;
+    width: 100%;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+.dashboard-container .stats-grid .stat-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 30px;
+    font-size: 16px;
+    background-color: #E1C16E;
+}

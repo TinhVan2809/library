@@ -1,0 +1,76 @@
+.series-page-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.series-page-container h1 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.series-status {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 3rem;
+    color: var(--text-secondary-color);
+}
+
+.series-status.error {
+    color: #e74c3c;
+}
+
+.series-section {
+    margin-bottom: 3rem;
+}
+
+.series-section h2 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.series-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.series-book-card {
+    cursor: pointer;
+    background-color: var(--background-secondary-color);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.series-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.series-book-image-wrapper {
+    width: 100%;
+    height: 220px; /* Chiều cao cố định cho ảnh */
+}
+
+.series-book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.series-book-title {
+    padding: 0.8rem;
+    margin: 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    color: var(--text-color);
+}
