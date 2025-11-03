@@ -1,5 +1,3 @@
-// d:\myreact\my-react-app\src\App.jsx
-
 import React, { useState } from 'react';
 import './css/App.css';
 import './css/HandleAdmin.css';

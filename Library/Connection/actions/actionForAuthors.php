@@ -6,6 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+function sendJson($data, $statusCode = 200) {
+    http_response_code($statusCode);
+    echo json_encode($data);
+    exit;
+}
+
 // Consolidated headers and CORS
 header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');

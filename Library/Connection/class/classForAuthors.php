@@ -108,7 +108,7 @@ class authors extends Data {
 
     public function getCountAuthors() {
          try{
-        $sql = "SELECT COUNT(AuthorID) FROM authors";
+        $sql = "SELECT COUNT(AuthorID) AS total_authors FROM authors";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return (int) $stmt->fetchColumn();

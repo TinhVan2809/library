@@ -72,7 +72,7 @@ function HandleDashbroad() {
 
                 <div className="stat-card">                                
                   <p>Tổng số tác giả</p>
-                  <span>{stats.authors}</span>                  
+                   <span>{stats.authors}</span>                 
                 </div>
 
                 <div className="stat-card">                   
