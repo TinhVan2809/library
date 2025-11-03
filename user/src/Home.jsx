@@ -442,7 +442,7 @@ function BookList() {
       <div className="low-books-content">
         <Slider {...sliderSettingsForLowStock}>
           {lowStockBooks.map((low) => (
-            <div key={low.BooksID} className="low-books-card-wrapper">
+            <div key={low.BooksID} className="low-books-card-wrapper" tabIndex="-1">
               <div className="low-books-card">
                 <Image src={low.ImageUrl} alt={low.Title} loading="lazy" />
                   <div className="low-card-info">
@@ -450,7 +450,7 @@ function BookList() {
                     <p><i className="ri-timer-2-line"></i> {low.PublisherYears ? new Date(low.PublisherYears).getFullYear() : '????'}</p>
                     <p><strong>Tác giả: </strong> {low.AuthorName}</p>                
                     <p><strong>Thể loại: </strong>{low.CategoryName}</p>
-                    <button onClick={() => navigate(`/book/${low.BooksID}`)}>
+                    <button onClick={() => navigate(`/book/${low.BooksID}`)} focusable={false}>
                       Xem sách
                     </button>
                   </div>
@@ -559,8 +559,8 @@ function BookList() {
         {/* Thêm component phân trang */}
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} /> 
                 
-              <button class="cta" onClick={() => navigate(`list_categories`)}>
-                <span class="hover-underline-animation"> Show All </span>
+              <button className="cta" onClick={() => navigate(`list_categories`)}>
+                <span className="hover-underline-animation"> Show All </span>
                 <svg
                   id="arrow-horizontal"
                   xmlns="http://www.w3.org/2000/svg"

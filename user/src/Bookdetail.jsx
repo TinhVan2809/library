@@ -421,7 +421,7 @@ function BookDetail() {
                     <div className="book-detail-actions">
                         <button className="btn-borrow" onClick={handleBorrowRequest} disabled={book.StockQuantity <= 0} title='Gửi một yêu cầu mượn sách'>Mượn sách</button>
 
-                                <button type="button" className='btn-add-list' onClick={handleAddToList} title='Thêm vào tủ sách'>
+                                <button type="button" className='btn-add-list' onClick={handleAddToList} title='Thêm vào tủ sách' strokeLinejoin="round" strokeLinecap="round">
                                     <span className="button__text">Thêm vào tủ</span>
                                     <span className="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
                                 </button>
@@ -430,7 +430,7 @@ function BookDetail() {
                         <button className='btn-pdf'>Đọc PDF</button>
 
                        
-                            <div class="button-dowload" data-tooltip="Size: 20Mb">
+                            <div className="button-dowload" data-tooltip="Size: 20Mb">
                             <div className="button-wrapper">
                             <div className="text">Download</div>
                                 <span className="icon">
