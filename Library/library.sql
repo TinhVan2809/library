@@ -143,6 +143,7 @@ CREATE TABLE `bookloan_request` (
   `StudentID` int(11) NOT NULL,
   `BooksID` int(11) NOT NULL,
   `Request_date` datetime DEFAULT current_timestamp(),
+  `DueDate` DATE NULL DEFAULT NULL, 
   `Status` varchar(255) DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
