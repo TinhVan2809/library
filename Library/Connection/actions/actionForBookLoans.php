@@ -32,9 +32,22 @@ try {
         switch ($action) {
 
             case 'GetBookLoans':
-                $data = $bookloans->getAllBookLoans();
-                echo json_encode(['success' => true, 'data' =>  $data]);
-                exit; 
+                $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]);
+                $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT, ['options' => ['default' => 10, 'min_range' => 1]]);
+                $offset = ($page - 1) * $limit;
+
+                $totalItems = $bookloans->getTotalBookLoansCount();
+                $totalPages = ceil($totalItems / $limit);
+                $data = $bookloans->getAllBookLoans($limit, $offset);
+
+                sendJson([
+                    'success' => true,
+                    'data' => $data,
+                    'total_pages' => $totalPages,
+                    'current_page' => $page
+                ]);
+                break;
+
 
 
             case 'AddBookLoan':

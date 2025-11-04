@@ -605,7 +605,7 @@ case 'AddBook':
 
         // Hiển thị các cuốn sách cùng bộ (KHông phải lấy Series)
         // Những cuốn sách có value SeriesID giống nhau sẽ được lấy
-        case 'getBooksBySeriesId': // Đổi tên cho rõ ràng hơn
+        case 'getBooksBySeriesId':
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 sendJson(['success' => false, 'message' => 'Chỉ chấp nhận phương thức GET.'], 405);
             }
@@ -618,10 +618,7 @@ case 'AddBook':
             }
 
             try {
-                $sql = "SELECT BooksID, Title, ImageUrl FROM books WHERE SeriesID = ? AND BooksID != ?";
-                $stmt = $db->prepare($sql);
-                $stmt->execute([$seriesId, $currentBookID]);
-                $seriesBooks = $stmt->fetchAll(PDO::FETCH_OBJ);
+                $seriesBooks = $books->getBooksBySeriesId($seriesId, $currentBookID);
                 sendJson(['success' => true, 'data' => $seriesBooks], 200);
             } catch (Throwable $e) {
                 error_log("getBooksBySeriesId error: " . $e->getMessage());

@@ -48,7 +48,7 @@ try {
                 exit;
 
             // DELETE PUBLISHERS
-            case 'DeletePublishers':
+            case 'DeletePublisher':
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Lấy ID từ request POST
                     $PublisherID = $_POST['PublisherID'] ?? 0;

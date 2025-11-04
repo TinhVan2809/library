@@ -8,20 +8,34 @@ class bookloans extends Data {
     }
 
     // Get all bookloans 
-    public function getAllBookLoans() {
+    public function getAllBookLoans(int $limit = 30, int $offset = 0) {
        try{
-        $sql = "SELECT bl.BookLoanID, b.Title, s.FullName, bl.LoanDate, bl.Status, b.ImageUrl
+        $sql = "SELECT bl.BookLoanID, bl.DueDate, b.Title, s.FullName, bl.LoanDate, bl.Status, b.ImageUrl
             FROM (( bookloans bl
             JOIN student s ON s.studentID = bl.StudentID)
             JOIN books b ON b.BooksID = bl.BooksID)
-            ORDER BY bl.loanDate DESC"; // sắp xếp ngày mượn mới nhất
+            ORDER BY bl.loanDate DESC
+            LIMIT :limit OFFSET :offset"; // sắp xếp ngày mượn mới nhất
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
        } catch (PDOException $e) {
         error_log("Error Get All BookLoans " . $e->getMessage());
         return 0;
        }
+    }
+
+    // Đếm tổng số phiếu mượn
+    public function getTotalBookLoansCount(): int {
+        try {
+            $stmt = $this->conn->query("SELECT COUNT(BookLoanID) FROM bookloans");
+            return (int)$stmt->fetchColumn();
+        } catch (PDOException $e) {
+            error_log("Error getting total book loans count: " . $e->getMessage());
+            return 0;
+        }
     }
 
     // get bookloan by id

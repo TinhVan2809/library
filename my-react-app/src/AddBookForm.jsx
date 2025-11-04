@@ -179,9 +179,6 @@ function AddBookForm({ onBookAdded }) {
     }
   };
 
-  if (loading) {
-    return <p>Đang tải dữ liệu cho form...</p>;
-  }
 
   return (
 <>
@@ -280,6 +277,11 @@ function GetBooks({ refreshKey }) {
   const [publishers, setPublishers] = useState([]);
   const [bookSeries, setBookSeries] = useState([]); // State mới cho danh sách bộ sách
 
+  // State cho phân trang "Xem thêm"
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   // --- moved helper lên scope của GetBooks để các hàm khác có thể dùng ---
   const SERVER_BASE = 'http://localhost/Library/'; // chỉnh nếu cần
   const getFullImageUrl = (path) => {
@@ -294,11 +296,17 @@ function GetBooks({ refreshKey }) {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      setLoading(true);
+      // Nếu là trang 1 thì hiện loading chính, ngược lại là loading cho nút "xem thêm"
+      if (currentPage === 1) {
+        setLoading(true);
+      } else {
+        setIsLoadingMore(true);
+      }
+
       try {
         const [booksRes, authorsRes, categoriesRes, publishersRes, bookSeriesRes] = await Promise.all([
-          // Thêm fetch cho book series
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks'),
+          // Gọi API với trang hiện tại
+          fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}`),
           fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'),
           fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
           fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
@@ -309,16 +317,22 @@ function GetBooks({ refreshKey }) {
         const booksData = await booksRes.json();
 
         // sử dụng getFullImageUrl đã khai báo ở trên
-        if (booksData.success) {
+        if (booksData.success && Array.isArray(booksData.data)) {
           const normalized = (Array.isArray(booksData.data) ? booksData.data : []).map(b => ({
             ...b,
             ImageUrl: getFullImageUrl(b.ImageUrl),
             supplementaryImages: Array.isArray(b.supplementaryImages)
               ? b.supplementaryImages.map(img => typeof img === 'string' ? getFullImageUrl(img) : img)
               : b.supplementaryImages
-          }));
-          setBooks(normalized);
+          })); 
+          // Nếu là trang 1 thì thay thế, ngược lại thì nối vào mảng cũ
+          setBooks(prevBooks => currentPage === 1 ? normalized : [...prevBooks, ...normalized]);
+          setTotalPages(booksData.total_pages || 0);
         } else {
+          if (currentPage === 1) {
+            setBooks([]); // Reset nếu trang đầu tiên lỗi
+            setTotalPages(0);
+          }
           throw new Error(booksData.message || 'Không thể lấy danh sách sách');
         }
 
@@ -338,16 +352,36 @@ function GetBooks({ refreshKey }) {
         setError(error.message);
         console.error('Lỗi khi lấy danh sách sách:', error);
       } finally {
-        setLoading(false);
+        if (currentPage === 1) {
+          setLoading(false);
+        }
+        setIsLoadingMore(false);
       }
     };
 
     fetchBooks();
-  }, [refreshKey]); // Chạy lại khi refreshKey thay đổi
+  }, [refreshKey, currentPage]); // Chạy lại khi refreshKey hoặc currentPage thay đổi
 
-  if (loading) return <p>Đang tải danh sách sách...</p>;
+  if (loading) return (
+    <>
+     
+      <section className="dots-container">
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+      </section>
+
+    </>
+  );
   if (error) return <p style={{ color: 'red' }}>Lỗi: {error}</p>;
 
+  const handleLoadMore = () => {
+    if (currentPage < totalPages && !isLoadingMore) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
 
   // Lấy sách
   const handleGetBookById = async (bookId) => {
@@ -533,7 +567,7 @@ function GetBooks({ refreshKey }) {
         <tbody>
           {books.map((book) => (
             <tr key={book.BooksID}>
-              <td>{book.Title}</td>
+              <td className='book-title'>{book.Title}</td>
               <td>
                 {book.ImageUrl && typeof book.ImageUrl === 'string' ? (
                   <img src={book.ImageUrl} alt={book.Title} style={{ width: '50px', height: 'auto' }} />
@@ -552,6 +586,20 @@ function GetBooks({ refreshKey }) {
           ))}
         </tbody>
       </table>
+      {/* Nút Xem Thêm */}
+      {currentPage < totalPages && (
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <button onClick={handleLoadMore} disabled={isLoadingMore} className="btn-submit-book">
+            {isLoadingMore ? 
+                  <svg viewBox="25 25 50 50">
+                    <circle r="20" cy="50" cx="50"></circle>
+                  </svg> 
+                  
+                  : 'Xem thêm'}
+          </button>
+        </div>
+      )}
+
 
       {selectedBook && (
         <div className='bookDetail' style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc' }}>
@@ -670,7 +718,7 @@ function GetBooks({ refreshKey }) {
 function BooksManager({ onCancel }) { // Nhận onCancel từ props
   const [refreshKey, setRefreshKey] = useState(0);
   return (
-    <>
+    <> 
       <AddBookForm onBookAdded={() => setRefreshKey(prevKey => prevKey + 1)} onCancel={onCancel} />
       <hr />
       <GetBooks refreshKey={refreshKey} />

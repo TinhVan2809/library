@@ -37,8 +37,8 @@ class bookloanrq extends Data
                 return -1; // duplicate
             }
 
-            $sql = "INSERT INTO bookloan_request (StudentID, BooksID, Request_date, Status)
-                    VALUES (?, ?, NOW(), 'pending')";
+             $sql = "INSERT INTO bookloan_request (StudentID, BooksID, Request_date, DueDate, Status)
+                    VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY), 'pending')";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([$StudentID, $BooksID]);
 
@@ -52,15 +52,19 @@ class bookloanrq extends Data
         }
     }
 
-    public function getAllBookLoanRQ()
+    public function getAllBookLoanRQ(int $limit = 30, int $offset = 0)
     {
         try {
 
-            $sql = "SELECT rq.RequestID, rq.Request_date, rq.Status , b.Title, s.FullName, s.StudentCode, b.ImageUrl
+            $sql = "SELECT rq.RequestID, rq.Request_date, rq.DueDate, rq.Status , b.Title, s.FullName, s.StudentCode, b.ImageUrl
                     FROM (( bookloan_request rq 
                     INNER JOIN books b ON b.BooksID = rq.BooksID) 
-                    INNER JOIN student s ON s.StudentID = rq.StudentID) ORDER BY rq.Request_date DESC";
+                    INNER JOIN student s ON s.StudentID = rq.StudentID) 
+                    ORDER BY rq.Request_date DESC
+                    LIMIT :limit OFFSET :offset";
             $get = $this->conn->prepare($sql);
+            $get->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $get->bindParam(':offset', $offset, PDO::PARAM_INT);
             $get->execute();
             return $get->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -153,7 +157,10 @@ class bookloanrq extends Data
             $this->conn->beginTransaction();
 
             // Lấy thông tin yêu cầu và khóa dòng để xử lý
-            $sqlGetRequest = "SELECT StudentID, BooksID, Status FROM bookloan_request WHERE RequestID = ? FOR UPDATE";
+            $sqlGetRequest = "SELECT br.StudentID, br.BooksID, br.Status, br.DueDate, b.Title
+                              FROM bookloan_request br
+                              JOIN books b ON br.BooksID = b.BooksID
+                              WHERE br.RequestID = ? FOR UPDATE";
             $stmtGetRequest = $this->conn->prepare($sqlGetRequest);
             $stmtGetRequest->execute([$requestID]);
             $request = $stmtGetRequest->fetch(PDO::FETCH_ASSOC);
@@ -184,18 +191,17 @@ class bookloanrq extends Data
                     throw new PDOException('Sách đã hết hàng hoặc không tồn tại.');
                 }
 
-                // 2. Tạo phiếu mượn mới trong bảng bookloans
-                $loanDate = date('Y-m-d');
-                $dueDate = date('Y-m-d', strtotime('+14 days')); // Hạn trả sau 14 ngày
+                // 2. Tạo phiếu mượn mới trong bảng bookloans, lấy DueDate từ request đã có
+                // Lấy DueDate từ request đã có, không cần tính lại
+                $loanDate = date('Y-m-d'); // Ngày duyệt yêu cầu là ngày mượn
+                $dueDateFromRequest = $request['DueDate']; // Lấy DueDate từ bản ghi yêu cầu
                 $sqlInsertLoan = "INSERT INTO bookloans (StudentID, BooksID, LoanDate, DueDate, Status) VALUES (?, ?, ?, ?, 'borrowed')";
                 $stmtInsertLoan = $this->conn->prepare($sqlInsertLoan);
-                $stmtInsertLoan->execute([$request['StudentID'], $request['BooksID'], $loanDate, $dueDate]);
+                $stmtInsertLoan->execute([$request['StudentID'], $request['BooksID'], $loanDate, $dueDateFromRequest]);
             }
 
-             // Lấy tên sách để tạo thông báo
-            $bookTitleStmt = $this->conn->prepare("SELECT Title FROM books WHERE BooksID = ?");
-            $bookTitleStmt->execute([$request['BooksID']]);
-            $bookTitle = $bookTitleStmt->fetchColumn();
+            // Lấy tên sách để tạo thông báo
+            $bookTitle = $request['Title'];
 
             // Tạo thông báo cho người dùng
             $notificationMessage = '';
@@ -206,7 +212,7 @@ class bookloanrq extends Data
             }
 
             if ($notificationMessage) {
-                $notifications = new Notifications($this->conn);
+                $notifications = new Notifications();
                 $notifications->createNotification($request['StudentID'], $notificationMessage, '/my-borrows');
             }
 

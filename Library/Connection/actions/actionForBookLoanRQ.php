@@ -28,9 +28,21 @@ try {
         switch ($action) {
 
             case 'getAllBookLoanRQ': 
-                $data = $bookloanrq->getAllBookLoanRQ();
-                echo json_encode(["success" => true , "data" => $data]);
-                exit;
+                $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]);
+                $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT, ['options' => ['default' => 10, 'min_range' => 1]]);
+                $offset = ($page - 1) * $limit;
+
+                $totalItems = $bookloanrq->getCountRequests();
+                $totalPages = ceil($totalItems / $limit);
+                $data = $bookloanrq->getAllBookLoanRQ($limit, $offset);
+
+                sendJson([
+                    'success' => true,
+                    'data' => $data,
+                    'total_pages' => $totalPages,
+                    'current_page' => $page
+                ]);
+                break;
 
             case 'addBookLoanRequest':
                 // 1. Chỉ chấp nhận phương thức POST
@@ -40,7 +52,7 @@ try {
             
                 // 2. Lấy và xác thực đầu vào một cách an toàn hơn
                 $StudentID = filter_input(INPUT_POST, 'StudentID', FILTER_VALIDATE_INT);
-                $BooksID = filter_input(INPUT_POST, 'BooksID', FILTER_VALIDATE_INT);
+                $BooksID = filter_input(INPUT_POST, 'BooksID', FILTER_VALIDATE_INT); // Sửa booksID thành BooksID
             
                 // 3. Kiểm tra xem ID có hợp lệ không (là số nguyên dương)
                 if (!$StudentID || $StudentID <= 0 || !$BooksID || $BooksID <= 0) {
@@ -49,29 +61,47 @@ try {
             
                 // 4. Gọi phương thức để thêm yêu cầu
                 $result = $bookloanrq->addBookLoanRequest($StudentID, $BooksID);
-            
+
                 // 5. Xử lý kết quả và trả về JSON với mã HTTP phù hợp
                 if ($result === 1) {
                     sendJson(['success' => true, 'message' => 'Yêu cầu mượn sách đã được gửi thành công!'], 201); // 201 Created
                 } elseif ($result === -1) {
                     sendJson(['success' => false, 'message' => 'Bạn đã yêu cầu mượn cuốn sách này rồi.'], 409); // 409 Conflict
                 } else {
-                    sendJson(['success' => false, 'message' => 'Gửi yêu cầu thất bại. Vui lòng thử lại.'], 500); // 500 Internal Server Error
+                    // Development helper: try to collect PDO error info so we can debug why insertion returned 0.
+                    $dbError = null;
+                    try {
+                        $conn = $bookloanrq->getConnection();
+                        if ($conn instanceof PDO) {
+                            $err = $conn->errorInfo();
+                            if (is_array($err)) {
+                                $dbError = implode(' | ', $err);
+                            }
+                        }
+                    } catch (Throwable $e) {
+                        $dbError = 'Failed to read PDO errorInfo: ' . $e->getMessage();
+                    }
+
+                    // Log for server-side inspection
+                    error_log('addBookLoanRequest failed for StudentID=' . $StudentID . ' BooksID=' . $BooksID . ' DB_ERROR=' . $dbError);
+
+                    // Return a small debug field to the client (remove in production)
+                    $payload = ['success' => false, 'message' => 'Gửi yêu cầu thất bại. Vui lòng thử lại.'];
+                    if ($dbError) $payload['db_error'] = $dbError;
+
+                    sendJson($payload, 500); // 500 Internal Server Error
                 }
                 break;
 
 
             case 'getBookLoanRQByStudent':
-                if (!isset($_GET['StudentID']) || empty($_GET['StudentID'])) {
-                    echo json_encode(['success' => false, 'message' => 'Thiếu ID của sinh viên.']);
-                    exit;
+                $studentID = filter_input(INPUT_GET, 'StudentID', FILTER_VALIDATE_INT);
+                if (!$studentID) {
+                    sendJson(['success' => false, 'message' => 'Thiếu hoặc ID sinh viên không hợp lệ.'], 400);
                 }
-                $studentID = (int)$_GET['StudentID'];
                 $data = $bookloanrq->getBookLoanRQByStudent($studentID);
-
-                // Luôn trả về success, data là một mảng (có thể rỗng)
-                echo json_encode(['success' => true, 'data' => $data]);
-                exit;
+                sendJson(['success' => true, 'data' => $data]);
+                break;
 
             case 'updateRequestStatus':
                 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

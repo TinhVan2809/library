@@ -15,6 +15,11 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
     ReturnDate: '',
     Status: '',
   });
+  // State cho phân trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
 
   // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
   const getFullImageUrl = (path) => {
@@ -28,9 +33,14 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
 
   const fetchData = async () => {
     try {
-      setLoading(true);
+      if (currentPage === 1) {
+        setLoading(true);
+      } else {
+        setIsLoadingMore(true);
+      }
+
       const [bookLoansRes, studentsRes, booksRes] = await Promise.all([
-        fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=GetBookLoans'),
+        fetch(`http://localhost/Library/Connection/actions/actionForBookLoans.php?action=GetBookLoans&page=${currentPage}`),
         fetch('http://localhost/Library/Connection/actions/actionForStudent.php?action=GetStudent'),
         // nếu có endpoint lấy sách, sửa đường dẫn cho đúng
         fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks')
@@ -40,8 +50,13 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
       const studentsData = await studentsRes.json();
       const booksData = await booksRes.json();
 
-      if (bookLoansData.success) setBookLoans(Array.isArray(bookLoansData.data) ? bookLoansData.data : []);
-      else setError(bookLoansData.message);
+      if (bookLoansData.success) {
+        const loans = Array.isArray(bookLoansData.data) ? bookLoansData.data : [];
+        setBookLoans(prev => currentPage === 1 ? loans : [...prev, ...loans]);
+        setTotalPages(bookLoansData.total_pages || 0);
+      } else {
+        setError(bookLoansData.message);
+      }
 
       if (studentsData.success) setStudents(Array.isArray(studentsData.data) ? studentsData.data : []);
       else setError(prev => prev || studentsData.message);
@@ -51,13 +66,17 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
     } catch (err) {
       setError(err.message || 'Lỗi khi tải dữ liệu');
     } finally {
-      setLoading(false);
+      if (currentPage === 1) {
+        setLoading(false);
+      }
+      setIsLoadingMore(false);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
   const handleChange = (e) => { // eslint-disable-line
     const { name, value } = e.target;
@@ -117,6 +136,12 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
     alert(JSON.stringify(found || {}, null, 2));
   };
 
+  const handleLoadMore = () => {
+    if (currentPage < totalPages && !isLoadingMore) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
+
   if (loading) return <p>Đang tải danh sách phiếu mượn...</p>;
   if (error) return <p style={{ color: 'red' }}>Lỗi: {error}</p>;
 
@@ -140,6 +165,7 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
               <th>Họ Tên</th>
               <th>Hình ảnh</th>
               <th>Ngày mượn</th>
+              <th>Ngày trả</th>
               <th>Trạng thái</th>
               <th>Action</th>
             </tr>
@@ -157,10 +183,11 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
                 )}
               </td>
                 <td>{loan.LoanDate }</td>
+                <td>{loan.DueDate}</td>
                 <td>{loan.Status}</td>
                 <td>
                   <div className="table-container-btn">
-                      <button className='btn-edit' onClick={() => handleEditClick(loan)}>Sửa</button>
+                    <button className='btn-edit' onClick={() => handleEditClick(loan)}>Sửa</button>
                     <button className='btn-delete' onClick={() => handleDeleteBookLoan(loan.BookLoanID)}>Xóa</button>
                     <button className='btn-detail' onClick={() => handleGetStudentById(loan.BookLoanID)}>Chi tiết</button>
                     <button className='btn-print'>In phiếu</button>
@@ -170,6 +197,14 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
             ))}
           </tbody>
         </table>
+        {/* Nút Xem Thêm */}
+        {currentPage < totalPages && (
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <button onClick={handleLoadMore} disabled={isLoadingMore} className="btn-submit-book">
+              {isLoadingMore ? 'Đang tải...' : 'Xem thêm'}
+            </button>
+          </div>
+        )}
       </section>
     </>
   );
@@ -287,6 +322,11 @@ function BookLoanRequestList() {
     const [error, setError] = useState(null);
     const [selectedBookLoanRequest, setSelectedBookLoanRequest] = useState(null);  // eslint-disable-line
 
+    // State cho phân trang
+    const [rqCurrentPage, setRqCurrentPage] = useState(1);
+    const [rqTotalPages, setRqTotalPages] = useState(0);
+    const [rqIsLoadingMore, setRqIsLoadingMore] = useState(false);
+
      const [formData, setFormData] = useState({ // eslint-disable-line
     RequestID: '',
     BooksID: '',
@@ -340,8 +380,12 @@ function BookLoanRequestList() {
   
     const fetchBookLoanRQ = async () => {
       try {
-        setLoading(true);
-        const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getAllBookLoanRQ');
+        if (rqCurrentPage === 1) {
+          setLoading(true);
+        } else {
+          setRqIsLoadingMore(true);
+        }
+        const response = await fetch(`http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getAllBookLoanRQ&page=${rqCurrentPage}`);
         if (!response.ok) {
           throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
         }
@@ -351,26 +395,38 @@ function BookLoanRequestList() {
           const normalizedData = (Array.isArray(data.data) ? data.data : []).map(item => ({
             ...item, ImageUrl: getFullImageUrl(item.ImageUrl)
           }));
-          setBookLoanRequest(normalizedData);
+          setBookLoanRequest(prev => rqCurrentPage === 1 ? normalizedData : [...prev, ...normalizedData]);
+          setRqTotalPages(data.total_pages || 0);
         } else {
           throw new Error(data.message || 'Không thể lấy danh sách yêu cầu mượn');
         }
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoading(false);
+        if (rqCurrentPage === 1) {
+          setLoading(false);
+        }
+        setRqIsLoadingMore(false);
       }
     };
 
     useEffect(() => {
         fetchBookLoanRQ();
-      }, []); 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [rqCurrentPage]); 
     
       if (loading) return <p>Đang tải danh sách admin...</p>;
       if (error) return <p style={{ color: 'red' }}>Lỗi: {error}</p>;
 
+    const handleRqLoadMore = () => {
+      if (rqCurrentPage < rqTotalPages && !rqIsLoadingMore) {
+        setRqCurrentPage(prevPage => prevPage + 1);
+      }
+    };
+
   return (
     <>
+    <h3>Danh sách yêu cầu mượn sách</h3>
     <section className='section-container'>
       <table className='table-container'>
         <thead>
@@ -414,6 +470,14 @@ function BookLoanRequestList() {
           
         </tbody>
       </table>
+       {/* Nút Xem Thêm cho danh sách yêu cầu */}
+        {rqCurrentPage < rqTotalPages && (
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <button onClick={handleRqLoadMore} disabled={rqIsLoadingMore} className="btn-submit-book">
+              {rqIsLoadingMore ? 'Đang tải...' : 'Xem thêm yêu cầu'}
+            </button>
+          </div>
+        )}
     </section>
 
     </>

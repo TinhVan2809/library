@@ -10,6 +10,19 @@ section table.table-container {
    margin: 0 auto;
 }
 
+section table.table-container th,
+section table.table-container td{
+    min-width: 0;
+}
+
+section table.table-container .book-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    max-width: 200px;
+}
+
 
 section .table-container thead  {
     background-color: rgba(0, 0, 0, 0.049);

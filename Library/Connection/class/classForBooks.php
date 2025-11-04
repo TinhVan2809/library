@@ -458,18 +458,35 @@ public function getBooksLimit($limit, $offset, $categoryId = null, $searchTerm =
     }
 
     // Lấy danh theo series
-    public function getCountBooks(): int {
-        try{
-        $sql = "SELECT COUNT(BooksID) FROM books";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return (int) $stmt->fetchColumn();
-        } catch(PDOException $e) {
-            error_log("Error get count books " . $e->getMessage());
-            return 0;
+        public function getCountBooks(): int {
+            try{
+            $sql = "SELECT COUNT(BooksID) FROM books";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return (int) $stmt->fetchColumn();
+            } catch(PDOException $e) {
+                error_log("Error get count books " . $e->getMessage());
+                return 0;
+            }
         }
-    }
-   
-}
+    
+            public function getBooksBySeriesId(int $seriesId, int $currentBookID): array
+            {
+                if ($seriesId <= 0) {
+                    return [];
+                }
+                try {
+                    $sql = "SELECT BooksID, Title, ImageUrl FROM books WHERE SeriesID = ?";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute([$seriesId]);
+                    return $stmt->fetchAll(PDO::FETCH_OBJ);
+                } catch (PDOException $e) {
+                    error_log("Error getting books by series ID: " . $e->getMessage());
+                    return [];
+                }
+            }  
+        
+        
+        }
 
 ?>
