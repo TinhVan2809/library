@@ -78,6 +78,20 @@ function HandlePublishers() {
         )
     }
 
+    //SỬA NXB
+
+    const handleEditPublisher = () => {
+        alert('Tính năng sửa nxb đang phát triển.');
+    }
+
+    
+
+    // XÓA NXB
+    const handleDeletePublisher = () => {
+        alert('updating');
+    }
+
+
 
     return (
 
@@ -107,8 +121,8 @@ function HandlePublishers() {
                         <td>
                             <div className="table-container-btn">
                                 <button className="btn-detail">Chi tiết</button>
-                                <button className="btn-edit">Sửa</button>
-                                <button className="btn-delete">Xóa</button>
+                                <button className="btn-edit" onClick={handleEditPublisher}>Sửa</button>
+                                <button className="btn-delete" onClick={handleDeletePublisher}>Xóa</button>
                             </div>
                         </td>
                     </tr>
