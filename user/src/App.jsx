@@ -51,12 +51,14 @@ function Navigation() {
 
 
 
-      const SERVER_BASE = 'http://localhost/Library/';
-      // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
+    const SERVER_BASE = 'http://localhost/Library/';
+    // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh, sử dụng proxy script
     const getFullImageUrl = (path) => {
       if (!path) return null;
+      // Nếu là URL đầy đủ rồi thì trả về luôn
       if (/^https?:\/\//i.test(path)) return path;
-      return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
+      // Nếu là đường dẫn tương đối, trỏ đến script serveImage.php
+      return `${SERVER_BASE}Connection/actions/serveImage.php?path=${encodeURIComponent(path)}`;
   };
 
 
@@ -319,7 +321,7 @@ function Navigation() {
          </li>
         {user ? (
           <li className="user-menu" onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-            <img src={getFullImageUrl(user.Avata_image) || '/user-icon-icon_1076610-59410-Photoroom.png'} alt={user.FullName} className='image-avata'/>
+            <img src={getFullImageUrl(user.Avata_image) || '/user/public/user-icon-icon_1076610-59410-Photoroom.png'} className='image-avata'/>
             <span>{user.FullName}</span>
             {showDropdown && (
               <div className="user-dropdown">
