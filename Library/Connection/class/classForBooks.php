@@ -444,7 +444,7 @@ public function getBooksLimit($limit, $offset, $categoryId = null, $searchTerm =
     }
 
     // get all book dùng cho silde liên tục 
-    public function getAllBooks() {
+     public function getAllBooks() {
         try{
             $getAll = $this->conn->prepare("SELECT b.BooksID, b.ImageUrl, p.PublisherID, b.PublisherYears
                                             FROM books b 

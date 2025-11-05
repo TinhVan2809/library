@@ -18,8 +18,12 @@ function BookDetail() {
     const [relatedBooks, setRelatedBooks] = useState([]);
     const [error, setError] = useState(null);
     const [borrowMessage, setBorrowMessage] = useState(''); // State cho thông báo mượn sách
+    const [loanDate, setLoanDate] = useState(new Date());
+    const [dueDate, setDueDate] = useState(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000));
     const [addToListMessage, setAddToListMessage] = useState(''); // State cho thông báo thêm vào tủ
 
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false); // State để điều khiển popup xác nhận
+    const [isClosingPopup, setIsClosingPopup] = useState(false); // State để quản lý animation đóng
     const [seriesBookList, setSeriesBookList] = useState([]); // State cho sách cùng bộ
 
     // State cho phần đánh giá
@@ -175,7 +179,7 @@ function BookDetail() {
         fetchBookAndRelated();
     }, [bookId]); // Chạy lại effect khi bookId thay đổi
 
-    const handleBorrowRequest = async () => {
+    const handleBorrowRequest = () => { // Bỏ async vì chỉ hiển thị popup
         if (!user) {
             Swal.fire({
                 position: "top-end",
@@ -194,27 +198,27 @@ function BookDetail() {
             return;
         }
 
-        const result = await Swal.fire({
-            title: 'Xác nhận mượn sách',
-            text: `Bạn có chắc chắn muốn mượn cuốn sách "${book.Title}"?`,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Xác nhận',
-            cancelButtonText: 'Hủy',
-            heightAuto: false, 
-            backdrop: false 
-        });
+        // Thay vì gọi Swal, chúng ta hiển thị popup tự thiết kế
+        setShowConfirmPopup(true);
+    };
 
-        if (result.isConfirmed) {
-            setBorrowMessage('Đang gửi yêu cầu...');
-        } else {
-            return;
-        }
-        
-        
+    // Hàm xử lý đóng popup với animation
+    const handleClosePopup = () => {
+        setIsClosingPopup(true); // Bắt đầu animation đóng
+        setTimeout(() => {
+            setShowConfirmPopup(false); // Ẩn popup sau khi animation kết thúc
+            setIsClosingPopup(false); // Reset trạng thái animation
+        }, 300); // Thời gian phải khớp với thời gian animation trong CSS (0.3s)
+    };
 
+    // Hàm này sẽ được gọi khi người dùng nhấn "Xác nhận" trong popup tự thiết kế
+    const confirmBorrowRequest = async () => {
+        handleClosePopup(); // Đóng popup với animation
+        setBorrowMessage('Đang gửi yêu cầu...');
+        
+        // Đợi một chút để popup đóng hoàn toàn trước khi thực hiện hành động nặng
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
         const postData = new FormData();
         postData.append('StudentID', user.StudentID);
         postData.append('BooksID', book.BooksID);
@@ -364,6 +368,54 @@ function BookDetail() {
 
     return (
         <>
+            {/* -------- */}
+            {showConfirmPopup && (
+                <div className="custom-popup-overlay">
+                    <div 
+                        className={`custom-popup-content ${isClosingPopup ? 'closing' : 'opening'}`}
+                        onAnimationEnd={() => isClosingPopup && setShowConfirmPopup(false)}
+                    >
+                        <div className="custom">
+                            <div className="custom-popup">
+                                <img src={book.ImageUrl} alt={book.ImageUrl} />
+                            </div>
+                            <div className="custom-popup">
+                                <p className='custom-popup-title'>{book.Title}</p>
+                                <p>Ngày mượn: {loanDate.toLocaleDateString('vi-VN')}</p>
+                                <p>Ngày trả: {dueDate.toLocaleDateString('vi-VN')}</p>
+                                {book.AuthorName.length > 0 && (
+                                    <p>Tác giả: {book.AuthorName}</p>
+                                )}
+                                {book.PublisherName.length > 0 && (
+                                    <p>Nhà xuất bản: {book.PublisherName}</p>
+                                )}
+                                {book.CategoryName.length > 0 && (
+                                    <p>Thể loại: {book.CategoryName}</p>
+                                )}
+                            </div>  
+                        </div>
+
+                        <div className="custom-info">
+                            <span>- Thời hạn trả là 30 ngày tính từ ngày mượn.</span>
+                            <span>- Yêu cầu mượn sách của bạn sẽ được phản hồi sớm nhất có thể.</span>
+                            <span>- Mọi thắc mắc vui lòng <a href="" className='custom-contact'>liên hệ.</a></span>
+                            <label htmlFor="terms-agree" className="custom-checkbox-container">
+                                <input id="terms-agree" type="checkbox" required />
+                                <span className="checkmark"></span>
+                                Tôi đã đọc và đồng ý với các điều khoản mượn sách.
+                                <a href="/terms" onClick={(e) => e.stopPropagation()}> (Xem điều khoản)</a>
+                            </label>
+                        </div>
+                       
+                        <div className="custom-popup-actions">
+                            <button onClick={handleClosePopup} className="btn-cancel">Hủy</button>
+                            <button onClick={confirmBorrowRequest} className="btn-confirm">Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* ------------------------------------ */}
+
             <div className="book-detail-container">
                 <div className="book-detail-images-column">
                     <div className="book-detail-image">

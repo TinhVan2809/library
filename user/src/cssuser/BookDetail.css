@@ -543,6 +543,28 @@
   }
 }
 
+/* Keyframes cho hiệu ứng đóng (thu nhỏ và mờ đi) */
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Áp dụng animation vào popup content */
+.custom-popup-content.opening {
+  animation: zoomIn 0.3s ease-out forwards;
+}
+
+.custom-popup-content.closing {
+  animation: zoomOut 0.3s ease-out forwards;
+}
+
+
 .borrow-request-message {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
@@ -842,4 +864,214 @@
   100% {
     transform: scale(1.2);
   }
+}
+
+
+.custom-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+ .custom-popup-overlay .custom-popup-content{
+  /* Xóa animation cũ nếu có */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 2rem;
+  width: 60%; /* Tăng chiều rộng một chút */
+  max-width: 700px; /* Thêm max-width để không quá lớn trên màn hình rộng */
+  border-radius: 10px;
+  gap: 2rem;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom img {
+  width: 120px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 3px;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 2rem;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-popup-actions {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-popup-actions button
+ {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all .2s;
+    border-radius: 3px;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-popup-actions button.btn-confirm{
+  background-color: #1035ec;
+  color: #fff;
+  border: none;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-popup-actions button.btn-confirm:hover{
+  background-color: #0f0ce8;
+ }
+
+  .custom-popup-overlay .custom-popup-content .custom-popup-actions button.btn-cancel{
+    background-color: transparent;
+    border: 0.5px solid rgba(0, 0, 0, 0.258);
+  }
+
+  .custom-popup-overlay .custom-popup-content .custom-popup-actions button.btn-cancel:hover{
+    background-color: rgba(0, 0, 0, 0.055);
+  }
+
+ .custom-popup-overlay .custom-popup-content .custom .custom-popup{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom p{
+  font-size:  16px;
+  color: rgba(0, 0, 0, 0.59);
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-info{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  text-align: start;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 9px;
+  border-radius: 3px;
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-info span {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.915);
+ }
+
+ .custom-popup-overlay .custom-popup-content .custom-info span > a.custom-contact{
+  color: #0f0ce8;
+ }
+
+.custom-checkbox-container {
+  display: flex; /* Sử dụng flexbox để căn chỉnh */
+  align-items: center; /* Căn giữa các item theo chiều dọc */
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-top: 15px; /* Thêm khoảng cách với các dòng trên */
+  color: #555; /* Màu chữ mặc định */
+}
+
+/* Ẩn checkbox gốc của trình duyệt */
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Tạo ô vuông cho checkbox */
+.custom-checkbox-container .checkmark {
+  position: relative;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px; /* Khoảng cách giữa ô và chữ */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Khi hover, thay đổi màu viền */
+.custom-checkbox-container:hover input ~ .checkmark {
+  border-color: #3085d6;
+}
+
+/* Khi checkbox được chọn, đổi màu nền */
+.custom-checkbox-container input:checked ~ .checkmark {
+  background-color: #3085d6;
+  border-color: #3085d6;
+}
+
+/* Tạo dấu tick (dấu kiểm) bên trong, ban đầu sẽ bị ẩn */
+.custom-checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Hiển thị dấu tick khi checkbox được chọn */
+.custom-checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Tạo kiểu cho dấu tick */
+.custom-checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* CSS cho link điều khoản */
+.custom-checkbox-container a {
+  margin-left: 5px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.custom-checkbox-container a:hover {
+  text-decoration: underline;
+}
+
+/* Thêm style cho theme tối nếu có */
+.theme-dark .custom-checkbox-container {
+    color: #ccc;
+}
+.theme-dark .custom-checkbox-container .checkmark {
+    background-color: #444;
+    border-color: #666;
+}
+.theme-dark .custom-checkbox-container:hover input ~ .checkmark {
+    border-color: #58a6ff;
+}
+.theme-dark .custom-checkbox-container input:checked ~ .checkmark {
+    background-color: #58a6ff;
+    border-color: #58a6ff;
 }
