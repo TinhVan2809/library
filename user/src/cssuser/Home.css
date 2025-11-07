@@ -918,9 +918,7 @@ header b {
 }
  
 .low-books-container {
-
   padding: 1rem 0;
-  margin-bottom: 2rem;
   border-radius: 8px;
 }
 
@@ -975,7 +973,7 @@ header b {
 
 
 .low-books-content .slick-slide {
-  padding: 0 8px;
+  padding: 0;
 }
 
 .low-books-card {
@@ -1146,4 +1144,60 @@ header b {
       top: 170px;
     }
   
+}
+
+.bookloan-desc-container{
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+.bookloan-desc-container .desc-content{
+  width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng */
+}   
+.bookloan-desc-container .desc-content .bookloan-slider-card img{ /* Sửa selector để ảnh nằm trong card */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  cursor: pointer;
+}
+
+.bookloan-desc-container .desc-content .bookloan-slider-wrapper .bookloan-slider-card{
+  min-width: 0;
+  width: 100%; /* Card chiếm toàn bộ chiều rộng của wrapper */
+  height: 160px;
+  /* Bỏ các thuộc tính width/max-width/max-height cố định để card co giãn theo wrapper */
+  /* width: 110px; */
+  /* max-width: 110px; */
+  /* max-height: 160px; */
+  position: relative; /* Đặt làm gốc định vị cho thẻ p */
+  overflow: hidden; /* Ẩn các phần tử con tràn ra ngoài */
+  border-radius: 3px; /* Bo góc cho đẹp */
+}
+
+.bookloan-desc-container .desc-content .slick-slide { /* slick-slide là bookloan-slider-wrapper */
+  padding: 0 5px; /* Thêm padding ngang để tạo khoảng cách giữa các slide */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước tổng thể */
+}
+
+.bookloan-desc-container .desc-content .slick-dots{
+  display: none;
+}
+
+.bookloan-desc-container .desc-content .bookloan-slider-wrapper .bookloan-slider-card p{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 8px 6px;
+  font-size: 13px;
+  font-weight: 550;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }

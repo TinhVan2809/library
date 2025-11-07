@@ -48,6 +48,21 @@ try {
                 ]);
                 break;
 
+          
+               case 'getBookLoanNearly':
+              
+                $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT, ['options' => ['default' => 50]]);
+
+                $mostBookLoan = $bookloans->getBookLoanNearly($limit = 50);
+
+                // Hàm getMostBookLoan trả về mảng hoặc false
+                if ($mostBookLoan !== false) {
+                    echo json_encode(['success' => true, 'data' => $mostBookLoan]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Không thể lấy danh sách sách được mượn .']);
+                }
+                break;
+
 
 
             case 'AddBookLoan':

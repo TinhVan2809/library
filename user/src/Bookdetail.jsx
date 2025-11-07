@@ -419,6 +419,7 @@ function BookDetail() {
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid eaque, nam quas ea sunt quod</p>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa alias maiores, eveniet provident animi id exercitationem quis ut ab!</p>
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis cumque corrupti possimus temporibus repellendus? Officia autem voluptas, qui, suscipit nesciunt nisi quisquam reiciendis molestias voluptatem amet porro iure ipsam assumenda.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae hic aliquid harum suscipit in, doloribus facilis quae reprehenderit! Cum, fugit tempora voluptas quod odio aspernatur, aperiam eligendi iure earum blanditiis ad tempore laboriosam aliquid!</p>
 
                                 </div>
                                 )}

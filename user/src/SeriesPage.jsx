@@ -35,11 +35,23 @@ function SeriesPage() {
     }, []);
 
     if (loading) {
-        return <p className="series-status">Đang tải danh sách bộ sách...</p>;
+        return (
+            <>
+                <div class="loader-series">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
+
+            </>
+        );
     }
 
     if (error) {
-        return <p className="series-status error">Lỗi: {error}</p>;
+        return <p className="series-status error">Lỗi khi fetch bộ sách: {error}</p>;
     }
 
     if (seriesList.length === 0) {
@@ -47,8 +59,12 @@ function SeriesPage() {
     }
 
     return (
+        <>
+        <div className="search-container">
+            <input type="text" 
+                    placeholder='Tìm kiếm bộ sách...'/>
+        </div>
         <div className="series-page-container">
-            <h1>Trọn Bộ Sách</h1>
             {seriesList.map(series => (
                 <section key={series.SeriesID} className="series-section">
                     <h2>{series.SeriesName}</h2>
@@ -75,6 +91,7 @@ function SeriesPage() {
                 </section>
             ))}
         </div>
+    </>
     );
 }
 

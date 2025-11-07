@@ -26,6 +26,25 @@ class bookloans extends Data {
         return 0;
        }
     }
+      public function getBookLoanNearly(int $limit = 50) {
+       try{
+        $sql = "SELECT bl.BookLoanID, b.BooksID, b.Title, b.ImageUrl
+            FROM  bookloans bl
+            JOIN books b ON b.BooksID = bl.BooksID
+            ORDER BY bl.LoanDate DESC
+            ORDER BY bl.LoanDate DESC
+            LIMIT :limit"; // sắp xếp ngày mượn mới nhất
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+       } catch (PDOException $e) {
+        error_log("Error Get 50 BookLoans " . $e->getMessage());
+        return 0;
+       }
+    }
+
+    
 
     // Đếm tổng số phiếu mượn
     public function getTotalBookLoansCount(): int {
@@ -274,6 +293,8 @@ class bookloans extends Data {
             return false;
         }
     }
+
+    
 
     // Đêm tổng số sách đã mượn của một sinh viên cụ thể
 

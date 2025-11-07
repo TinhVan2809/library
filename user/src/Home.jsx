@@ -101,6 +101,7 @@ function BookList() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [mainImage, setMainImage] = useState(null); // State cho ảnh chính trong modal
   const [favorties, setFavorties] = useState([]);
+  const [bookloanSilde, setBookloanSlide ] = useState([]);
 
   const [mostbookloan, setmostbookloan] = useState([]); // State cho bảng xếp hạng sách
   const [seriesWithBooks, setSeriesWithBooks] = useState([]); // State mới cho sách bộ
@@ -179,7 +180,7 @@ function BookList() {
           booksApiUrl += `&categoryId=${selectedCategoryId}`;
         }
 
-        const [booksRes, authorsRes, categoriesRes, publishersRes, mostbookloanRes, seriesRes, lowStockBooksRes, booksallRes, favortiesRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
+        const [booksRes, authorsRes, categoriesRes, publishersRes, mostbookloanRes, seriesRes, lowStockBooksRes, booksallRes, favortiesRes, bookloanSildeRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
           fetch(booksApiUrl),
           fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'),
           fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
@@ -188,7 +189,8 @@ function BookList() {
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks'), // Fetch dữ liệu bộ sách (series)
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getLowStockBooks'),  // lấy số lượng sách còn ít 
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'),
-          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks')
+          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks'),
+          fetch('http://localhost/Library/Connection/actions/actionForBookloans.php?action=getBookLoanNearly')
         ]);
 
         // kiểm tra tất cả response trước khi parse
@@ -201,6 +203,7 @@ function BookList() {
         if(!seriesRes.ok) throw new Error(`Lỗi khi tải bộ sách: ${seriesRes.status}`);
         if(!booksallRes.ok) throw new Error(`Lỗi khi tải tất cả sách: ${booksallRes.status}`);
         if(!favortiesRes.ok) throw new Error(`Lỗi khi lấy danh sách yêu thích nhất: ${favortiesRes.status}`);
+        if(!bookloanSildeRes.ok) throw new Error(`Lỗi khi lấy danh sách yêu thích nhất: ${bookloanSildeRes.status}`);
 
         const booksData = await booksRes.json();
         const authorsData = await authorsRes.json();
@@ -211,6 +214,7 @@ function BookList() {
         const seriesData = await seriesRes.json();
         const booksallData = await booksallRes.json();
         const favorites = await favortiesRes.json();
+        const bookloansildeData = await bookloanSildeRes.json();
 
         if (mounted) {
           if (booksData && booksData.success && Array.isArray(booksData.data)) {
@@ -278,8 +282,16 @@ function BookList() {
             setFavorties(favorites.data);
           } else {
             setFavorties([]);
-            if(favorites && favorites.message)  console.warn('booksall:', favorites.message);
+            if(favorites && favorites.message)  console.warn('favorties:', favorites.message);
           }
+
+          if(bookloansildeData && bookloansildeData.success && Array.isArray(bookloansildeData.data)) {
+            setBookloanSlide(bookloansildeData.data);
+          } else {
+            setBookloanSlide([]);
+            if(bookloansildeData && bookloansildeData.message)  console.warn('bookloan:', bookloansildeData.message);
+          }
+
         }
       } catch (err) {
         if (mounted) {
@@ -361,7 +373,7 @@ function BookList() {
     slidesToShow: 6, // Hiển thị 6 sách cùng lúc
     slidesToScroll: 6,
     autoplay: true,
-    autoplaySpeed: 3500, // Tự động chuyển slide sau 3 giây
+    autoplaySpeed: 3500, // Tự động chuyển slide sau 3.5 giây
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 6, slidesToScroll: 3 } },
       { breakpoint: 600, settings: { slidesToShow: 3, slidesToScroll: 2 } },
@@ -393,6 +405,19 @@ function BookList() {
       { breakpoint: 1024, settings: { slidesToShow: 6, slidesToScroll: 3 } },
       { breakpoint: 768, settings: { slidesToShow: 3, slidesToScroll: 2 } },
       { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } }
+    ]
+  };
+
+  // cài đặt cho slideshow sách được mượn gần đây
+  const SliderBookLoanDesc = {
+    ...sliderSettings,
+    dots: false,
+    slidesToShow: 8,
+    slidesToScroll: 1,
+     responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 10, slidesToScroll: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 6, slidesToScroll: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 3, slidesToScroll: 1 } }
     ]
   };
 
@@ -458,6 +483,23 @@ function BookList() {
             </div>
           ))}
         </Slider>
+      </div>
+    </div>
+
+    
+    {/* //Sile show cho danh sách sách được mượn gần đây (50 cuốn) */}
+    <div className="bookloan-desc-container">
+      <div className="desc-content">
+          <Slider {...SliderBookLoanDesc}>
+              {bookloanSilde.map((bl) => (
+                <div key={bl.BooksID} className="bookloan-slider-wrapper" tabIndex="-1">
+                  <div className="bookloan-slider-card" onClick={() => navigate(`/book/${bl.BooksID}`)}>
+                      <Image src={bl.ImageUrl}></Image>
+                      <p>{bl.Title}</p>
+                  </div>
+                </div>
+              ))}
+          </Slider>
       </div>
     </div>
 
