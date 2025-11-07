@@ -25,6 +25,7 @@ function BookDetail() {
     const [showConfirmPopup, setShowConfirmPopup] = useState(false); // State để điều khiển popup xác nhận
     const [isClosingPopup, setIsClosingPopup] = useState(false); // State để quản lý animation đóng
     const [seriesBookList, setSeriesBookList] = useState([]); // State cho sách cùng bộ
+    const [showTerms, setShowTerms] = useState(false); // State để quản lý hiển thị điều khoản
 
     // State cho phần đánh giá
     const [rating, setRating] = useState(0); // 0 = chưa đánh giá
@@ -366,6 +367,12 @@ function BookDetail() {
         }
     };
 
+    const handleTerms = (e) => {
+        e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        e.stopPropagation();
+        setShowTerms(prev => !prev); // Toggle trạng thái hiển thị
+    };
+
     return (
         <>
             {/* -------- */}
@@ -400,10 +407,21 @@ function BookDetail() {
                             <span>- Yêu cầu mượn sách của bạn sẽ được phản hồi sớm nhất có thể.</span>
                             <span>- Mọi thắc mắc vui lòng <a href="" className='custom-contact'>liên hệ.</a></span>
                             <label htmlFor="terms-agree" className="custom-checkbox-container">
-                                <input id="terms-agree" type="checkbox" required />
-                                <span className="checkmark"></span>
-                                Tôi đã đọc và đồng ý với các điều khoản mượn sách.
-                                <a href="/terms" onClick={(e) => e.stopPropagation()}> (Xem điều khoản)</a>
+                                <div className="terms-content1">
+                                    <input id="terms-agree" type="checkbox" required />
+                                    <span className="checkmark"></span>
+                                    Tôi đã đọc và đồng ý với các <a href="#" onClick={handleTerms}>điều khoản.</a>
+                                </div>
+                                {showTerms && (
+                                <div className="terms-content2" id='terms' >
+                                    <p>Đây là nội dung chi tiết về các điều khoản và quy định mượn sách của thư viện...</p>
+                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam repellat, alias repudiandae earum corrupti maxime ad deserunt</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid eaque, nam quas ea sunt quod</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium culpa alias maiores, eveniet provident animi id exercitationem quis ut ab!</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis cumque corrupti possimus temporibus repellendus? Officia autem voluptas, qui, suscipit nesciunt nisi quisquam reiciendis molestias voluptatem amet porro iure ipsam assumenda.</p>
+
+                                </div>
+                                )}
                             </label>
                         </div>
                        
