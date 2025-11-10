@@ -113,23 +113,6 @@ function Navigation() {
         deleteFromList(listId);
     };
 
-    const [theme, setTheme] = useState(() => {
-      try {
-        return localStorage.getItem('app_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      } catch {
-        return 'light';
-      }
-    });
-
-    useEffect(() => {
-      if (theme === 'dark') {
-        document.documentElement.classList.add('theme-dark');
-      } else {
-        document.documentElement.classList.remove('theme-dark');
-      }
-      try { localStorage.setItem('app_theme', theme); } catch {}
-    }, [theme]);
-
     function MultiLevelMenu() {
       const [openKeys, setOpenKeys] = useState(new Set());
 
@@ -141,22 +124,9 @@ function Navigation() {
         });
       };
 
-     const handleSetTheme = (t) => {
-       setTheme(t);
-       // optionally close menu after choice
-       setOpenKeys(prev => {
-         const s = new Set(prev);
-         s.delete('root');
-         s.delete('theme');
-         return s;
-       });
-     };
-
-     
-      
       return (
         <li className={`multi-menu`}>
-          <button style={{fontSize: '15px'}} type="button" className="menu-toggle" onClick={() => toggleKey('root')}>
+          <button style={{fontSize: '13px', textTransform: 'uppercase'}} type="button" className="menu-toggle" onClick={() => toggleKey('root')}>
             Xem thêm <i id='list-categories' className="ri-arrow-down-s-line"></i>
           </button>
     
@@ -189,33 +159,6 @@ function Navigation() {
                 
               </ul>
             </li>
-
-            {/* <li className='li-main'>
-                <button type='button' className="submenu-toggle" onClick={() => toggleKey('theme')}>Chủ đề</button>
-                <ul className={`menu-level-2 ${openKeys.has('theme') ? 'open' : ''}`}>
-                    <li>
-                      <button
-                        type="button"
-                        className={`theme-btn ${theme === 'light' ? 'active' : ''}`}
-                        onClick={() => handleSetTheme('light')}
-                        aria-pressed={theme === 'light'}
-                      >
-                        Sáng
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        className={`theme-btn ${theme === 'dark' ? 'active' : ''}`}
-                        onClick={() => handleSetTheme('dark')}
-                        aria-pressed={theme === 'dark'}
-                      >
-                        Tối
-                      </button>
-                    </li>
-                  </ul>
-            </li> */}
-    
             <li className='li-main'><NavLink to="/contactus">Liên hệ</NavLink></li>
           </ul>
         </li>
@@ -238,7 +181,7 @@ function Navigation() {
             LIBRARY
         </li>
         <li className='home'><NavLink to="/" className={({ isActive }) => isActive ? 'li-active' : ''}>Trang chủ</NavLink></li>
-        <li><NavLink to="/my-borrows" className={({ isActive }) => isActive ? 'li-active' : ''}>Danh sách mượn của tôi</NavLink></li>
+        <li><NavLink to="/my-borrows" className={({ isActive }) => isActive ? 'li-active' : ''}>Danh sách mượn </NavLink></li>
         
         {/* {Xem thêm} */}
         <MultiLevelMenu /> 
@@ -378,33 +321,53 @@ function Navigation() {
 }
 
 function App() {
+    const [theme, setTheme] = useState(() => {
+      try {
+        // Ưu tiên lấy theme từ localStorage, sau đó đến cài đặt hệ thống
+        return localStorage.getItem('app_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch {
+        // Nếu có lỗi, mặc định là 'light'
+        return 'light';
+      }
+    });
+
+    // Lưu theme vào localStorage mỗi khi nó thay đổi
+    useEffect(() => {
+      try {
+        localStorage.setItem('app_theme', theme);
+      } catch (e) {
+        console.error("Không thể lưu theme vào localStorage", e);
+      }
+    }, [theme]);
+
     return (
-    <AuthProvider> 
-        <BookcaseProvider>
-            <Navigation />
-            <div className="container">
-            <Routes>
-                <Route path="/" element={<BookList />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/create" element={<CreateAccount />} />
-                <Route path="/my-borrows" element={ <ProtectedRoute><MyBrrows /></ProtectedRoute>} />
-                <Route path="/book/:bookId" element={<BookDetail />} />
-                <Route path="/nominate" element={<Nominnate />} />
-                <Route path="/series" element={<SeriesPage />} />
-                <Route path="/contactus" element={<ContactUs/>} />
-                <Route path="/profile" element={<Profile/>} />
-                <Route path="/list_categories" element={<HandleFilter/>} />
-                <Route path="/mylistbook" element={<HandleMyListBook/>} />
-                <Route path="/notification" element={<HandleNotification/>} />
-            </Routes>
-            </div>
+    <div className={`app-wrapper ${theme}`}>
+      <AuthProvider>
+          <BookcaseProvider>
+              <Navigation />
+              <div className="container">
+              <Routes>
+                  <Route path="/" element={<BookList theme={theme} setTheme={setTheme} />} />
+                  <Route path="/login" element={<LoginForm />} />
+                  <Route path="/create" element={<CreateAccount />} />
+                  <Route path="/my-borrows" element={ <ProtectedRoute><MyBrrows /></ProtectedRoute>} />
+                  <Route path="/book/:bookId" element={<BookDetail />} />
+                  <Route path="/nominate" element={<Nominnate />} />
+                  <Route path="/series" element={<SeriesPage />} />
+                  <Route path="/contactus" element={<ContactUs/>} />
+                  <Route path="/profile" element={<Profile/>} />
+                  <Route path="/list_categories" element={<HandleFilter/>} />
+                  <Route path="/mylistbook" element={<HandleMyListBook/>} />
+                  <Route path="/notification" element={<HandleNotification/>} />
+              </Routes>
+              </div>
 
-            <div className="footer-container" >
-            <Footer />
-            </div>
-        </BookcaseProvider>
-
-    </AuthProvider>
+              <div className="footer-container" >
+              <Footer />
+              </div>
+          </BookcaseProvider>
+      </AuthProvider>
+    </div>
     )
 }
 

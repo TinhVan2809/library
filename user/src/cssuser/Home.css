@@ -121,17 +121,15 @@ header b {
 
 .search-bar-container .header-icon .icon-item{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   transition: all 0.2s ease;
-   cursor: pointer; 
+  cursor: pointer; 
   border: 0.5px solid rgba(0, 0, 0, 0.055);
-  
   min-width: 0;
   gap: 5px;
-
-   padding: 12px;
+  padding: 12px;
   border-radius: 30px;
 }
 
@@ -153,6 +151,7 @@ header b {
 .search-bar-container .header-icon .theme{
   background-color: rgba(0, 0, 0, 0.055);
   border: none;
+  width: 85px;
 }
 
 .search-bar-container .header-icon .icon-item:hover  {
@@ -183,7 +182,7 @@ header b {
 .live-search-results {
   position: absolute;
   top: 100%; /* Hiển thị ngay bên dưới ô tìm kiếm */
-  left: 61%;
+  left: 61.33%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 400px;

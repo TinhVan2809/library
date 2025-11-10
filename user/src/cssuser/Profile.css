@@ -23,7 +23,8 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.03);
     gap: 1rem;
     font-family: "Arimo", sans-serif !important;
-}
+     transition: all 0.3s ease;
+} 
 
 .profile-container .profile-avatar-section {
     display: flex;

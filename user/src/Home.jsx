@@ -89,7 +89,7 @@ function Pagination({ currentPage, totalPages, onPageChange, pageNeighbours = 1 
   );
 }
 
-function BookList() {
+function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [booksAll, setBooksAll] = useState([]);
@@ -368,6 +368,11 @@ function BookList() {
     setCurrentPage(1); // Quay về trang 1 khi áp dụng bộ lọc mới
   };
 
+  // Hàm xử lý chuyển đổi theme
+  const handleThemeToggle = () => {
+    setTheme(currentTheme => (currentTheme === 'light' ? 'dark' : 'light'));
+  };
+
   // Cài đặt cho slideshow
   const sliderSettings = {
     dots: true,
@@ -441,13 +446,13 @@ function BookList() {
               <i className="icon ri-global-fill"></i>
               <p>Tiếng Việt</p>
             </div>
-            <div className="theme icon-item">
-              <i className="icon ri-sun-fill"></i>
-              <p>Sáng</p>
+            <div className="theme icon-item" onClick={handleThemeToggle} title="Chuyển đổi giao diện">
+              <i className={`icon ${theme === 'dark' ? 'ri-moon-fill' : 'ri-sun-fill'}`}></i>
+              <p>{theme === 'dark' ? 'Tối' : 'Sáng'}</p>
             </div>
             <div className="icon-item">
               <i className="icon ri-shake-hands-fill"></i>
-              <p>Ủng hộ</p>
+              <p>Ủng hộ</p> 
             </div>
           </div>
       </section>
