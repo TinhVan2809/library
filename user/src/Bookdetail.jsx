@@ -84,6 +84,9 @@ function BookDetail() {
     };
 
     useEffect(() => {
+
+        document.title = "Chi tiết | Libary"; // Đổi Title trình duyệt
+
         // Đặt hàm fetch bên trong useEffect để nó chỉ được tạo lại khi bookId thay đổi.
         const fetchBookAndRelated = async () => {
             setLoading(true);

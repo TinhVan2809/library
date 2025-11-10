@@ -11,7 +11,7 @@ import { AuthProvider, useAuth } from './AuthContext';
 import Nominnate from './Nominate';
 import ContactUs from './ContactUs';
 import './cssuser/theme.css';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
 import CreateAccount from './CreateAccount';
 import Profile from './Profile';
 import HandleMyListBook from './MyListBook';
@@ -190,7 +190,7 @@ function Navigation() {
               </ul>
             </li>
 
-            <li className='li-main'>
+            {/* <li className='li-main'>
                 <button type='button' className="submenu-toggle" onClick={() => toggleKey('theme')}>Chủ đề</button>
                 <ul className={`menu-level-2 ${openKeys.has('theme') ? 'open' : ''}`}>
                     <li>
@@ -214,7 +214,7 @@ function Navigation() {
                       </button>
                     </li>
                   </ul>
-            </li>
+            </li> */}
     
             <li className='li-main'><NavLink to="/contactus">Liên hệ</NavLink></li>
           </ul>

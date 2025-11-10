@@ -23,6 +23,8 @@ function Profile() {
 
 
     useEffect(() => {
+        document.title = "Profile | Libary"; // Đổi Title trình duyệt
+
         // Chỉ fetch khi có thông tin người dùng (user)
         if (!user || !user.StudentID) {
             setLoading(false);
@@ -300,6 +302,7 @@ function HandleLike({ onBack }) {
     const [loading, setLoading] = useState(true);
 
    useEffect(() => {
+    document.title = "Profile - My Favority | Libary"; // Đổi Title trình duyệt
       if (!user || !user.StudentID) {
             setLoading(false);
              setError("Bạn cần đăng nhập để xem thông tin cá nhân.");
@@ -404,6 +407,8 @@ function HandleBrowed({ onBack }) {
     const [loading, setLoading] = useState(false);
     
     useEffect(() => {
+        document.title = "Profile-Brrowed | Libary"; // Đổi Title trình duyệt
+
         if(!user || !user.StudentID) {
             setLoading(false);
             return;
@@ -509,6 +514,8 @@ function HandleReviewed({ onBack }) {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        document.title = "Profile-Reviews | Libary"; // Đổi Title trình duyệt
+
         if(!user || !user.StudentID) {
             setLoading(false); // Ngưng tải khi không thấy id người dùng
             return;

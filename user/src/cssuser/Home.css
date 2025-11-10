@@ -107,10 +107,60 @@ header b {
 
 .search-bar-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   position: relative; /* Cần thiết để định vị danh sách kết quả */
   align-items: center;
+}
+
+.search-bar-container section.section-header .header-icon{
+  display: flex;
+  margin-right: 10px;
+  gap: 5px;
+}
+
+.search-bar-container .header-icon .icon-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s ease;
+   cursor: pointer; 
+  border: 0.5px solid rgba(0, 0, 0, 0.055);
+  
+  min-width: 0;
+  gap: 5px;
+
+   padding: 12px;
+  border-radius: 30px;
+}
+
+.search-bar-container .header-icon .icon-item p {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.373);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.search-bar-container .header-icon i {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.721);
+}
+
+.search-bar-container .header-icon .theme{
+  background-color: rgba(0, 0, 0, 0.055);
+  border: none;
+}
+
+.search-bar-container .header-icon .icon-item:hover  {
+  background-color: rgba(14, 14, 14, 0.189);
+}
+
+.search-bar-container .header-icon .icon-item:hover  .icon {
+  color: rgb(254, 252, 252) !important;
 }
 
 .search-bar-container form {
@@ -133,7 +183,7 @@ header b {
 .live-search-results {
   position: absolute;
   top: 100%; /* Hiển thị ngay bên dưới ô tìm kiếm */
-  left: 50%;
+  left: 61%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 400px;

@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Image from './Image'; // Import component Image mới
 
 // Component Modal đơn giản
-function Modal({ isOpen, onClose, children, title }) {
+function Modal({ isOpen, onClose, children, title }) {  // eslint-disable-line
   if (!isOpen) return null;
 
   return (
@@ -166,6 +166,9 @@ function BookList() {
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
+
+    document.title = "Home | Libary"; // Đổi Title trình duyệt
+
     let mounted = true;
 
     const fetchBooks = async () => {
@@ -414,6 +417,7 @@ function BookList() {
     dots: false,
     slidesToShow: 8,
     slidesToScroll: 1,
+    autoplaySpeed: 2500,
      responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 10, slidesToScroll: 1 } },
       { breakpoint: 768, settings: { slidesToShow: 6, slidesToScroll: 1 } },
@@ -425,9 +429,29 @@ function BookList() {
 
   return (
     <>
-
     {/* Thêm ô tìm kiếm và danh sách kết quả live search */}
      <div className="search-bar-container">
+      <section className="section-header">
+          <div className="header-icon">
+            <div className="icon-item">
+              <i className="icon ri-heart-fill"></i>
+              <p>Yêu thích</p>
+            </div>
+            <div className="icon-item">
+              <i className="icon ri-global-fill"></i>
+              <p>Tiếng Việt</p>
+            </div>
+            <div className="theme icon-item">
+              <i className="icon ri-sun-fill"></i>
+              <p>Sáng</p>
+            </div>
+            <div className="icon-item">
+              <i className="icon ri-shake-hands-fill"></i>
+              <p>Ủng hộ</p>
+            </div>
+          </div>
+      </section>
+
         <form onSubmit={(e) => e.preventDefault()}>
           <i className="ri-search-line search-icon"></i>
           <input 

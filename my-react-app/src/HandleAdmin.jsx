@@ -65,9 +65,8 @@ function AddAdminForm() {
 
   return (
     <>
-    <section className="container-add-admin">
-      <h2>Thêm Admin Mới</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px' }}>
+    <section className="section-add-bookloan">
+      <form onSubmit={handleSubmit} className='form-container'>
         <input
           type="text"
           name="AdminName"
@@ -260,9 +259,9 @@ function GetAdmin() {
 
   return (   
     <>
-      <section className="container-list-admin">
+      <section className="">
         <h2>Danh sách Admin</h2>
-        <table>
+        <table className='table-container'>
           <thead>
             <tr>
               <th>ID</th>
@@ -281,10 +280,10 @@ function GetAdmin() {
                 <td>{admin.AdminGmail}</td>
                 <td>{admin.AdminAge}</td>
                 <td>{admin.AdminGender === 'M' ? 'Nam' : 'Nữ'}</td>
-                <td>
-                  <button onClick={() => handleDelete(admin.AdminID)}>Xóa</button>
-                  <button onClick={() => handleGetAdminById(admin.AdminID)}>Chi tiết</button>                  
-                  <button onClick={() => handleEditClick(admin)}>Sửa</button>
+                <td className='table-container-btn'>
+                  <button onClick={() => handleDelete(admin.AdminID)} className='btn-delete'>Xóa</button>
+                  <button onClick={() => handleEditClick(admin)}  className='btn-edit'>Sửa</button>
+                  <button onClick={() => handleGetAdminById(admin.AdminID)} className='btn-detail'>Chi tiết</button>                  
                 </td>
               </tr>
             ))}
@@ -293,9 +292,9 @@ function GetAdmin() {
       </section>
 
       {editingAdmin && (
-        <section className="container-add-admin">
+        <section className="section-toggle-admin">
           <h3>Sửa thông tin Admin: {editingAdmin.AdminName}</h3>
-          <form onSubmit={handleUpdateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px' }}>
+          <form className='form-container' onSubmit={handleUpdateSubmit}>
             <input
               type="text"
               name="AdminName"
