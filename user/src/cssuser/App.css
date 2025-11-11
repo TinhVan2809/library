@@ -58,7 +58,7 @@ nav > ul > li .navlink-login:hover{
 }
 nav > ul > li > a:hover,
 nav > ul > li > a.li-active{
-    text-decoration: 1.5px #006633 underline;
+    text-decoration: 3px #006633 underline;
 }
 nav > ul > li.logo{
    font-family: "Licorice", sans-serif;

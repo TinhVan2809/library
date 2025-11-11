@@ -536,14 +536,14 @@ function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
     <header className="header-container">
       <b className='head' onClick={() => navigate(`/list_categories`)}>MỚI CẬP NHẬT <i className="ri-arrow-right-s-line"></i></b>
        <div className="link-wrapper">
-      <div className="link">
-        {/* Nút "Tất cả" để xóa bộ lọc */}
-        <a href="#" onClick={(e) => { e.preventDefault(); handleCategoryFilter(null); }} className={!selectedCategoryId ? 'active' : ''}>Tất cả</a>
-        {/* Render danh sách các thể loại */}
-        {categories.map((category) => (
-          <a href="#" key={category.CategoryID} onClick={(e) => { e.preventDefault(); handleCategoryFilter(category.CategoryID); }} className={selectedCategoryId === category.CategoryID ? 'active' : ''}>{category.CategoryName}</a>
-        ))}
-      </div>
+        <div className="link">
+          {/* Nút "Tất cả" để xóa bộ lọc */}
+          <a href="#" onClick={(e) => { e.preventDefault(); handleCategoryFilter(null); }} className={!selectedCategoryId ? 'active' : ''}>Tất cả</a>
+          {/* Render danh sách các thể loại */}
+          {categories.map((category) => (
+            <a href="#" key={category.CategoryID} onClick={(e) => { e.preventDefault(); handleCategoryFilter(category.CategoryID); }} className={selectedCategoryId === category.CategoryID ? 'active' : ''}>{category.CategoryName}</a>
+          ))}
+        </div>
       </div>
     </header>
 

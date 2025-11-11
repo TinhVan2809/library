@@ -4,7 +4,7 @@ header.header-container {
   background-color: #fff;
   padding: 10px;
   display: flex;
-  gap: 30px;
+  gap: 20px;
   align-items: center;
   white-space: nowrap;
 }
@@ -68,7 +68,7 @@ header.header-container {
 
 .link {
   display: inline-flex;
-  gap: 25px;
+  gap: 20px;
   white-space: nowrap;
   transition: transform 0.3s;
 }
@@ -82,7 +82,7 @@ header.header-container {
   height: 100%;
   width: 40px;
   text-align: right;
-  background: linear-gradient(to right, transparent, #fff 50%);
+  background: linear-gradient(to right, transparent, transparent 50%);
   pointer-events: none; /* Không chặn click */
 }
 

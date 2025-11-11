@@ -41,8 +41,8 @@ function Navigation() {
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    const [avatarFile, setAvatarFile] = useState(null);
-    const [avatarPreview, setAvatarPreview] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null);  //eslint-disable-line
+    const [avatarPreview, setAvatarPreview] = useState(null);//eslint-disable-line
 
   
   // Tủ sách

@@ -2,7 +2,7 @@ body .dark {
   background-color: #181818 !important;
 }
 .dark .container {
-  background-color: #0F0A0A;
+  background-color: #2E2C2B;
 }
 
 .dark > nav.nav-container {
@@ -12,7 +12,7 @@ body .dark {
 .dark > nav > ul > li > a,
 .dark > nav > ul > li.user-menu > span,
 .dark .multi-menu {
-  color: #FFF;
+  color: #ffffffaa;
 }
 
 .dark > nav > ul >li.my-bookcase > img{
@@ -22,7 +22,7 @@ body .dark {
 
 .dark nav > ul > li > a:hover,
 .dark nav > ul > li > a.li-active {
-  text-decoration: 1.5px #FFF underline !important;
+  text-decoration: 3px #3127ee underline !important;
 }
 
 .dark .multi-menu .menu-level-1,
@@ -30,9 +30,12 @@ body .dark {
   background-color: #181818 !important;
 }
 
-.dark .multi-menu .menu-level-1 > li > a,
+.dark .multi-menu .menu-level-1 > li > a {
+ color: #FFF;
+}
+
 .dark nav.nav-container .phone .contact p {
-  color: #FFF;
+  color: #57e415e2;
 }
 
 .dark .multi-menu .menu-level-1 .li-main:hover,
@@ -61,10 +64,6 @@ body .dark {
   background-color: #2E2EFF;
 }
 
-.dark .search-bar-container .section-header .header-icon i.ri-heart-fill{
-  color: #ff0000f1;
-}
-
 .dark .search-bar-container .section-header .header-icon .theme p {
   color: #FFF !important;
 }
@@ -80,4 +79,85 @@ body .dark {
 
 .dark .search-bar-container .search-input::placeholder{
   color: #ffffffc2;
+}
+
+
+/* BOOK_LIST */
+
+.dark .books-container .card {
+  border-color: #000;
+}
+
+.dark .books-chart .books-chart-container {
+  background-color: #33333366;
+}
+
+.dark header.header-container {
+  background-color: #333;
+}
+
+.dark header.header-container  b.head {
+  color: #D10000;
+}
+
+.dark header.header-container .link a,
+.dark .link-wrapper::after {
+  color: #ffffff9f;
+}
+
+.dark header.header-container .link a.active {
+  color: #FF5C5C;
+}
+
+
+/* BOOK_DETAIL */
+
+.dark .book-detail-container {
+  background-color: #303030;
+}
+
+.dark .book-detail-container .book-detail-info h1 {
+  color: #ffffff;
+}
+
+.dark .book-detail-info .average-rating-display span.rating-text {
+  color: #D43719;
+} 
+
+.dark .book-detail-info p,
+.dark .book-detail-info h3 {
+  color: #f6f6f6;
+}
+
+/* PROFILE */
+
+.dark .profile-container {
+  background-color: #272727;
+}
+
+
+.dark .profile-container .profile-avatar-section .avata > label >  i,
+.dark .profile-container .profile-avatar-section  >  p  {
+  color: #FFF;
+}
+
+.dark .profile-container .profile-info > p{
+  color: #FFF;
+}
+
+.dark .profile-container .profile-info .profile-info-btn > button {
+  border-color: #0a0af5 ;
+  color: #0a0af5;
+}
+
+.dark .profile-container .profile-list-menu {
+  background-color: #333;
+}
+
+.dark .profile-container .profile-list-menu .profile-list-card p {
+  color: #f6f6f6;
+}
+
+.dark .profile-container .profile-list-menu .profile-list-card span {
+  color: rgba(180, 171, 171, 0.8);
 }
