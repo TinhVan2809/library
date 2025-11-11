@@ -1103,7 +1103,7 @@ header b {
 .wrapper-favor{
   display: flex;
   width: fit-content;
-  animation: favor-scroll 60s linear infinite !important;
+  animation: favor-scroll 120s linear infinite !important;
 }
 
 /* Dừng animation khi người dùng di chuột vào */
