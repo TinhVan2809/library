@@ -133,6 +133,16 @@ body .dark {
   color: #000;
 }
 
+.dark .custom-popup-overlay .custom-popup-content {
+  background-color: #31342f;
+}
+.dark .custom-popup-overlay .custom-popup-content .custom p {
+  color: #fff;
+}
+.dark .custom-popup-overlay .custom-popup-actions button.btn-cancel{
+  background-color: #dbdada !important;
+}
+
 
 /* PROFILE */
 

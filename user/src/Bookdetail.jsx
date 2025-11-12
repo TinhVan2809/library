@@ -85,7 +85,6 @@ function BookDetail() {
 
     // Sử dụng useEffect để quản lý side effect lên document.body
     useEffect(() => {
-        // Khi popup hiển thị, ẩn thanh cuộn của body
         if (showConfirmPopup) {
             document.body.style.overflow = 'hidden';
         }
