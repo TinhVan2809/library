@@ -34,7 +34,7 @@ function Footer() {
 
     return (
         <>
-            <footer>
+            <footer className='footer-home-container'>
                 <div className="content-left">
                     <div className="content left">
                         <p>Helpful Links</p>

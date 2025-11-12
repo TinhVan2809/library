@@ -129,6 +129,11 @@ body .dark {
   color: #f6f6f6;
 }
 
+.dark .book-detail-info .borrow-request-message {
+  color: #000;
+}
+
+
 /* PROFILE */
 
 .dark .profile-container {
@@ -160,4 +165,38 @@ body .dark {
 
 .dark .profile-container .profile-list-menu .profile-list-card span {
   color: rgba(180, 171, 171, 0.8);
+}
+
+/* FOTOER */
+
+.dark footer.footer-home-container {
+  background-color: #333;
+}
+
+.dark footer.footer-home-container .content-left p {
+  color: #09C839
+}
+
+.dark footer .content-left .content a {
+  color: #BB86FC;
+}
+
+.dark footer .content-left .content > button {
+  background-color: #E0E0E0;
+}
+
+.dark footer .content-left .content span > i {
+  color: #FFF;
+}
+
+.dark footer .content-right h1 {
+  color: #E0E0E0;
+}
+.dark footer .content-right p {
+  color: #BB86FC;
+}
+
+.dark footer .content-right p > a,
+.dark footer .content-right button {
+  color: #FFF !important;
 }

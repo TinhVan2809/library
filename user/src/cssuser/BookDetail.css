@@ -573,6 +573,10 @@
     color: #146c43;
 }
 
+.borrow-request-message {
+  border-left: 4px solid #15b715;
+}
+
 /* style for reivew */
 .review-container{
     background-color: #fff;
@@ -879,6 +883,8 @@
   align-items: center;
   z-index: 10000;
 }
+
+
  .custom-popup-overlay .custom-popup-content{
   /* Xóa animation cũ nếu có */
   display: flex;

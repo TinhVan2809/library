@@ -83,6 +83,20 @@ function BookDetail() {
         }
     };
 
+    // Sử dụng useEffect để quản lý side effect lên document.body
+    useEffect(() => {
+        // Khi popup hiển thị, ẩn thanh cuộn của body
+        if (showConfirmPopup) {
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Cleanup function: sẽ được gọi khi component unmount hoặc khi showConfirmPopup thay đổi
+        // Đảm bảo thanh cuộn luôn được khôi phục
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showConfirmPopup]); // Chỉ chạy lại effect này khi showConfirmPopup thay đổi
+
     useEffect(() => {
 
         document.title = "Chi tiết | Libary"; // Đổi Title trình duyệt
@@ -202,7 +216,7 @@ function BookDetail() {
             return;
         }
 
-        // Thay vì gọi Swal, chúng ta hiển thị popup tự thiết kế
+        // hiển thị popup tự thiết kế
         setShowConfirmPopup(true);
     };
 
@@ -490,7 +504,7 @@ function BookDetail() {
                     <p><strong>Số lượng còn lại:</strong> <span className={book.StockQuantity <= 0 ? 'stock-out' : ''}>{book.StockQuantity > 0 ? book.StockQuantity : 'Hết hàng'}</span></p>
                     <div className="book-detail-description">
                         <h3>Mô tả</h3>
-                        <p>{book.Description || 'Chưa có mô tả cho cuốn sách này.'}</p>
+                        <p>{book.Description || 'Đang cập nhật.'}</p>
                     </div>
                     <div className="book-detail-actions">
                         <button className="btn-borrow" onClick={handleBorrowRequest} disabled={book.StockQuantity <= 0} title='Gửi một yêu cầu mượn sách'>Mượn sách</button>
