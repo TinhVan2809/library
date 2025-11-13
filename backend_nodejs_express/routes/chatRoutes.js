@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { addChatMessage } = require('../chat_controll/send.js');
 const { getChatMessages } = require('../chat_controll/get.js');
+const pool = require('../connection.js'); // Import pool để truy vấn DB
 
 /**
  * @route   POST /api/chat/send
@@ -20,9 +21,23 @@ router.post('/send', async (req, res) => {
 
         // Gọi hàm để thêm tin nhắn vào database
         const result = await addChatMessage({ studentID, adminID, content });
-        res.status(201).json(result); // 201 Created: Phản hồi thành công khi tạo mới tài nguyên
+
+        if (result.success) {
+            // Lấy lại tin nhắn vừa tạo để có đầy đủ thông tin
+            const [rows] = await pool.query('SELECT c.*, s.FullName FROM chat c JOIN student s ON c.StudentID = s.StudentID WHERE c.ChatID = ?', [result.insertId]);
+            const newMessage = rows[0];
+            // Phát tin nhắn mới đến tất cả client qua socket.io
+            if (newMessage) {
+                req.io.emit('newMessage', newMessage);
+            } else {
+                console.error('Không thể lấy tin nhắn mới từ database.');
+                return res.status(500).json({ success: false, message: 'Không thể lấy tin nhắn mới từ database.' });
+            }
+        }
+        res.status(201).json(result);
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ khi gửi tin nhắn.' });
+        console.error('Lỗi khi gửi tin nhắn:', error);
+        res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ khi gửi tin nhắn.', error: error.message });
     }
 });
 

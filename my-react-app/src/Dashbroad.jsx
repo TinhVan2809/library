@@ -1,8 +1,15 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useRef } from "react";
+import io from 'socket.io-client';
+
+// Kết nối tới server socket.io
+const socket = io('http://localhost:3001');
 
 function HandleDashbroad() {
-  const [chat, setChat] = useState([]);
-
+    const [conversations, setConversations] = useState({});
+    const [studentList, setStudentList] = useState([]);
+    const [selectedStudent, setSelectedStudent] = useState(null);
+    const [messageContent, setMessageContent] = useState('');
+    const chatBoxRef = useRef(null);
     const [stats, setStats] = useState({
         books: 0,
         series: 0,
@@ -32,45 +39,150 @@ function HandleDashbroad() {
     };
 
     useEffect(() => {
-        const fetchCount = async () => {
-          try {
-            // Tách riêng việc fetch chat và fetch các chỉ số thống kê
-            const statsPromise = Promise.all([
-                fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
-                fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
-                fetchStat('http://localhost/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
-                fetchStat('http://localhost/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
-                fetchStat('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
-            ]);
+        // 1. Admin tham gia phòng chat của admin
+        socket.emit('adminJoin');
 
-            const chatPromise = fetch('http://localhost:3001/api/chat/messages');
+        // 2. Lắng nghe tin nhắn mới
+        const handleNewMessage = (newMessage) => {
+            setConversations(prev => {
+                const studentID = newMessage.StudentID;
+                const newConvos = { ...prev };
+                if (!newConvos[studentID]) {
+                    newConvos[studentID] = [];
+                }
+                // Tránh thêm tin nhắn trùng lặp
+                if (!newConvos[studentID].some(m => m.ChatID === newMessage.ChatID)) {
+                    newConvos[studentID] = [...newConvos[studentID], newMessage];
+                }
+                return newConvos;
+            });
 
-            const [[books, series, authors, publishers, loanRequests], chatRes] = await Promise.all([statsPromise, chatPromise]);
-
-            setStats({ books, series, authors, publishers, loanRequests });
-
-            const chatData = await chatRes.json();
-            // Kiểm tra xem chatData có phải là object và có chứa mảng 'data' không
-            if (chatData && chatData.success && Array.isArray(chatData.data)) {
-              setChat(chatData.data);
-            } else if (Array.isArray(chatData)) { // Hoặc nếu API trả về trực tiếp một mảng
-              setChat(chatData);
-            }
-            // Nếu không, chat sẽ giữ giá trị mảng rỗng ban đầu, tránh gây lỗi
-
-          } catch (error) {
-            setError(error.message);
-            console.error('Lỗi khi tải dữ liệu dashboard:', error);
-          } finally {
-            setLoading(false);
-          }
+            // Cập nhật danh sách sinh viên
+            setStudentList(prev => {
+                const existingStudent = prev.find(s => s.StudentID === newMessage.StudentID);
+                if (existingStudent) {
+                    // Cập nhật tin nhắn cuối và đưa lên đầu
+                    const updatedList = prev.filter(s => s.StudentID !== newMessage.StudentID);
+                    existingStudent.lastMessage = newMessage.content;
+                    existingStudent.lastMessageDate = newMessage.sent_date;
+                    return [existingStudent, ...updatedList];
+                } else {
+                    // Thêm sinh viên mới vào đầu danh sách
+                    return [{ 
+                        StudentID: newMessage.StudentID, 
+                        FullName: newMessage.FullName, 
+                        lastMessage: newMessage.content,
+                        lastMessageDate: newMessage.sent_date
+                    }, ...prev];
+                }
+            });
         };
-    
-        fetchCount();
-      }, []); 
-    
-      if (loading) return <p>Đang tải dữ liệu dashboard...</p>; 
-      if (error) return <p style={{ color: 'red' }}>Lỗi: {error}</p>;
+
+        socket.on('newMessage', handleNewMessage);
+
+        // 3. Fetch dữ liệu ban đầu
+        const fetchInitialData = async () => {
+            try {
+                const [statsRes, chatRes] = await Promise.all([
+                    Promise.all([
+                        fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
+                        fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
+                        fetchStat('http://localhost/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
+                        fetchStat('http://localhost/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
+                        fetchStat('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
+                    ]),
+                    fetch('http://localhost:3001/api/chat/messages')
+                ]);
+
+                const [books, series, authors, publishers, loanRequests] = statsRes;
+                setStats({ books, series, authors, publishers, loanRequests });
+
+                const chatData = await chatRes.json();
+                if (chatData.success && Array.isArray(chatData.data)) {
+                    // Xử lý toàn bộ tin nhắn để hiển thị danh sách sinh viên đầu tiên
+                    const allMessages = chatData.data;
+                    
+                    // Nhóm tin nhắn theo StudentID
+                    const conversationsByStudent = {};
+                    const studentMap = new Map();
+
+                    allMessages.forEach(msg => {
+                        const studentID = msg.StudentID;
+                        if (!conversationsByStudent[studentID]) {
+                            conversationsByStudent[studentID] = [];
+                        }
+                        conversationsByStudent[studentID].push(msg);
+
+                        // Lưu thông tin sinh viên (cập nhật tin nhắn mới nhất)
+                        if (!studentMap.has(studentID)) {
+                            studentMap.set(studentID, {
+                                StudentID: studentID,
+                                FullName: msg.FullName,
+                                lastMessage: msg.content,
+                                lastMessageDate: msg.sent_date,
+                            });
+                        } else {
+                            const existing = studentMap.get(studentID);
+                            // Cập nhật nếu tin nhắn này mới hơn
+                            if (new Date(msg.sent_date) > new Date(existing.lastMessageDate)) {
+                                existing.lastMessage = msg.content;
+                                existing.lastMessageDate = msg.sent_date;
+                            }
+                        }
+                    });
+
+                    // Sắp xếp sinh viên theo tin nhắn mới nhất
+                    const sortedStudents = [...studentMap.values()].sort((a, b) => 
+                        new Date(b.lastMessageDate) - new Date(a.lastMessageDate)
+                    );
+
+                    setConversations(conversationsByStudent);
+                    setStudentList(sortedStudents);
+                    
+                    // Tự động chọn sinh viên đầu tiên nếu có
+                    if (sortedStudents.length > 0) {
+                        setSelectedStudent(sortedStudents[0]);
+                    }
+                }
+            } catch (error) {
+                setError(error.message);
+                console.error('Lỗi khi tải dữ liệu dashboard:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchInitialData();
+
+        // Dọn dẹp listener
+        return () => {
+            socket.off('newMessage', handleNewMessage);
+        };
+    }, []);
+
+    // Cuộn xuống tin nhắn mới nhất
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        }
+    }, [conversations, selectedStudent]);
+
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        if (!messageContent.trim() || !selectedStudent) return;
+
+        const messageData = {
+            AdminID: 1, // Giả sử AdminID là 1, bạn cần thay bằng ID admin đã đăng nhập
+            StudentID: selectedStudent.StudentID,
+            content: messageContent.trim(),
+        };
+
+        socket.emit('sendMessage', messageData);
+        setMessageContent('');
+    };
+
+    if (loading) return <p>Đang tải dữ liệu dashboard...</p>;
+    if (error) return <p style={{ color: 'red' }}>Lỗi: {error}</p>;
 
     return (
       <>
@@ -100,15 +212,49 @@ function HandleDashbroad() {
 
             </div>
         </section>
-      
 
-      {/* <div className="chat">
-        {chat.map((chat) => (
-          <p>{chat.FullName}</p>
-        ))}
-      </div> */}
-      
-        </>
+        <section className="dashboard-chat-container">
+            <div className="student-list">
+                <h3>Tin nhắn</h3>
+                {studentList.map((student, index) => (
+                    <div 
+                        key={student.StudentID || `student-${index}`} 
+                        className={`student-item ${selectedStudent?.StudentID === student.StudentID ? 'active' : ''}`}
+                        onClick={() => setSelectedStudent(student)}
+                    >
+                        <p className="student-name">{student.FullName}</p>
+                        <p className="last-message">{student.lastMessage}</p>
+                    </div>
+                ))}
+            </div>
+            <div className="chat-area">
+                {selectedStudent ? (
+                    <>
+                        <div className="chat-header">
+                            <h4>Chat với {selectedStudent.FullName}</h4>
+                        </div>
+                        <div className="chat-messages" ref={chatBoxRef}>
+                            {(conversations[selectedStudent.StudentID] || []).map((msg, index) => (
+                                <div key={msg.ChatID || `msg-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
+                                    <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}: </strong>
+                                    {msg.content}
+                                    <span>{new Date(msg.sent_date).toLocaleTimeString()}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <form className="chat-input-form" onSubmit={handleSendMessage}>
+                            <input type="text" placeholder="Nhập tin nhắn..." value={messageContent} onChange={e => setMessageContent(e.target.value)} />
+                            <button type="submit">Gửi</button>
+                        </form>
+                    </>
+                ) : (
+                    <div className="no-chat-selected">
+                        <p>Chọn một cuộc trò chuyện để bắt đầu</p>
+                    </div>
+                )}
+            </div>
+        </section>
+    </>
     );
 }
 

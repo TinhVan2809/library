@@ -17,6 +17,7 @@ import Profile from './Profile';
 import HandleMyListBook from './MyListBook';
 import HandleFilter from './HandleFilter';
 import HandleNotification from './Notification';
+import HandleChatMessage  from './Chat';
 
 import './cssuser/App.css'
 import './cssuser/Home.css'
@@ -270,7 +271,7 @@ function Navigation() {
          </li>
         {user ? (
           <li className="user-menu" onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-            <img src={getFullImageUrl(user.Avata_image) || '/user/public/user-icon-icon_1076610-59410-Photoroom.png'} className='image-avata'/>
+            <img src={getFullImageUrl(user.Avata_image) || '/user-icon-icon_1076610-59410-Photoroom.png'} className='image-avata'/>
             <span>{user.FullName}</span>
             {showDropdown && (
               <div className="user-dropdown">
@@ -317,29 +318,13 @@ function Navigation() {
 
         </div>
       </ul>
-
-
       </nav>
 
-      {/*ICON MỞ POPUP CHAT*/}
-        <div className="chat-container">
-          <div className="chat-icon">
-            <i class="ri-message-2-fill"></i>
-          </div>
-          <div className="chat-box">
-            {/* khung chat ở đây */}
-            {/* <form action="">
-              <select name="" id="">
-                {admin.map((admin) => (
-                  <option value="">{admin.AdminName}</option>
-                ))}
-              </select>
-            </form> */}
-           
-          </div>
-        </div>
 
-     
+      <div className="chat-container">
+        <HandleChatMessage />
+      </div>
+   
   </>
     );
 }
