@@ -18,8 +18,8 @@ function BookDetail() {
     const [relatedBooks, setRelatedBooks] = useState([]);
     const [error, setError] = useState(null);
     const [borrowMessage, setBorrowMessage] = useState(''); // State cho thông báo mượn sách
-    const [loanDate, setLoanDate] = useState(new Date());
-    const [dueDate, setDueDate] = useState(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000));
+    const [loanDate, setLoanDate] = useState(new Date());  //eslint-disable-line
+    const [dueDate, setDueDate] = useState(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)); //eslint-disable-line
     const [addToListMessage, setAddToListMessage] = useState(''); // State cho thông báo thêm vào tủ
 
     const [showConfirmPopup, setShowConfirmPopup] = useState(false); // State để điều khiển popup xác nhận

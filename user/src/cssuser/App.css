@@ -838,3 +838,25 @@ nav .multi-menu .submenu-toggle:focus {
     transform: translateX(0);
   }
 }
+
+
+/* CHAT BOX */
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-container .chat-icon {
+  width: 100%;
+  cursor: pointer;
+}
+
+.chat-container .chat-icon i {
+  font-size: 45px;
+  color: #007bff;
+}

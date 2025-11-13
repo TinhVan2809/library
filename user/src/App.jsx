@@ -315,6 +315,16 @@ function Navigation() {
 
       </nav>
 
+      {/*ICON MỞ POPUP CHAT*/}
+        <div className="chat-container">
+          <div className="chat-icon">
+            <i class="ri-message-2-fill"></i>
+          </div>
+          <div className="chat-box">
+            {/* khung chat ở đây */}
+          </div>
+        </div>
+
      
   </>
     );
