@@ -49,6 +49,8 @@ function Navigation() {
     const { items: bookcaseItems, loading: loadingBookcase, deleteFromList } = useBookcase();
     const [showBookCase, setShowBookCase] = useState(false);
 
+    // const [admin, setAdmin] = useState([]);
+
 
 
     const SERVER_BASE = 'http://localhost/Library/';
@@ -69,11 +71,13 @@ function Navigation() {
         const fetchNotifications = async () => {
             try {
                 const response = await fetch(`http://localhost/Library/Connection/actions/actionForNotifications.php?action=getUnread&StudentID=${user.StudentID}`);
+               
                 const result = await response.json();
                 if (result.success) {
                     setNotifications(result.data);
 
                 }
+              
             } catch (error) {
                 console.error("Failed to fetch notifications:", error);
             }
@@ -123,6 +127,8 @@ function Navigation() {
           return s;
         });
       };
+
+     
 
       return (
         <li className={`multi-menu`}>
@@ -322,6 +328,14 @@ function Navigation() {
           </div>
           <div className="chat-box">
             {/* khung chat ở đây */}
+            {/* <form action="">
+              <select name="" id="">
+                {admin.map((admin) => (
+                  <option value="">{admin.AdminName}</option>
+                ))}
+              </select>
+            </form> */}
+           
           </div>
         </div>
 
