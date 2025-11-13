@@ -6,7 +6,7 @@ const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '', // Thay bằng mật khẩu của bạn nếu có
+    password: '', 
     database: 'library',
     waitForConnections: true,
     connectionLimit: 10, // Số lượng kết nối tối đa trong pool
