@@ -55,6 +55,7 @@ router.get('/messages', async (req, res) => {
             SELECT 
                 c.*, 
                 s.FullName, 
+                s.Avata_image,
                 a.AdminName 
             FROM chat c
             LEFT JOIN student s ON c.StudentID = s.StudentID

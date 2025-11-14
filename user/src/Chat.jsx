@@ -21,6 +21,14 @@ function HandleChatMessage() {
         setIsChatOpen(prev => !prev);
     }
 
+    const SERVER_BASE = 'http://localhost/Library/';
+
+    const getFullImageUrl = (path) => {
+        if (!path) return null;
+        if (/^https?:\/\//i.test(path)) return path;
+        return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
+    };
+
     // Fetch admin list và lịch sử chat khi chat box mở
     useEffect(() => {
         if (!isChatOpen) return;
@@ -163,7 +171,7 @@ function HandleChatMessage() {
             {isChatOpen && (
                 <div className="chat-box" id="chat-box">
                     <div className="chat-header">
-                        <h4>Hỗ trợ trực tuyến</h4>
+                        <h4>Chat với Admin</h4>
                         <button onClick={toggleChat} className="close-chat-btn">&times;</button>
                     </div>
                     <div className="chat-messages" ref={chatBoxRef}>
@@ -171,7 +179,9 @@ function HandleChatMessage() {
                         {error && <p className="error">{error}</p>}
                         {messages.map((msg, index) => (
                             <div key={msg.ChatID || `temp-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
-                                <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}: </strong>{msg.content}
+                               <div className="mess-main">
+                                     <img src={msg.Avata_image ? getFullImageUrl(msg.Avata_image) : '/user-icon-icon_1076610-59410-Photoroom.png'}  /> <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}: </strong>{msg.content}
+                               </div>
                                 <span>{new Date(msg.sent_date).toLocaleTimeString()}</span>
                             </div>
                         ))}

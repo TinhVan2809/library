@@ -908,11 +908,26 @@ nav .multi-menu .submenu-toggle:focus {
   background-color: #f4f7f9;
 }
 
+.chat-messages .message .mess-main > img {
+  width: 30px;
+  border-radius: 50%;
+}
+
 .message {
   padding: 8px 12px;
   border-radius: 18px;
   max-width: 80%;
   word-wrap: break-word;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.chat-messages .message .mess-main{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 }
 .user-message {
   background-color: #007bff;
