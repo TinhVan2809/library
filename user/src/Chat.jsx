@@ -8,8 +8,8 @@ const socket = io('http://localhost:3001');
 function HandleChatMessage() {
     const { user } = useAuth();
     const [messages, setMessages] = useState([]);
-    const [admin, setAdmin] = useState([]);
-    const [selectedAdminId, setSelectedAdminId] = useState('');
+    const [admin, setAdmin] = useState([]); //eslint-disable-line
+    const [selectedAdminId, setSelectedAdminId] = useState(''); //eslint-disable-line
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -170,7 +170,7 @@ function HandleChatMessage() {
                         {loading && <p>Đang tải tin nhắn...</p>}
                         {error && <p className="error">{error}</p>}
                         {messages.map((msg, index) => (
-                            <div key={msg.ChatID || `msg-${index}-${msg.sent_date}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
+                            <div key={msg.ChatID || `temp-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
                                 <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}: </strong>{msg.content}
                                 <span>{new Date(msg.sent_date).toLocaleTimeString()}</span>
                             </div>

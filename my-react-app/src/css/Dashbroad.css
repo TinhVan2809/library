@@ -148,13 +148,13 @@
 }
 
 .message.user-message {
-    align-self: flex-start;
+    align-self: flex-start; /* Tin nhắn người dùng (bên trái) */
     background-color: #e8e8e8;
     color: #333;
 }
 
 .message.admin-message {
-    align-self: flex-end;
+    align-self: flex-end; /* Tin nhắn admin (bên phải) */
     background-color: #E1C16E;
     color: #333;
 }

@@ -42,6 +42,7 @@ function HandleDashbroad() {
         // 1. Admin tham gia phòng chat của admin
         socket.emit('adminJoin');
 
+
         // 2. Lắng nghe tin nhắn mới
         const handleNewMessage = (newMessage) => {
             setConversations(prev => {
@@ -49,10 +50,19 @@ function HandleDashbroad() {
                 const newConvos = { ...prev };
                 if (!newConvos[studentID]) {
                     newConvos[studentID] = [];
-                }
+                 }
+                // Tránh thêm tin nhắn trùng lặp
+                 if (!newConvos[studentID].some(m => m.ChatID === newMessage.ChatID)) {
+                     newConvos[studentID] = [...newConvos[studentID], newMessage];
+                 } else {
+                     // Nếu tin nhắn đã tồn tại, không thêm nữa
+                     console.log("Đã chặn tin nhắn trùng lặp:", newMessage);
+                     return prev; // Không thay đổi state nếu tin nhắn trùng lặp
+                 }
+
                 // Tránh thêm tin nhắn trùng lặp
                 if (!newConvos[studentID].some(m => m.ChatID === newMessage.ChatID)) {
-                    newConvos[studentID] = [...newConvos[studentID], newMessage];
+                     newConvos[studentID] = [...newConvos[studentID], newMessage];
                 }
                 return newConvos;
             });
@@ -61,13 +71,14 @@ function HandleDashbroad() {
             setStudentList(prev => {
                 const existingStudent = prev.find(s => s.StudentID === newMessage.StudentID);
                 if (existingStudent) {
-                    // Cập nhật tin nhắn cuối và đưa lên đầu
+                    // Nếu sinh viên đã có trong danh sách, cập nhật tin nhắn cuối và đưa lên đầu
                     const updatedList = prev.filter(s => s.StudentID !== newMessage.StudentID);
                     existingStudent.lastMessage = newMessage.content;
                     existingStudent.lastMessageDate = newMessage.sent_date;
                     return [existingStudent, ...updatedList];
                 } else {
-                    // Thêm sinh viên mới vào đầu danh sách
+                    // Nếu là sinh viên mới, thêm vào đầu danh sách
+                    // Cần có FullName, nếu không có thì tạm hiển thị StudentID
                     return [{ 
                         StudentID: newMessage.StudentID, 
                         FullName: newMessage.FullName, 
@@ -75,6 +86,7 @@ function HandleDashbroad() {
                         lastMessageDate: newMessage.sent_date
                     }, ...prev];
                 }
+
             });
         };
 
@@ -82,6 +94,7 @@ function HandleDashbroad() {
 
         // 3. Fetch dữ liệu ban đầu
         const fetchInitialData = async () => {
+
             try {
                 const [statsRes, chatRes] = await Promise.all([
                     Promise.all([
@@ -115,7 +128,7 @@ function HandleDashbroad() {
 
                         // Lưu thông tin sinh viên (cập nhật tin nhắn mới nhất)
                         if (!studentMap.has(studentID)) {
-                            studentMap.set(studentID, {
+                            studentMap.set(studentID, { // Chỉ thêm nếu có StudentID
                                 StudentID: studentID,
                                 FullName: msg.FullName,
                                 lastMessage: msg.content,
@@ -153,7 +166,7 @@ function HandleDashbroad() {
         };
 
         fetchInitialData();
-
+        socket.off('newMessage', handleNewMessage);
         // Dọn dẹp listener
         return () => {
             socket.off('newMessage', handleNewMessage);
@@ -172,12 +185,32 @@ function HandleDashbroad() {
         if (!messageContent.trim() || !selectedStudent) return;
 
         const messageData = {
-            AdminID: 1, // Giả sử AdminID là 1, bạn cần thay bằng ID admin đã đăng nhập
+            AdminID: 10, // TODO: Thay bằng ID admin đã đăng nhập từ context
             StudentID: selectedStudent.StudentID,
             content: messageContent.trim(),
         };
 
+        // 1. Cập nhật giao diện "lạc quan" (Optimistic UI Update)
+        const optimisticMessage = {
+            ChatID: `temp-admin-${Date.now()}`,
+            ...messageData,
+            AdminName: "Admin", // TODO: Thay bằng tên admin đã đăng nhập
+            sent_date: new Date().toISOString(),
+            pending: true,
+        };
+
+        // Thêm tin nhắn tạm thời vào state để UI cập nhật
+        setConversations(prev => ({
+            ...prev,
+            [selectedStudent.StudentID]: [
+                ...(prev[selectedStudent.StudentID] || []),
+                optimisticMessage
+            ]
+        }));
+
+        // 2. Gửi tin nhắn thật qua socket tới server
         socket.emit('sendMessage', messageData);
+        // 3. Xóa nội dung trong ô nhập liệu
         setMessageContent('');
     };
 
@@ -215,10 +248,10 @@ function HandleDashbroad() {
 
         <section className="dashboard-chat-container">
             <div className="student-list">
-                <h3>Tin nhắn</h3>
-                {studentList.map((student, index) => (
+                <h3>Tin nhắn</h3><div>
+                {studentList.map(student => (
                     <div 
-                        key={student.StudentID || `student-${index}`} 
+                        key={student.StudentID} 
                         className={`student-item ${selectedStudent?.StudentID === student.StudentID ? 'active' : ''}`}
                         onClick={() => setSelectedStudent(student)}
                     >
@@ -226,7 +259,7 @@ function HandleDashbroad() {
                         <p className="last-message">{student.lastMessage}</p>
                     </div>
                 ))}
-            </div>
+            </div></div>
             <div className="chat-area">
                 {selectedStudent ? (
                     <>
@@ -235,7 +268,7 @@ function HandleDashbroad() {
                         </div>
                         <div className="chat-messages" ref={chatBoxRef}>
                             {(conversations[selectedStudent.StudentID] || []).map((msg, index) => (
-                                <div key={msg.ChatID || `msg-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
+                                <div key={msg.ChatID || `temp-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
                                     <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}: </strong>
                                     {msg.content}
                                     <span>{new Date(msg.sent_date).toLocaleTimeString()}</span>

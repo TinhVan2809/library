@@ -24,7 +24,7 @@ router.post('/send', async (req, res) => {
 
         if (result.success) {
             // Lấy lại tin nhắn vừa tạo để có đầy đủ thông tin
-            const [rows] = await pool.query('SELECT c.*, s.FullName FROM chat c JOIN student s ON c.StudentID = s.StudentID WHERE c.ChatID = ?', [result.insertId]);
+            const [rows] = await pool.query('SELECT c.*, s.FullName, a.AdminName FROM chat c LEFT JOIN student s ON c.StudentID = s.StudentID LEFT JOIN admin a ON c.AdminID = a.AdminID WHERE c.ChatID = ?', [result.insertId]);
             const newMessage = rows[0];
             // Phát tin nhắn mới đến tất cả client qua socket.io
             if (newMessage) {
@@ -51,7 +51,22 @@ router.get('/messages', async (req, res) => {
         // Lấy studentID từ query parameters của URL (ví dụ: ?studentID=123)
         const { studentID } = req.query;
         
-        const result = await getChatMessages({ studentID });
+        let query = `
+            SELECT 
+                c.*, 
+                s.FullName, 
+                a.AdminName 
+            FROM chat c
+            LEFT JOIN student s ON c.StudentID = s.StudentID
+            LEFT JOIN admin a ON c.AdminID = a.AdminID
+        `;
+        const queryParams = [];
+        if (studentID) {
+            query += ` WHERE c.StudentID = ?`; // Chỉ lấy tin nhắn của cuộc trò chuyện này
+            queryParams.push(studentID);
+        }
+        const [rows] = await pool.query(query + ` ORDER BY c.sent_date ASC`, queryParams);
+        const result = { success: true, data: rows };
         res.status(200).json(result); // 200 OK: Phản hồi thành công cho GET
     } catch (error) {
         res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ lấy tin nhắn.' });

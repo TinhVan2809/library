@@ -76,7 +76,7 @@ function LoginForm() {
                     <div className="btn-more">
                         <label>Don't have an account? don't wonry</label>
                         <button className='btn-dangky' onClick={() => navigate(`/create`)}>Create an account</button>
-                        <button className='submit-with'><img src="../public/7611770.png"  />Continue with Google</button>
+                        <button className='submit-with'><img src="/7611770.png"  />Continue with Google</button>
                     </div>
                 </section>
             </form>
