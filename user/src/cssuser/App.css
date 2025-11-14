@@ -6,6 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 nav > ul > li > a {
   color: inherit; /* Kế thừa màu chữ từ thẻ li */
   text-decoration: none; /* Bỏ gạch chân mặc định */

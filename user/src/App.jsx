@@ -18,6 +18,7 @@ import HandleMyListBook from './MyListBook';
 import HandleFilter from './HandleFilter';
 import HandleNotification from './Notification';
 import HandleChatMessage  from './Chat';
+import HandleSidebar from './Sidebar';
 
 import './cssuser/App.css'
 import './cssuser/Home.css'
@@ -30,6 +31,7 @@ import './cssuser/SeriesPage.css'
 import './cssuser/Filter.css'
 import './cssuser/Profile.css'
 import './cssuser/MyList.css'
+import './cssuser/Sidebar.css'
 
 import Image from './Image'; // Import component Image mới
 
@@ -324,7 +326,9 @@ function Navigation() {
       <div className="chat-container">
         <HandleChatMessage />
       </div>
-   
+
+     
+
   </>
     );
 }
@@ -354,6 +358,12 @@ function App() {
       <AuthProvider>
           <BookcaseProvider>
               <Navigation />
+
+                    {/* bên trái container */}
+             <div className="sidebar-left-container">    
+                    <HandleSidebar />
+             </div>
+
               <div className="container">
               <Routes>
                   <Route path="/" element={<BookList theme={theme} setTheme={setTheme} />} />

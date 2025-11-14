@@ -7,7 +7,7 @@ const GLOBAL_DEFAULT_PLACEHOLDER = '/placeholder.png'; // Ảnh mặc định to
 const getFullImageUrl = (path, fallback) => {
   if (!path) return fallback;
   
-  const pathStr = String(path).trim();
+  let pathStr = String(path).trim();
   
   // Nếu đã là URL đầy đủ hoặc là blob URL (dùng cho preview), trả về ngay
   if (/^https?:\/\//i.test(pathStr) || pathStr.startsWith('blob:')) {
