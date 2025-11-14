@@ -615,9 +615,9 @@ nav .multi-menu .menu-level-1 li > ul {
 }
 
 /* Specific level classes (optional, for clarity) */
-nav .multi-menu ul.menu-level-2 { 
+/* nav .multi-menu ul.menu-level-2 { 
     
-}
+} */
 nav .multi-menu .menu-level-3 { 
     left: 100%; top: 0;
 }
