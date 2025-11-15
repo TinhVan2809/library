@@ -360,7 +360,7 @@ function App() {
               <Navigation />
 
                     {/* bên trái container */}
-             <div className="sidebar-left-container">    
+             <div className="sidebar-left-container" style={{display: 'none'}}>    
                     <HandleSidebar />
              </div>
 

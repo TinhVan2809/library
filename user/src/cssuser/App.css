@@ -909,11 +909,6 @@ nav .multi-menu .submenu-toggle:focus {
   background-color: #f4f7f9;
 }
 
-.chat-messages .message .mess-main > img {
-  width: 30px;
-  border-radius: 50%;
-}
-
 .message {
   padding: 8px 12px;
   border-radius: 18px;
@@ -926,9 +921,10 @@ nav .multi-menu .submenu-toggle:focus {
 
 .chat-messages .message .mess-main{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
+  flex-wrap: wrap;
 }
 .user-message {
   background-color: #007bff;
@@ -947,3 +943,32 @@ nav .multi-menu .submenu-toggle:focus {
 .chat-input-form input { flex-grow: 1; border: 1px solid #ccc; padding: 8px; border-radius: 20px; margin-right: 10px; }
 .chat-input-form button { background-color: #007bff; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
 .chat-input-form button:disabled { background-color: #a0cffc; cursor: not-allowed; }
+
+
+
+/* From Uiverse.io by Yaya12085 */ 
+.chat-loader {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.chat-loader .icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  animation: spin 1s linear infinite;
+  stroke: rgba(107, 114, 128, 1);
+}
+
+.chat-loader .loading-text {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: rgba(107, 114, 128, 1);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

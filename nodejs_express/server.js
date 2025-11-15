@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
             const result = await addChatMessage(data);
             if (result.success) {
                 // B. Lấy lại tin nhắn vừa tạo để có đầy đủ thông tin
-                const [rows] = await pool.query('SELECT c.*, s.FullName, s.Avata_image, a.AdminName FROM chat c LEFT JOIN student s ON c.StudentID = s.StudentID LEFT JOIN admin a ON c.AdminID = a.AdminID WHERE c.ChatID = ?', [result.insertId]);
+                const [rows] = await pool.query('SELECT c.*, s.FullName, a.AdminName FROM chat c LEFT JOIN student s ON c.StudentID = s.StudentID LEFT JOIN admin a ON c.AdminID = a.AdminID WHERE c.ChatID = ?', [result.insertId]);
                 const newMessage = rows[0];
                 
                 // C. Gửi tin nhắn chỉ tới phòng chat riêng của sinh viên đó

@@ -143,9 +143,9 @@ function HandleSidebar() {
             <div className="ad-sidebar-header">
                 <div className="ad-controls">
                     <button className="btn-small" onClick={() => setCollapsed(s => !s)} aria-label="Thu/Thả sidebar">
-                        {collapsed ? <i class="ri-arrow-right-s-line"></i> : <i class="ri-arrow-left-s-line"></i>}
+                        {collapsed ? <i className="ri-arrow-right-s-line"></i> : <i className="ri-arrow-left-s-line"></i>}
                     </button>
-                    <button className="btn-small" onClick={restoreAll} title="Hiện lại tất cả quảng cáo"><i class="ri-reset-left-line"></i></button>
+                    <button className="btn-small" onClick={restoreAll} title="Hiện lại tất cả quảng cáo"><i className="ri-reset-left-line"></i></button>
                 </div>
             </div>
 

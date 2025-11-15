@@ -50,24 +50,19 @@ function HandleDashbroad() {
                 const newConvos = { ...prev };
                 if (!newConvos[studentID]) {
                     newConvos[studentID] = [];
-                 }
-                // Tránh thêm tin nhắn trùng lặp
-                 if (!newConvos[studentID].some(m => m.ChatID === newMessage.ChatID)) {
-                     newConvos[studentID] = [...newConvos[studentID], newMessage];
-                 } else {
-                     // Nếu tin nhắn đã tồn tại, không thêm nữa
-                     console.log("Đã chặn tin nhắn trùng lặp:", newMessage);
-                     return prev; // Không thay đổi state nếu tin nhắn trùng lặp
-                 }
-
-                // Tránh thêm tin nhắn trùng lặp
+                }
+                // Tránh thêm tin nhắn trùng lặp (kiểm tra một lần)
                 if (!newConvos[studentID].some(m => m.ChatID === newMessage.ChatID)) {
-                     newConvos[studentID] = [...newConvos[studentID], newMessage];
+                    newConvos[studentID] = [...newConvos[studentID], newMessage];
+                } else {
+                    // Nếu tin nhắn đã tồn tại, không thêm nữa
+                    console.log("Đã chặn tin nhắn trùng lặp:", newMessage);
+                    return prev; // Không thay đổi state nếu tin nhắn trùng lặp
                 }
                 return newConvos;
             });
 
-            // Cập nhật danh sách sinh viên
+            // Cập nhật danh sách sinh viên (chỉ nếu tin nhắn được thêm vào conversations)
             setStudentList(prev => {
                 const existingStudent = prev.find(s => s.StudentID === newMessage.StudentID);
                 if (existingStudent) {
@@ -78,15 +73,13 @@ function HandleDashbroad() {
                     return [existingStudent, ...updatedList];
                 } else {
                     // Nếu là sinh viên mới, thêm vào đầu danh sách
-                    // Cần có FullName, nếu không có thì tạm hiển thị StudentID
                     return [{ 
                         StudentID: newMessage.StudentID, 
-                        FullName: newMessage.FullName, 
+                        FullName: newMessage.FullName || 'Unknown Student', 
                         lastMessage: newMessage.content,
                         lastMessageDate: newMessage.sent_date
                     }, ...prev];
                 }
-
             });
         };
 
@@ -166,8 +159,8 @@ function HandleDashbroad() {
         };
 
         fetchInitialData();
-        socket.off('newMessage', handleNewMessage);
-        // Dọn dẹp listener
+
+        // Dọn dẹp listener khi component unmount
         return () => {
             socket.off('newMessage', handleNewMessage);
         };
