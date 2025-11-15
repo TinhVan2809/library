@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { addChatMessage } = require('../chat_controll/send.js');
 const { getChatMessages } = require('../chat_controll/get.js');
+const { deleteChatMessageById } = require('../chat_controll/delete.js');
 const pool = require('../connection.js'); // Import pool để truy vấn DB
 
 /**
@@ -55,7 +56,6 @@ router.get('/messages', async (req, res) => {
             SELECT 
                 c.*, 
                 s.FullName, 
-                s.Avata_image,
                 a.AdminName 
             FROM chat c
             LEFT JOIN student s ON c.StudentID = s.StudentID
@@ -73,5 +73,51 @@ router.get('/messages', async (req, res) => {
         res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ lấy tin nhắn.' });
     }
 });
+
+// Shared handler so we can register two routes (with and without param)
+async function handleDeleteMessage(req, res) {
+    try {
+        // Hỗ trợ ChatID truyền qua body hoặc params (ví dụ: /delete/95)
+        const ChatID = req.body?.ChatID ?? req.params?.ChatID;
+
+        // Kiểm tra dữ liệu đầu vào cơ bản
+        const id = Number(ChatID);
+        if (!ChatID || Number.isNaN(id) || id <= 0) {
+            return res.status(400).json({ success: false, message: 'ChatID không hợp lệ.' });
+        }
+
+        // Lấy tin nhắn trước khi xóa để phát sự kiện thu hồi (client có thể dùng ChatID để loại bỏ)
+        const [existingRows] = await pool.query(
+            'SELECT c.*, s.FullName, a.AdminName FROM chat c LEFT JOIN student s ON c.StudentID = s.StudentID LEFT JOIN admin a ON c.AdminID = a.AdminID WHERE c.ChatID = ?',
+            [id]
+        );
+
+        if (!existingRows || existingRows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Không tìm thấy tin nhắn.' });
+        }
+
+        const messageBeforeDelete = existingRows[0];
+
+        // Thực hiện xóa (thu hồi)
+        const result = await deleteChatMessageById({ ChatID: id });
+
+        // Kiểm tra kết quả xóa
+        if (result && result.success && result.data && result.data.affectedRows > 0) {
+            // Phát sự kiện thông báo tin nhắn đã bị thu hồi
+            req.io.emit('messageDeleted', { ChatID: id, deletedMessage: messageBeforeDelete });
+            return res.status(200).json({ success: true, message: 'Thu hồi tin nhắn thành công.', ChatID: id });
+        }
+
+        // Nếu affectedRows === 0 -> không xóa được
+        return res.status(500).json({ success: false, message: 'Không thể thu hồi tin nhắn.' });
+    } catch (error) {
+        console.error('Lỗi khi xóa tin nhắn:', error);
+        res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ khi Xóa tin nhắn.', error: error.message });
+    }
+}
+
+// Register two routes to avoid optional-param parsing issues
+router.delete('/delete', handleDeleteMessage);
+router.delete('/delete/:ChatID', handleDeleteMessage);
 
 module.exports = router;

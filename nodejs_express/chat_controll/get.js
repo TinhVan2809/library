@@ -7,7 +7,7 @@ const pool = require('../connection.js');
  */
 async function getChatMessages({ studentID }) {
     // Sắp xếp theo sent_date để tin nhắn hiển thị đúng thứ tự
-    let sql = "SELECT c.content, s.FullName FROM chat c LEFT JOIN student s ON s.StudentID = c.StudentID ORDER BY sent_date DESC;";
+    let sql = "SELECT c.ChatID, c.content, s.FullName FROM chat c LEFT JOIN student s ON s.StudentID = c.StudentID ORDER BY sent_date DESC;";
     const params = [];
 
     if (studentID) {

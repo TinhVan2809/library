@@ -919,6 +919,20 @@ nav .multi-menu .submenu-toggle:focus {
   flex-direction: column;
 }
 
+.message > button {
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.581);
+  margin-top: 2px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.message > button:hover {
+  text-decoration: underline;
+}
+
+
 .chat-messages .message .mess-main{
   display: flex;
   justify-content: flex-start;

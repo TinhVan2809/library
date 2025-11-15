@@ -13,6 +13,7 @@ function HandleChatMessage() {
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [recallingIds, setRecallingIds] = useState([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const chatBoxRef = useRef(null);
 
@@ -20,14 +21,6 @@ function HandleChatMessage() {
     const toggleChat = () => {
         setIsChatOpen(prev => !prev);
     }
-
-    const SERVER_BASE = 'http://localhost/Library/';
-
-    const getFullImageUrl = (path) => {
-        if (!path) return null;
-        if (/^https?:\/\//i.test(path)) return path;
-        return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
-    };
 
     // Fetch admin list và lịch sử chat khi chat box mở
     useEffect(() => {
@@ -112,6 +105,18 @@ function HandleChatMessage() {
         };
     }, [user]);
 
+    // Lắng nghe sự kiện thu hồi tin nhắn từ server
+    useEffect(() => {
+        const handleMessageDeleted = (payload) => {
+            const deletedId = payload?.ChatID;
+            if (!deletedId) return;
+            setMessages(prev => prev.filter(m => String(m.ChatID) !== String(deletedId)));
+        };
+
+        socket.on('messageDeleted', handleMessageDeleted);
+        return () => socket.off('messageDeleted', handleMessageDeleted);
+    }, []);
+
     // Cuộn xuống tin nhắn mới nhất
     useEffect(() => {
         if (chatBoxRef.current) {
@@ -163,6 +168,33 @@ function HandleChatMessage() {
         socket.once('sendMessageResult', handleMessageResult);
     };
 
+    // Thu hồi tin nhắn
+    const handleRecall = async (chatId) => {
+        if (!chatId) return;
+        // tránh click nhiều lần
+        setRecallingIds(prev => [...prev, chatId]);
+        setError(null);
+        try {
+            const resp = await fetch(`http://localhost:3001/api/chat/delete/${chatId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await resp.json();
+            if (!resp.ok || !result.success) {
+                setError(result.message || 'Thu hồi tin nhắn thất bại.');
+                // nếu lỗi, không xóa trên client — server có thể vẫn phát event nếu thành công
+            } else {
+                // Nếu API trả về thành công, xóa tin nhắn khỏi UI ngay lập tức.
+                setMessages(prev => prev.filter(m => String(m.ChatID) !== String(chatId)));
+            }
+        } catch (err) {
+            console.error('Recall error:', err);
+            setError('Lỗi kết nối khi thu hồi tin nhắn.');
+        } finally {
+            setRecallingIds(prev => prev.filter(id => String(id) !== String(chatId)));
+        }
+    };
+
     return (
         <>
             <div className="chat-icon" onClick={toggleChat}>
@@ -195,12 +227,24 @@ function HandleChatMessage() {
                         }
                         {error && <p className="error">{error}</p>}
                         {messages.map((msg, index) => (
+                            <>
+                            
                             <div key={msg.ChatID || `temp-${index}`} className={`message ${msg.AdminID ? 'admin-message' : 'user-message'}`}>
                                <div className="mess-main">
-                                     <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}:</strong> {msg.content}
+                                 <strong>{msg.AdminID ? (msg.AdminName || 'Admin') : msg.FullName}:</strong> {msg.content}
                                </div>
                                 <span>{new Date(msg.sent_date).toLocaleTimeString()}</span>
+                                { !msg.AdminID && (
+                                    <button
+                                        onClick={() => handleRecall(msg.ChatID)}
+                                        disabled={recallingIds.some(id => String(id) === String(msg.ChatID)) || msg.pending}
+                                    >
+                                        {recallingIds.some(id => String(id) === String(msg.ChatID)) ? 'Đang thu hồi...' : 'Thu hồi'}
+                                    </button>
+                                )}
                             </div>
+
+                            </>
                         ))}
                     </div>
                     <form className="chat-input-form" onSubmit={handleSendMessage}>
