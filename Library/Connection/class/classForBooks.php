@@ -444,15 +444,20 @@ public function getBooksLimit($limit, $offset, $categoryId = null, $searchTerm =
     }
 
     // get all book dùng cho silde liên tục 
-     public function getAllBooks() {
+      public function getAllBooks( int $limit = 100): array {
         try{
-            $getAll = $this->conn->prepare("SELECT b.BooksID, b.ImageUrl, p.PublisherID, b.PublisherYears
-                                            FROM books b 
-                                            JOIN publishers p ON p.PublisherID = b.PublisherID");
-            $getAll->execute();
-            return $getAll->fetchAll(PDO::FETCH_OBJ);
+            $sql = "SELECT b.BooksID, b.ImageUrl, b.PublisherID, b.PublisherYears
+                    FROM books b 
+                    ORDER BY b.BookImportDate DESC -- Sắp xếp để lấy sách mới nhất
+                    LIMIT :limit";
+
+            $stmt = $this->conn->prepare($sql);
+            // Sử dụng bindValue và gán tham số TRƯỚC khi thực thi.
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         } catch(PDOException $e) {
-            error_log("Error get All Books " . $e->getMessage());
+            error_log("Error getAllBooks: " . $e->getMessage());
             return [];
         }
     }
