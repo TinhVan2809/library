@@ -210,3 +210,22 @@ body .dark {
 .dark footer .content-right button {
   color: #FFF !important;
 }
+
+
+/* //SEARCH */
+.dark .live-search-results {
+  background-color: #383333;
+  border: transparent;
+}
+
+.dark .live-search-results .live-search-title {
+  color: #ffffff;
+}
+
+.dark .live-search-results .live-search-item:hover {
+  background-color: #272727;
+}
+
+.dark .live-search-results .live-search-item{
+  border: transparent !important;
+}

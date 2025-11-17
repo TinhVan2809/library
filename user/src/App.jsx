@@ -19,6 +19,7 @@ import HandleFilter from './HandleFilter';
 import HandleNotification from './Notification';
 import HandleChatMessage  from './Chat';
 import HandleSidebar from './Sidebar';
+import HandleAbout from './about/About';
 
 import './cssuser/App.css'
 import './cssuser/Home.css'
@@ -32,6 +33,7 @@ import './cssuser/Filter.css'
 import './cssuser/Profile.css'
 import './cssuser/MyList.css'
 import './cssuser/Sidebar.css'
+import './cssuser/about.css'
 
 import Image from './Image'; // Import component Image mới
 
@@ -279,6 +281,7 @@ function Navigation() {
               <div className="user-dropdown">
                 <button className='user-menu-profile' onClick={() => navigate('/profile')}>Profile</button>
                 <button onClick={handleLogout}>Đăng xuất</button>
+                <button onClick={() => navigate('/about')}>Giới thiệu</button>
               </div>
             )}
           </li>
@@ -378,6 +381,7 @@ function App() {
                   <Route path="/list_categories" element={<HandleFilter/>} />
                   <Route path="/mylistbook" element={<HandleMyListBook/>} />
                   <Route path="/notification" element={<HandleNotification/>} />
+                  <Route path="/about" element={<HandleAbout/>} />
               </Routes>
               </div>
 
