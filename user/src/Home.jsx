@@ -185,15 +185,15 @@ function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
 
         const [booksRes, authorsRes, categoriesRes, publishersRes, mostbookloanRes, seriesRes, lowStockBooksRes, booksallRes, favortiesRes, bookloanSildeRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
           fetch(booksApiUrl),
-          fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'),
-          fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
-          fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
+          fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'), //Lấy tác giả
+          fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'), // Lấy thể loại
+          fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'), // Lấy nhà xuất bản
           fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=getMostBookLoanForSlideShow'), 
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks'), // Fetch dữ liệu bộ sách (series)
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getLowStockBooks'),  // lấy số lượng sách còn ít 
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'),
-          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks'),
-          fetch('http://localhost/Library/Connection/actions/actionForBookloans.php?action=getBookLoanNearly')
+          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'), // Lấy tất cả sách để chạy slide liên tục
+          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks'), // Lấy sách yêu thích nhất
+          fetch('http://localhost/Library/Connection/actions/actionForBookloans.php?action=getBookLoanNearly')// Lấy sách được mượn gần đây
         ]);
 
         // kiểm tra tất cả response trước khi parse

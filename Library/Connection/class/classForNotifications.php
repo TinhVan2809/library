@@ -56,7 +56,7 @@ class Notifications extends Data{
         }
 
         try{
-            $sql ="SELECT n.NotificationID, n.Message, COUNT(n.StudentID) AS total_notifications, n.CreatedAt, n.isRead, s.FullName 
+            $sql ="SELECT n.NotificationID, n.Message, n.CreatedAt, n.isRead, s.FullName 
             FROM notifications n 
             JOIN student s ON s.StudentID = n.StudentID 
             WHERE n.StudentID = ?";
