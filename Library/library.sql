@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 03, 2025 lúc 06:16 AM
+-- Thời gian đã tạo: Th10 19, 2025 lúc 05:03 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -91,7 +91,8 @@ INSERT INTO `authors` (`AuthorID`, `AuthorName`, `BirthYear`, `Country`, `Descri
 (27, 'André Aciman', NULL, NULL, NULL),
 (28, 'Educate and Empower Kids', NULL, NULL, NULL),
 (29, 'Ngã Cật Tây Hồng Thị', NULL, NULL, NULL),
-(30, 'Michio Kaku', NULL, NULL, NULL);
+(30, 'Michio Kaku', NULL, NULL, NULL),
+(31, 'Lữ Văn Tính', '2004', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,15 @@ INSERT INTO `bookloans` (`BookLoanID`, `StudentID`, `BooksID`, `LoanDate`, `DueD
 (21, 5, 264, '2025-10-27 00:00:00', '2025-11-10', '0000-00-00 00:00:00', 'Borrowed'),
 (22, 11, 261, '2025-10-30 03:57:33', '2025-10-29', '0000-00-00 00:00:00', 'Borrowed'),
 (23, 5, 267, '2025-11-01 00:00:00', '2025-11-15', '0000-00-00 00:00:00', 'Borrowed'),
-(24, 5, 242, '2025-11-01 00:00:00', '2025-11-15', '0000-00-00 00:00:00', 'Borrowed');
+(24, 5, 242, '2025-11-01 00:00:00', '2025-11-15', '0000-00-00 00:00:00', 'Borrowed'),
+(25, 5, 225, '2025-11-04 00:00:00', '2025-12-04', '0000-00-00 00:00:00', 'Borrowed'),
+(26, 5, 248, '2025-11-04 00:00:00', '2025-12-04', '0000-00-00 00:00:00', 'Borrowed'),
+(27, 5, 230, '2025-11-05 00:00:00', '2025-12-05', '0000-00-00 00:00:00', 'Borrowed'),
+(28, 5, 247, '2025-11-07 00:00:00', '2025-12-07', '0000-00-00 00:00:00', 'Borrowed'),
+(29, 5, 263, '2025-11-07 00:00:00', '2025-12-07', '0000-00-00 00:00:00', 'Borrowed'),
+(30, 5, 227, '2025-11-07 00:00:00', '2025-12-05', '0000-00-00 00:00:00', 'Borrowed'),
+(31, 5, 224, '2025-11-07 00:00:00', '2025-12-05', '0000-00-00 00:00:00', 'Borrowed'),
+(32, 5, 229, '2025-11-14 00:00:00', '2025-12-10', '0000-00-00 00:00:00', 'Borrowed');
 
 -- --------------------------------------------------------
 
@@ -143,7 +152,7 @@ CREATE TABLE `bookloan_request` (
   `StudentID` int(11) NOT NULL,
   `BooksID` int(11) NOT NULL,
   `Request_date` datetime DEFAULT current_timestamp(),
-  `DueDate` DATE NULL DEFAULT NULL, 
+  `DueDate` date DEFAULT NULL,
   `Status` varchar(255) DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -151,29 +160,37 @@ CREATE TABLE `bookloan_request` (
 -- Đang đổ dữ liệu cho bảng `bookloan_request`
 --
 
-INSERT INTO `bookloan_request` (`RequestID`, `StudentID`, `BooksID`, `Request_date`, `Status`) VALUES
-(1, 5, 17, '2025-10-13 00:00:00', 'approved'),
-(2, 5, 31, '2025-10-13 10:24:20', 'rejected'),
-(3, 5, 16, '2025-10-14 02:21:40', 'approved'),
-(4, 9, 34, '2025-10-14 02:26:58', 'approved'),
-(5, 5, 15, '2025-10-14 02:36:03', 'cancelled'),
-(6, 5, 31, '2025-10-14 02:53:00', 'approved'),
-(7, 5, 15, '2025-10-14 03:02:35', 'rejected'),
-(8, 5, 34, '2025-10-14 03:28:30', 'approved'),
-(9, 10, 16, '2025-10-14 03:31:04', 'approved'),
-(10, 5, 18, '2025-10-17 21:15:09', 'rejected'),
-(11, 5, 18, '2025-10-17 21:23:51', 'approved'),
-(12, 5, 37, '2025-10-17 23:01:44', 'approved'),
-(13, 5, 41, '2025-10-22 10:58:03', 'approved'),
-(14, 5, 38, '2025-10-23 00:40:05', 'approved'),
-(15, 10, 238, '2025-10-26 19:05:45', 'approved'),
-(16, 5, 257, '2025-10-26 19:16:33', 'approved'),
-(17, 5, 229, '2025-10-26 19:25:41', 'rejected'),
-(18, 5, 264, '2025-10-28 00:01:12', 'approved'),
-(19, 5, 244, '2025-10-30 03:31:47', 'rejected'),
-(20, 5, 242, '2025-10-30 03:32:15', 'approved'),
-(21, 5, 267, '2025-11-01 06:35:05', 'approved'),
-(22, 5, 233, '2025-11-01 06:39:14', 'rejected');
+INSERT INTO `bookloan_request` (`RequestID`, `StudentID`, `BooksID`, `Request_date`, `DueDate`, `Status`) VALUES
+(1, 5, 17, '2025-10-13 00:00:00', NULL, 'approved'),
+(2, 5, 31, '2025-10-13 10:24:20', NULL, 'rejected'),
+(3, 5, 16, '2025-10-14 02:21:40', NULL, 'approved'),
+(4, 9, 34, '2025-10-14 02:26:58', NULL, 'approved'),
+(5, 5, 15, '2025-10-14 02:36:03', NULL, 'cancelled'),
+(6, 5, 31, '2025-10-14 02:53:00', NULL, 'approved'),
+(7, 5, 15, '2025-10-14 03:02:35', NULL, 'rejected'),
+(8, 5, 34, '2025-10-14 03:28:30', NULL, 'approved'),
+(9, 10, 16, '2025-10-14 03:31:04', NULL, 'approved'),
+(10, 5, 18, '2025-10-17 21:15:09', NULL, 'rejected'),
+(11, 5, 18, '2025-10-17 21:23:51', NULL, 'approved'),
+(12, 5, 37, '2025-10-17 23:01:44', NULL, 'approved'),
+(13, 5, 41, '2025-10-22 10:58:03', NULL, 'approved'),
+(14, 5, 38, '2025-10-23 00:40:05', NULL, 'approved'),
+(15, 10, 238, '2025-10-26 19:05:45', NULL, 'approved'),
+(16, 5, 257, '2025-10-26 19:16:33', NULL, 'approved'),
+(17, 5, 229, '2025-10-26 19:25:41', NULL, 'rejected'),
+(18, 5, 264, '2025-10-28 00:01:12', NULL, 'approved'),
+(19, 5, 244, '2025-10-30 03:31:47', NULL, 'rejected'),
+(20, 5, 242, '2025-10-30 03:32:15', NULL, 'approved'),
+(21, 5, 267, '2025-11-01 06:35:05', NULL, 'approved'),
+(22, 5, 233, '2025-11-01 06:39:14', NULL, 'rejected'),
+(23, 5, 225, '2025-11-04 21:50:46', '2025-12-04', 'approved'),
+(24, 5, 248, '2025-11-04 21:56:20', '2025-12-04', 'approved'),
+(25, 5, 230, '2025-11-05 17:43:15', '2025-12-05', 'approved'),
+(26, 5, 224, '2025-11-05 18:58:09', '2025-12-05', 'approved'),
+(27, 5, 227, '2025-11-05 19:12:33', '2025-12-05', 'approved'),
+(28, 5, 263, '2025-11-07 13:53:41', '2025-12-07', 'approved'),
+(29, 5, 247, '2025-11-07 15:58:15', '2025-12-07', 'approved'),
+(30, 5, 229, '2025-11-10 21:20:52', '2025-12-10', 'approved');
 
 -- --------------------------------------------------------
 
@@ -236,12 +253,12 @@ INSERT INTO `books` (`BooksID`, `ISBN`, `Title`, `AuthorID`, `CategoryID`, `Publ
 (134, '17', 'Nghĩ Giàu Làm Giàu', 16, 3, 6, '2022-11-18', 'Vietnamese', 'Sách kinh điển về thành công và tư duy.', 'uploads/books/cover_db647fccb7909a7a.webp', '2025-10-23 23:02:39', 22, 'available', NULL, NULL),
 (135, '16', 'Tiểu Thuyết: Lâu Đài Trong Sương Mù', 17, 4, 5, '2020-03-29', 'Vietnamese', 'Tiểu thuyết huyền bí, lãng mạn.', 'uploads/books/cover_307dba90c6f78509.jpg', '2025-10-23 23:02:39', 7, 'available', NULL, NULL),
 (136, '15', 'Truyện Tranh: Samurai Cuối Cùng', 18, 5, 9, '2023-07-07', 'Vietnamese', 'Truyện tranh lịch sử, kiếm hiệp.', 'uploads/books/cover_eaec492f6d92fbf5.jpg', '2025-10-23 23:02:39', 26, 'available', NULL, NULL),
-(224, '893-525-141-6', 'Tư Duy Nhanh Và Chậm', 25, 3, 5, '2019-05-12', 'Tiếng Việt', 'Khám phá hai hệ thống tư duy của con người.', 'uploads/books/cover_5b828584c5a523af.jpg', '2025-10-24 00:11:56', 40, 'available', NULL, NULL),
-(225, '315', 'Mắt Biếc', 26, 4, 9, '2016-03-20', 'Tiếng Việt', 'Tiểu thuyết lãng mạn nổi tiếng của Nguyễn Nhật Ánh.', 'uploads/books/cover_c70910dd10913308.jpg', '2025-10-24 00:11:56', 100, 'available', NULL, NULL),
-(227, '313', 'Nhà Giả Kim', 16, 4, 9, '2015-07-01', 'Tiếng Việt', 'Cuộc hành trình tìm kiếm ước mơ và bản thân.', 'uploads/books/cover_6940a5165b367857.webp', '2025-10-24 00:11:56', 70, 'available', NULL, NULL),
+(224, '893-525-141-6', 'Tư Duy Nhanh Và Chậm', 25, 3, 5, '2019-05-12', 'Tiếng Việt', 'Khám phá hai hệ thống tư duy của con người.', 'uploads/books/cover_5b828584c5a523af.jpg', '2025-10-24 00:11:56', 39, 'available', NULL, NULL),
+(225, '315', 'Mắt Biếc', 26, 4, 9, '2016-03-20', 'Tiếng Việt', 'Tiểu thuyết lãng mạn nổi tiếng của Nguyễn Nhật Ánh.', 'uploads/books/cover_c70910dd10913308.jpg', '2025-10-24 00:11:56', 99, 'available', NULL, NULL),
+(227, '313', 'Nhà Giả Kim', 16, 4, 9, '2015-07-01', 'Tiếng Việt', 'Cuộc hành trình tìm kiếm ước mơ và bản thân.', 'uploads/books/cover_6940a5165b367857.webp', '2025-10-24 00:11:56', 69, 'available', NULL, NULL),
 (228, '312', 'Khuyến Học', 18, 3, 4, '2017-02-18', 'Tiếng Việt', 'Khơi gợi tinh thần học tập và cải thiện bản thân.', 'uploads/books/cover_ce2eb9f5cfdb993b.jpg', '2025-10-24 00:11:56', 45, 'available', NULL, NULL),
-(229, '311', 'Dám Bị Ghét', 21, 3, 3, '2020-10-01', 'Tiếng Việt', 'Triết lý sống tự do và hạnh phúc.', 'uploads/books/cover_eb522d3d75b87dfa.jpeg', '2025-10-24 00:11:56', 85, 'available', NULL, NULL),
-(230, '310', 'Tôi Tự Học', 9, 3, 8, '2014-06-12', 'Tiếng Việt', 'Khơi gợi tinh thần tự học và phát triển cá nhân.', 'uploads/books/cover_f9493e92e30cb622.jpg', '2025-10-24 00:11:56', 50, 'available', NULL, NULL),
+(229, '311', 'Dám Bị Ghét', 21, 3, 3, '2020-10-01', 'Tiếng Việt', 'Triết lý sống tự do và hạnh phúc.', 'uploads/books/cover_eb522d3d75b87dfa.jpeg', '2025-10-24 00:11:56', 84, 'available', NULL, NULL),
+(230, '310', 'Tôi Tự Học', 9, 3, 8, '2014-06-12', 'Tiếng Việt', 'Khơi gợi tinh thần tự học và phát triển cá nhân.', 'uploads/books/cover_f9493e92e30cb622.jpg', '2025-10-24 00:11:56', 49, 'available', NULL, NULL),
 (231, '309', 'Bạn Đắt Giá Bao Nhiêu', 10, 3, 6, '2018-08-20', 'Tiếng Việt', 'Sách truyền cảm hứng sống độc lập, tự tin.', 'uploads/books/cover_14062330533a67c2.jpg', '2025-10-24 00:11:56', 55, 'available', NULL, NULL),
 (232, '308', 'Tâm Lý Học Tội Phạm', 6, 2, 7, '2020-12-25', 'Tiếng Việt', 'Phân tích hành vi tội phạm qua góc nhìn tâm lý học.', 'uploads/books/cover_75580d4b2cabfc0f.jpg', '2025-10-24 00:11:56', 30, 'available', NULL, NULL),
 (233, '289', 'Tôi Là Ai Trong Cuộc Đời Này', 10, 3, 6, '2018-04-12', 'Tiếng Việt', 'Khám phá bản thân và hạnh phúc.', 'uploads/books/cover_78cbe37a10427ac6.webp', '2025-10-24 00:11:56', 65, 'available', NULL, NULL),
@@ -253,22 +270,22 @@ INSERT INTO `books` (`BooksID`, `ISBN`, `Title`, `AuthorID`, `CategoryID`, `Publ
 (241, '280', 'The Subtle Art of Not Giving a F*ck', 6, 3, 5, '2021-11-11', 'Tiếng Việt', 'Sống tự do, buông bỏ điều không quan trọng.', 'uploads/books/cover_af1c39dd04004cfd.webp', '2025-10-24 00:11:56', 65, 'available', NULL, NULL),
 (242, '279', 'Trò Chơi Của Vị Thần', 8, 5, 3, '2020-12-01', 'Tiếng Việt', 'Truyện tranh giả tưởng hấp dẫn.', 'uploads/books/cover_1c386e08cb7b9ca4.webp', '2025-10-24 00:11:56', 199, 'available', NULL, NULL),
 (243, '278', 'Spy x Family - Tập 1', 21, 5, 3, '2022-04-04', 'Tiếng Việt', 'Gia đình điệp viên siêu dễ thương.', 'uploads/books/cover_915f716f3e7d05f5.jpg', '2025-10-24 00:11:56', 220, 'available', NULL, 4),
-(244, '277', 'Chainsaw Man - Tập 2', 21, 5, 3, '2021-02-14', 'Tiếng Việt', 'Truyện tranh hành động siêu thực.', 'uploads/books/cover_791614e40b6022dc.webp', '2025-10-24 00:11:56', 180, 'available', NULL, NULL),
+(244, '277', 'Chainsaw Man - Tập 2', 21, 5, 3, '2021-02-14', 'Tiếng Việt', 'Truyện tranh hành động siêu thực.', 'uploads/books/cover_791614e40b6022dc.webp', '2025-10-24 00:11:56', 180, 'available', NULL, 1),
 (245, '276', 'Blue Lock - Tập 3', 21, 5, 3, '2023-06-06', 'Tiếng Việt', 'Truyện tranh thể thao đầy cảm xúc.', 'uploads/books/cover_3e820a52fa5fd8a5.webp', '2025-10-24 00:11:56', 160, 'available', NULL, 3),
 (246, '275', 'Attack on Titan - Tập 4', 21, 5, 3, '2019-07-07', 'Tiếng Việt', 'Trận chiến giữa con người và Titan.', 'uploads/books/cover_ff0ca71154bf3dc3.jpg', '2025-10-24 00:11:56', 140, 'available', NULL, 2),
-(247, '274', 'Chuyện Con Mèo Dạy Hải Âu Bay', 11, 4, 4, '2018-09-09', 'Tiếng Việt', 'Truyện ngắn nhẹ nhàng và nhân văn.', 'uploads/books/cover_e79910f66d8fd1f1.webp', '2025-10-24 00:11:56', 75, 'available', NULL, NULL),
-(248, '273', 'Không Gia Đình', 20, 4, 10, '2016-12-12', 'Tiếng Việt', 'Tác phẩm cảm động về cậu bé Rémi.', 'uploads/books/cover_1b9e30fbea885bfb.webp', '2025-10-24 00:11:56', 90, 'available', NULL, NULL),
+(247, '274', 'Chuyện Con Mèo Dạy Hải Âu Bay', 11, 4, 4, '2018-09-09', 'Tiếng Việt', 'Truyện ngắn nhẹ nhàng và nhân văn.', 'uploads/books/cover_e79910f66d8fd1f1.webp', '2025-10-24 00:11:56', 74, 'available', NULL, NULL),
+(248, '273', 'Không Gia Đình', 20, 4, 10, '2016-12-12', 'Tiếng Việt', 'Tác phẩm cảm động về cậu bé Rémi.', 'uploads/books/cover_1b9e30fbea885bfb.webp', '2025-10-24 00:11:56', 89, 'available', NULL, NULL),
 (249, '272', 'Tiếng Gọi Nơi Hoang Dã', 14, 4, 8, '2017-05-05', 'Tiếng Việt', 'Cuộc hành trình sinh tồn của chú chó Buck.', 'uploads/books/cover_94b917b78c2c8b6d.jpg', '2025-10-24 00:11:56', 85, 'available', NULL, NULL),
 (254, '267', 'Truyện Kiều', 9, 4, 9, '2013-03-03', 'Tiếng Việt', 'Kiệt tác thơ Nôm của Nguyễn Du.', 'uploads/books/cover_65765f3d6ecad2fc.png', '2025-10-24 00:11:56', 95, 'available', NULL, NULL),
 (257, '978-604-123-2', 'Chainsaw Man', 16, 2, 8, '2025-10-24', 'Tiếng Việt', '', 'uploads/books/cover_8c0923c475b7f921.jpg', '2025-10-24 01:35:58', 120, 'available', NULL, 1),
 (258, '978-604-243-1', 'Thám tử lừng danh Conan Tập 1 - 20', 22, 5, 4, '2010-01-24', 'Tiếng Việt', '', 'uploads/series/cover_d722edced3acdae5.webp', '2025-10-24 02:42:45', 123, 'available', NULL, 5),
 (259, '978-604-698-4', 'Kimetsu no Yaiba', 23, 5, 7, '2025-10-17', 'Tiếng Việt', '', 'uploads/series/cover_1592049cb089936f.webp', '2025-10-24 02:53:54', 20, 'available', NULL, 6),
 (261, '978-604-342-6', 'Đứa con của thần tượng', 24, 5, 10, '2025-10-24', 'Tiếng Việt', '', 'uploads/books/cover_6016eefe41db4a88.jpg', '2025-10-24 03:04:41', 121, 'available', NULL, 7),
-(262, '978-604-334-3', 'Spy x Family Tập 2', 21, 5, 3, '2025-11-01', 'Tiếng Việt', '', 'uploads/series/cover_3fc3e5b75ce45d67.jpg', '2025-10-25 01:50:01', 122, 'available', NULL, NULL),
-(263, '978-604-324-7', 'Gọi Em Bằng Tên Anh', 27, 6, 8, '2025-10-25', 'Tiếng Việt', '', 'uploads/series/cover_25c366bcb78a0633.jpg', '2025-10-26 21:08:37', 23, 'available', NULL, NULL),
+(262, '978-604-334-3', 'Spy x Family Tập 2', 21, 5, 3, '2025-11-01', 'Tiếng Việt', '', 'uploads/series/cover_3fc3e5b75ce45d67.jpg', '2025-10-25 01:50:01', 122, 'available', NULL, 4),
+(263, '978-604-324-7', 'Gọi Em Bằng Tên Anh', 27, 6, 8, '2025-10-25', 'Tiếng Việt', '', 'uploads/series/cover_25c366bcb78a0633.jpg', '2025-10-26 21:08:37', 22, 'available', NULL, NULL),
 (264, '978-604-243-5', 'Nói Con Về Giới Tính', 28, 7, 6, '2025-11-01', 'Tiếng Việt', '', 'uploads/series/cover_0c5a7a99dd1de9b2.webp', '2025-10-26 21:13:05', 10, 'available', NULL, NULL),
 (265, '978-604-123-3', 'Tinh Thần Biến', 29, 5, 6, '2025-10-30', 'Tiếng Việt', '', 'uploads/series/cover_cb7b03f0b987f6c8.jpg', '2025-10-30 05:25:48', 20, 'available', NULL, NULL),
-(267, '324-234-654-2', 'Các Thế Giới Song Song', 19, 3, 9, '2025-10-30', 'Tiếng Việt', '', 'uploads/series/cover_2b986c6b325b1f07.jpg', '2025-10-30 05:35:28', 54, 'available', NULL, NULL);
+(267, '324-234-654-2', 'Các Thế Giới Song Song', 19, 3, 5, '2025-10-30', 'Tiếng Việt', '', 'uploads/series/cover_2b986c6b325b1f07.jpg', '2025-10-30 05:35:28', 54, 'available', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -331,7 +348,15 @@ INSERT INTO `book_favorites` (`favorite_id`, `student_id`, `book_id`, `created_a
 (89, 5, 15, '2025-11-02 15:46:14'),
 (90, 10, 42, '2025-11-02 18:34:09'),
 (91, 5, 263, '2025-11-03 05:06:16'),
-(92, 5, 37, '2025-11-03 06:30:42');
+(92, 5, 37, '2025-11-03 06:30:42'),
+(93, 5, 128, '2025-11-05 19:18:42'),
+(95, 5, 248, '2025-11-11 17:00:31'),
+(96, 5, 38, '2025-11-11 17:28:17'),
+(97, 5, 265, '2025-11-13 00:16:35'),
+(98, 5, 238, '2025-11-14 22:07:46'),
+(99, 5, 240, '2025-11-14 22:14:24'),
+(100, 10, 15, '2025-11-17 21:37:35'),
+(101, 5, 242, '2025-11-19 23:02:49');
 
 -- --------------------------------------------------------
 
@@ -364,7 +389,8 @@ INSERT INTO `book_review` (`ReviewID`, `StudentID`, `BooksID`, `Rating`, `Commen
 (12, 5, 227, 5, 'Cũng ổn.', '2025-10-28 02:42:17', NULL),
 (13, 5, 246, 5, 'Hay nha.❤️❤️', '2025-10-28 02:53:27', NULL),
 (14, 5, 261, 5, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque odit, eos magnam, reprehenderit accusantium sed totam at voluptatum modi assumenda, ut ea accusamus possimus provident adipisci quidem dolor illo necessitatibus!', '2025-10-30 20:56:11', NULL),
-(17, 5, 38, 5, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque odit, eos magnam, reprehenderit accusantium sed totam at voluptatum modi assumenda, ut ea accusamus possimus provident adipisci quidem dolor illo necessitatibus!', '2025-11-02 17:49:29', NULL);
+(17, 5, 38, 5, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque odit, eos magnam, reprehenderit accusantium sed totam at voluptatum modi assumenda, ut ea accusamus possimus provident adipisci quidem dolor illo necessitatibus!', '2025-11-02 17:49:29', NULL),
+(18, 5, 37, 5, 'ok.', '2025-11-11 17:06:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -450,6 +476,31 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `chat`
+--
+
+CREATE TABLE `chat` (
+  `ChatID` int(11) NOT NULL,
+  `AdminID` int(11) DEFAULT NULL,
+  `StudentID` int(11) NOT NULL,
+  `content` text DEFAULT NULL,
+  `sent_date` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chat`
+--
+
+INSERT INTO `chat` (`ChatID`, `AdminID`, `StudentID`, `content`, `sent_date`) VALUES
+(99, NULL, 5, 'hi', '2025-11-19 23:01:19'),
+(100, 10, 5, 'hello', '2025-11-19 23:01:38'),
+(101, NULL, 5, 'ban co do khong', '2025-11-19 23:02:02'),
+(102, 10, 5, 'minh day', '2025-11-19 23:02:06'),
+(103, NULL, 5, 'ok', '2025-11-19 23:02:14');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `faculty`
 --
 
@@ -514,7 +565,8 @@ CREATE TABLE `my_list_books` (
 INSERT INTO `my_list_books` (`ListID`, `BooksID`, `StudentID`, `Add_date`) VALUES
 (2, 31, 9, '2025-10-14 03:25:38'),
 (3, 17, 10, '2025-10-14 03:32:36'),
-(11, 230, 10, '2025-10-26 19:07:08');
+(11, 230, 10, '2025-10-26 19:07:08'),
+(73, 231, 10, '2025-11-17 21:31:11');
 
 -- --------------------------------------------------------
 
@@ -552,7 +604,15 @@ INSERT INTO `notifications` (`NotificationID`, `StudentID`, `Message`, `Link`, `
 (14, 5, 'Yêu cầu mượn sách \'Chainsaw Man - Tập 2\' của bạn đã bị từ chối.', '/my-borrows', 1, '2025-10-29 20:31:59'),
 (15, 5, 'Yêu cầu mượn sách \'Các Thế Giới Song Song\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-10-31 23:35:30'),
 (16, 5, 'Yêu cầu mượn sách \'Trò Chơi Của Vị Thần\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-10-31 23:36:56'),
-(17, 5, 'Yêu cầu mượn sách \'Tôi Là Ai Trong Cuộc Đời Này\' của bạn đã bị từ chối.', '/my-borrows', 1, '2025-10-31 23:39:21');
+(17, 5, 'Yêu cầu mượn sách \'Tôi Là Ai Trong Cuộc Đời Này\' của bạn đã bị từ chối.', '/my-borrows', 1, '2025-10-31 23:39:21'),
+(18, 5, 'Yêu cầu mượn sách \'Mắt Biếc\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-04 14:51:05'),
+(19, 5, 'Yêu cầu mượn sách \'Không Gia Đình\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-04 14:56:29'),
+(20, 5, 'Yêu cầu mượn sách \'Tôi Tự Học\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-05 10:43:47'),
+(21, 5, 'Yêu cầu mượn sách \'Chuyện Con Mèo Dạy Hải Âu Bay\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-07 08:58:40'),
+(22, 5, 'Yêu cầu mượn sách \'Gọi Em Bằng Tên Anh\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-07 15:11:40'),
+(23, 5, 'Yêu cầu mượn sách \'Nhà Giả Kim\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-07 15:11:42'),
+(24, 5, 'Yêu cầu mượn sách \'Tư Duy Nhanh Và Chậm\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-07 15:11:47'),
+(25, 5, 'Yêu cầu mượn sách \'Dám Bị Ghét\' của bạn đã được duyệt.', '/my-borrows', 1, '2025-11-14 15:05:57');
 
 -- --------------------------------------------------------
 
@@ -611,7 +671,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`StudentID`, `StudentCode`, `FullName`, `Gender`, `DateOfBirth`, `Email`, `Password`, `Phone`, `Address`, `EnrollmentYear`, `MajorID`, `FacultyID`, `Status`, `Avata_image`) VALUES
-(5, '227060125', 'Lữ Văn Tính', 'M', '2004-09-28', 'lvtinh-cntt17@tdu.edu.vn', '$2y$10$bDKbC4X9YqKOIrwe4v2aaOYepee.54204qHLMA12YOADmP1dTr72e', '0818177533', '', '0000', 2, 1, '', 'uploads/avatars/avatar_5_1762126952.jpg'),
+(5, '227060125', 'Lữ Văn Tính', 'M', '2004-09-28', 'lvtinh-cntt17@tdu.edu.vn', '$2y$10$bDKbC4X9YqKOIrwe4v2aaOYepee.54204qHLMA12YOADmP1dTr72e', '0818177533', '', '0000', 2, 1, '', 'uploads/avatars/avatar_5_1762207622.jpg'),
 (9, '227060145', 'Lữ Tính Văn ', 'M', '2004-06-22', 'ltvan-cntt17@tdu.edu.vn', '$2y$10$xQ5kclRKSuDsLAMJI4T2nOAtWol6EdpNkUR6o5H8nJwvjwY6n6HsS', '0813502953', NULL, NULL, 2, 1, NULL, NULL),
 (10, '227060117', 'Lê Du', 'M', '2025-10-10', 'ledu@tdu.edu.vn', '$2y$10$Fdu3q5qpY5WBDiZgPfOpIeB8cMzt2nYIXwd/HW0/txWW0ot/fCTg2', NULL, NULL, NULL, 2, 1, NULL, NULL),
 (11, '227060555', 'Hasagawa', 'M', '2025-10-24', 'hase@gmail.com', '$2y$10$ei9Y3JNDmJhvVAAkNe6T3e4sQ8.1Ga2YkWdJzTEQpb1/qTdROH0Nq', NULL, NULL, NULL, 2, 3, NULL, NULL);
@@ -723,6 +783,14 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `CategoryName` (`CategoryName`);
 
 --
+-- Chỉ mục cho bảng `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`ChatID`),
+  ADD KEY `StudentID` (`StudentID`),
+  ADD KEY `AdminID` (`AdminID`);
+
+--
 -- Chỉ mục cho bảng `faculty`
 --
 ALTER TABLE `faculty`
@@ -791,19 +859,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `AuthorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `AuthorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `bookloans`
 --
 ALTER TABLE `bookloans`
-  MODIFY `BookLoanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `BookLoanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `bookloan_request`
 --
 ALTER TABLE `bookloan_request`
-  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `books`
@@ -815,13 +883,13 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT cho bảng `book_favorites`
 --
 ALTER TABLE `book_favorites`
-  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT cho bảng `book_review`
 --
 ALTER TABLE `book_review`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `book_series`
@@ -842,6 +910,12 @@ ALTER TABLE `categories`
   MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT cho bảng `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `ChatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+
+--
 -- AUTO_INCREMENT cho bảng `faculty`
 --
 ALTER TABLE `faculty`
@@ -857,19 +931,19 @@ ALTER TABLE `major`
 -- AUTO_INCREMENT cho bảng `my_list_books`
 --
 ALTER TABLE `my_list_books`
-  MODIFY `ListID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `ListID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT cho bảng `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `NotificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `NotificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `publishers`
 --
 ALTER TABLE `publishers`
-  MODIFY `PublisherID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `PublisherID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `student`
@@ -931,6 +1005,13 @@ ALTER TABLE `book_review`
 --
 ALTER TABLE `book_supplementary_images`
   ADD CONSTRAINT `book_supplementary_images_ibfk_1` FOREIGN KEY (`BooksID`) REFERENCES `books` (`BooksID`);
+
+--
+-- Các ràng buộc cho bảng `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`);
 
 --
 -- Các ràng buộc cho bảng `major`
