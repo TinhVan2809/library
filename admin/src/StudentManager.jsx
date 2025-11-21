@@ -107,7 +107,7 @@ function StudentList() {
   const handleGetStudentById = async (studentId) => {
     setEditingStudent(null); // Đóng form sửa khi xem chi tiết
     try { // Sửa lỗi chính tả: getStudentyById -> getStudentById
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForStudent.php?action=getStudentyById&StudentID=${studentId}`);
+      const response = await fetch(`http://localhost/Library/Connection/actions/actionForStudent.php?action=getStudentById&StudentID=${studentId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -231,7 +231,6 @@ function StudentList() {
         <strong>Giới tính: {selectedStudent.Gender}</strong>
         <strong>Năm sinh: {selectedStudent.DateOfBirth}</strong>
         <strong>Email: {selectedStudent.Email}</strong>
-        <strong>Password: {selectedStudent.Password}</strong>
         <strong>Phone: {selectedStudent.Phone}</strong>
         <strong>Địa chỉ: {selectedStudent.Address}</strong>
         <strong>Năm tuyển sinh: {selectedStudent.EnrollmentYear}</strong>
