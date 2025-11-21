@@ -65,8 +65,8 @@ function AddAdminForm() {
 
   return (
     <>
-    <section className="section-add-bookloan">
-      <form onSubmit={handleSubmit} className='form-container'>
+    <section className="section-container">
+      <form onSubmit={handleSubmit} className='form-add-book-container'>
         <input
           type="text"
           name="AdminName"
@@ -103,7 +103,7 @@ function AddAdminForm() {
           <option value="M">Nam</option>
           <option value="F">Nữ</option>
         </select>
-        <button type="submit" className="btn">Thêm Admin</button>
+        <button type="submit" className="btn-submit-book">Thêm Admin</button>
       </form>
       {message && <p style={{ marginTop: '1rem', color: message.includes('thành công') ? 'green' : 'red' }}>{message}</p>}
     </section>
@@ -259,7 +259,7 @@ function GetAdmin() {
 
   return (   
     <>
-      <section className="">
+      <section className="section-container">
         <h2>Danh sách Admin</h2>
         <table className='table-container'>
           <thead>

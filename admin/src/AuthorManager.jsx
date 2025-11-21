@@ -74,6 +74,14 @@ const AuthorManager = () => {
 
   }, []);
 
+  if(loading) {
+    return (
+      <>
+        <p>loading...</p> 
+      </>
+    )
+  }
+
 
   return (
     <>

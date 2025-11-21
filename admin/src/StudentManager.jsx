@@ -191,9 +191,9 @@ function StudentList() {
       onCancel={resetForm}
     />
     <hr />
-    <section className="container-list-admin">
+    <section className="section-container">
       <h2>Danh sách Sinh viên</h2>
-      <table>
+      <table className='table-container'>
         <thead>
           <tr><th>Mã SV</th>
             <th>Họ Tên</th>
@@ -208,11 +208,13 @@ function StudentList() {
               <td>{student.FullName}</td>
               <td>{student.Email ? student.Email : 'Không có'}</td>
               <td>
+              <div className="table-container-btn">
 
-                <button onClick={() => handleEditClick(student)}>Sửa</button>
-                <button onClick={() => handleDeleteStudent(student.StudentID)}>Xóa</button>
-                <button onClick={() => handleGetStudentById(student.StudentID)}>Chi tiết</button>
+                <button className='btn-edit' onClick={() => handleEditClick(student)}>Sửa</button>
+                <button className='btn-delete'  onClick={() => handleDeleteStudent(student.StudentID)}>Xóa</button>
+                <button className='btn-detail' onClick={() => handleGetStudentById(student.StudentID)}>Chi tiết</button>
                 <button>Tạo phiếu mượn</button>
+              </div>
 
               </td>
             </tr>
@@ -248,9 +250,9 @@ function StudentList() {
 // component form cho sinh viên
 function StudentForm({formData, editingStudent, handleSubmit, handleChange, majors, faculties, onCancel, message}) {
   return (
-   <section className="container-add-admin">
-      <h2>{editingStudent ? 'Sửa thông tin Sinh viên' : 'Thêm Sinh viên Mới'}</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
+   <section className="section-container">
+      <h2 style={{display: 'flex', justifyContent: 'center'}}>{editingStudent ? 'Sửa thông tin Sinh viên' : 'Thêm Sinh viên Mới'}</h2>
+      <form onSubmit={handleSubmit} className='form-add-book-container'>
         <input type="text" name="StudentCode" placeholder="Mã sinh viên" value={formData.StudentCode} onChange={handleChange} required />
         <input type="text" name="FullName" placeholder="Tên sinh viên" value={formData.FullName} onChange={handleChange} required />
         <select name="Gender" value={formData.Gender} onChange={handleChange} required>
@@ -280,9 +282,9 @@ function StudentForm({formData, editingStudent, handleSubmit, handleChange, majo
        
         <input type="text" name="Status" placeholder="Trạng thái" value={formData.Status} onChange={handleChange} />
         <div>
-          <button type="submit" className="btn">{editingStudent ? 'Cập nhật' : 'Thêm Sinh Viên'}</button>
+          <button type="submit" className="btn-submit-book">{editingStudent ? 'Cập nhật' : 'Thêm Sinh Viên'}</button>
           {editingStudent && (
-            <button type="button" className="btn" onClick={onCancel} style={{ marginLeft: '1rem', backgroundColor: '#6c757d' }}>Hủy</button>
+            <button type="button" className="btn" onClick={onCancel} >Hủy</button>
           )}
         </div>
       </form>
@@ -294,9 +296,9 @@ function StudentForm({formData, editingStudent, handleSubmit, handleChange, majo
 // Component Form cho Ngành
 function MajorForm({ formData, editingMajor, handleSubmit, handleChange, onCancel, message, faculties }) {
   return (
-    <section className="container-add-admin">
+    <section className="section-container">
       <h2>{editingMajor ? 'Sửa thông tin Ngành' : 'Thêm Ngành Mới'}</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
+      <form onSubmit={handleSubmit} className='form-add-book-container'>
         <input type="text" name="MajorCode" placeholder="Mã Ngành" value={formData.MajorCode} onChange={handleChange} required />
         <input type="text" name="MajorName" placeholder="Tên Ngành" value={formData.MajorName} onChange={handleChange} required />
         <select name="FacultyID" value={formData.FacultyID} onChange={handleChange} required>
@@ -309,9 +311,9 @@ function MajorForm({ formData, editingMajor, handleSubmit, handleChange, onCance
         <input type="number" name="CreditsRequired" placeholder="Số tín chỉ yêu cầu" value={formData.CreditsRequired} onChange={handleChange} />
         <textarea name="Description" placeholder="Mô tả" value={formData.Description} onChange={handleChange} />
         <div>
-          <button type="submit" className="btn">{editingMajor ? 'Cập nhật' : 'Thêm Ngành'}</button>
+          <button type="submit" className="btn-submit-book">{editingMajor ? 'Cập nhật' : 'Thêm Ngành'}</button>
           {editingMajor && (
-            <button type="button" className="btn" onClick={onCancel} style={{ marginLeft: '1rem', backgroundColor: '#6c757d' }}>Hủy</button>
+            <button type="button" className="btn" onClick={onCancel}>Hủy</button>
           )}
         </div>
       </form>
@@ -447,11 +449,11 @@ function MajorManager() {
     <div>
       <MajorForm formData={formData} editingMajor={editingMajor} handleSubmit={handleSubmit} handleChange={handleChange} onCancel={resetForm} message={message} faculties={faculties} />
       <hr />
-      <section className="container-list-admin">
+      <section className="section-container">
         <h2>Danh sách Ngành</h2>
         {loading && <p>Đang tải...</p>}
         {error && <p style={{ color: 'red' }}>Lỗi: {error}</p>}
-        <table>
+        <table className='table-container'>
           <thead><tr><th>Mã Ngành</th><th>Tên Ngành</th><th>Tên Khoa</th><th>Hành động</th></tr></thead>
           <tbody>
             {majors.filter(major => major).map(major => ( // Lọc các giá trị null/undefined
@@ -460,9 +462,11 @@ function MajorManager() {
                 <td>{major.MajorName}</td>
                 <td>{major.FacultyName}</td>
                 <td>
-                  <button onClick={() => handleEditClick(major)}>Sửa</button>
-                  <button onClick={() => handleGetMajorById(major.MajorID)}>Chi tiết</button>
-                  <button onClick={() => handleDelete(major.MajorID)}>Xóa</button>
+                  <div className="table-container-btn">
+                    <button className='btn-edit' onClick={() => handleEditClick(major)}>Sửa</button>
+                    <button className='btn-delete' onClick={() => handleDelete(major.MajorID)}>Xóa</button>
+                    <button className='btn-detail' onClick={() => handleGetMajorById(major.MajorID)}>Chi tiết</button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -489,9 +493,9 @@ function MajorManager() {
 // Component Form cho Khoa (đã được tách ra)
 function FacultyForm({ formData, editingFaculty, handleSubmit, handleChange, onCancel, message }) {
   return (
-    <section className="container-add-admin">
+    <section className="container-container">
       <h2>{editingFaculty ? 'Sửa thông tin Khoa' : 'Thêm Khoa Mới'}</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
+      <form onSubmit={handleSubmit} className='form-add-book-container'>
         <input type="text" name="FacultyCode" placeholder="Mã Khoa" value={formData.FacultyCode} onChange={handleChange} required />
         <input type="text" name="FacultyName" placeholder="Tên Khoa" value={formData.FacultyName} onChange={handleChange} required />
         <input type="tel" name="Phone" placeholder="Số điện thoại" value={formData.Phone} onChange={handleChange} />
@@ -499,9 +503,9 @@ function FacultyForm({ formData, editingFaculty, handleSubmit, handleChange, onC
         <input type="text" name="Address" placeholder="Địa chỉ" value={formData.Address} onChange={handleChange} />
         <input type="number" name="EstablishedYear" placeholder="Năm thành lập" value={formData.EstablishedYear} onChange={handleChange} />
         <div>
-          <button type="submit" className="btn">{editingFaculty ? 'Cập nhật' : 'Thêm Khoa'}</button>
+          <button type="submit" className="btn-submit-book">{editingFaculty ? 'Cập nhật' : 'Thêm Khoa'}</button>
           {editingFaculty && (
-            <button type="button" className="btn" onClick={onCancel} style={{ marginLeft: '1rem', backgroundColor: '#6c757d' }}>Hủy</button>
+            <button type="button" className="btn" onClick={onCancel}>Hủy</button>
           )}
         </div>
       </form>
@@ -676,11 +680,11 @@ function FacultyManager() {
       />
       <hr />
 
-      <section className="container-list-admin">
+      <section className="section-container">
         <h2>Danh sách Khoa</h2>
         {loading && <p>Đang tải...</p>}
         {error && <p style={{ color: 'red' }}>Lỗi: {error}</p>}
-        <table>
+        <table className='table-container'>
           <thead>
             <tr>
               <th>ID Khoa</th>
@@ -698,9 +702,12 @@ function FacultyManager() {
                 <td>{faculty.FacultyName}</td>
                 <td>{faculty.Email}</td>
                 <td>
-                  <button onClick={() => handleEditClick(faculty)}>Sửa</button>                  
-                  <button onClick={() => handleGetFacultyById(faculty.FacultyID)}>Chi tiết</button>
-                  <button onClick={() => handleDelete(faculty.FacultyID)}>Xóa</button>
+                  <div className="table-container-btn">
+
+                  <button className='btn-edit' onClick={() => handleEditClick(faculty)}>Sửa</button>                  
+                  <button className='btn-delete' onClick={() => handleDelete(faculty.FacultyID)}>Xóa</button>
+                  <button className='btn-detail' onClick={() => handleGetFacultyById(faculty.FacultyID)}>Chi tiết</button>
+                  </div>
                 </td>
               </tr>
             ))}
