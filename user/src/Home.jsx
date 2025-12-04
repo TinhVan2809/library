@@ -311,7 +311,7 @@ function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
     return () => {
       mounted = false;
     };
-  }, [currentPage, selectedCategoryId]); // Bỏ `debouncedSearchTerm` và `showResults` khỏi dependency array
+  }, [currentPage, selectedCategoryId]); 
 
   if (loading) return (
       <>

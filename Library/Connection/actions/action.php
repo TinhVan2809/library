@@ -33,6 +33,7 @@ try {
 
         switch ($action) {
 
+         
             case 'getAdmins':
                 $admins = $adminObj->getAdmins();
                 echo json_encode(['success' => true, 'data' => $admins]);
@@ -129,8 +130,7 @@ try {
                         echo json_encode(['success' => false, 'message' => 'ID Admin không hợp lệ.']);
                     }
                 }
-                exit;
-
+                exit;       
 
             default:
                 echo json_encode(['success' => false, 'message' => 'Hành động không hợp lệ: ' . htmlspecialchars($action)]);
@@ -144,3 +144,5 @@ try {
     // Trả về thông báo lỗi chung cho client
     echo json_encode(['success' => false, 'message' => 'Đã có lỗi không mong muốn xảy ra. Vui lòng thử lại sau.']);
 }
+
+

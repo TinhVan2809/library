@@ -326,7 +326,7 @@ function MajorManager() {
   const [majors, setMajors] = useState([]);
   const [faculties, setFaculties] = useState([]);
   const [editingMajor, setEditingMajor] = useState(null);
-  const [selectedMajor, setSelectedMajor] = useState(null); // State cho ngành được chọn xem chi tiết
+  const [selectedMajor, setSelectedMajor] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({

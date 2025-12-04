@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
 
 // Component cho form đăng ký của người dùng thông thường
 const UserRegisterForm = () => {

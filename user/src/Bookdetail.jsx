@@ -196,7 +196,7 @@ function BookDetail() {
         fetchBookAndRelated();
     }, [bookId]); // Chạy lại effect khi bookId thay đổi
 
-    const handleBorrowRequest = () => { // Bỏ async vì chỉ hiển thị popup
+    const handleBorrowRequest = () => {
         if (!user) {
             Swal.fire({
                 position: "top-end",
@@ -421,7 +421,7 @@ function BookDetail() {
                         <div className="custom-info">
                             <span>- Thời hạn trả là 30 ngày tính từ ngày mượn.</span>
                             <span>- Yêu cầu mượn sách của bạn sẽ được phản hồi sớm nhất có thể.</span>
-                            <span>- Mọi thắc mắc vui lòng <a href="" className='custom-contact'>liên hệ.</a></span>
+                            <span>- Mọi thắc mắc vui lòng <Link to="/contactus" className='custom-contact'>liên hệ.</Link></span>
                             <label htmlFor="terms-agree" className="custom-checkbox-container">
                                 <div className="terms-content1">
                                     <input id="terms-agree" type="checkbox" required />

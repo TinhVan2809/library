@@ -72,19 +72,19 @@ function HandleFilter() {
   const [booksAll, setBooksAll] = useState([]);
   const [authors, setAuthors] = useState([]); // eslint-disable-line
   const [categories, setCategories] = useState([]);
-  const [publishers, setPublishers] = useState([]);// eslint-disable-line
+  const [publishers, setPublishers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [mainImage, setMainImage] = useState(null); 
-  const [favorties, setFavorties] = useState([]);
+  const [mainImage, setMainImage] = useState(null);  //eslint-disable-line
+  const [favorties, setFavorties] = useState([]); //eslint-disable-line
 
   // State cho tìm kiếm
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); //eslint-disable-line
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   // State mới cho live search
-  const [liveSearchResults, setLiveSearchResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [showResults, setShowResults] = useState(false);
+  const [liveSearchResults, setLiveSearchResults] = useState([]); //eslint-disable-line
+  const [isSearching, setIsSearching] = useState(false); //eslint-disable-line
+  const [showResults, setShowResults] = useState(false); //eslint-disable-line
 
   // State để lọc theo thể loại
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -162,7 +162,6 @@ function HandleFilter() {
 
         const [booksRes, categoriesRes, publishersRes, booksallRes, favortiesRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
           fetch(booksApiUrl),
-          
           fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
           fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),   
           fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'),
