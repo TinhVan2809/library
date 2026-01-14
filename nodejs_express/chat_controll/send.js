@@ -24,16 +24,4 @@ async function addChatMessage({ StudentID, AdminID, studentID, adminID, content 
     }
 }
 
-// --- Ví dụ cách gọi hàm ---
-// addChatMessage({ studentID: 1, adminID: 1, content: "Xin chào, tôi cần hỗ trợ." })
-//     .then(result => {
-//         if (result.success) {
-//             console.log('Message sent successfully!');
-//         }
-//     })
-//     .catch(err => {
-//         console.error('Failed to send message.');
-//     });
-
-// Xuất hàm để các module khác có thể gọi
 module.exports = { addChatMessage };

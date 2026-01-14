@@ -13,7 +13,6 @@ function HandleNotification() {
 
          if (!user || !user.StudentID) {
             setLoading(false);
-            // setError("Bạn cần đăng nhập để xem thông tin cá nhân.");
             return;
         }
         
