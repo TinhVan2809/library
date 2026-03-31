@@ -32,7 +32,6 @@ class bookloans extends Data {
             FROM  bookloans bl
             JOIN books b ON b.BooksID = bl.BooksID
             ORDER BY bl.LoanDate DESC
-            ORDER BY bl.LoanDate DESC
             LIMIT :limit"; // sắp xếp ngày mượn mới nhất
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
