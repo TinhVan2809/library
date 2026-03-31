@@ -132,7 +132,8 @@ API endpoints are hardcoded in the source (e.g., `http://localhost/library/Libra
 
 After installation, run the following command to start the development server:
 ```bash
-npm start
+cd user || admin
+npm run dev
 ```
 
 The application will automatically open in your browser at `http://localhost:3000`.
