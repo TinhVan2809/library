@@ -136,6 +136,12 @@ cd user || admin
 npm run dev
 ```
 
+### 6. Run Server (Socket io)
+```bash
+cd nodejs_express
+node server.js
+```
+
 The application will automatically open in your browser at `http://localhost:3000`.
 
 
