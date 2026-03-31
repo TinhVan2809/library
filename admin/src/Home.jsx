@@ -14,7 +14,7 @@ function CategoryList() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory');
+        const response = await fetch('http://localhost/library/Library/Connection/actions/actionForCategories.php?action=getCategory');
         if (!response.ok) {
           throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
         }
@@ -74,7 +74,7 @@ function PublishersList() {
     const fetchPublishers = async () => {
       
       try {
-        const rp = await fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers');
+        const rp = await fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers');
 
         if (!rp.ok) { throw new Error(`Lỗi HTTP! Trạng thái: ${rp.status}`); }
         const data = await rp.json();

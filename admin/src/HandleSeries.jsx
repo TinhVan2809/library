@@ -36,7 +36,7 @@ function AddSeriesForm({ onSeriesAdded }) {
         }
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=addSeries', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=addSeries', {
                 method: 'POST',
                 body: postData,
             });
@@ -88,7 +88,7 @@ function AddSeriesForm({ onSeriesAdded }) {
 function EditSeriesForm({ series, onFinished, onCancel }) {
     const [seriesName, setSeriesName] = useState(series.SeriesName);
     const [coverImage, setCoverImage] = useState(null);
-    const [imagePreview, setImagePreview] = useState(series.Image_background ? `http://localhost/Library/${series.Image_background}` : null);
+    const [imagePreview, setImagePreview] = useState(series.Image_background ? `http://localhost/library/Library/${series.Image_background}` : null);
     const [message, setMessage] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
@@ -117,7 +117,7 @@ function EditSeriesForm({ series, onFinished, onCancel }) {
         }
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=updateSeries', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=updateSeries', {
                 method: 'POST',
                 body: postData,
             });
@@ -170,7 +170,7 @@ function HandleSeries({ onCancel }) {
 
     const fetchSeries = async () => {
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllSeries');
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getAllSeries');
             const result = await response.json();
             if (result.success) {
                 setSeriesList(result.data || []);
@@ -192,7 +192,7 @@ function HandleSeries({ onCancel }) {
 function SeriesList({ series: seriesList, onDelete, onEdit }) {
     const getFullImageUrl = (path) => {
         if (!path) return '/placeholder.png'; // Return a placeholder if no image
-        const SERVER_BASE = 'http://localhost/Library/';
+        const SERVER_BASE = 'http://localhost/library/Library/';
         return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
     };
     return (
@@ -235,7 +235,7 @@ function SeriesList({ series: seriesList, onDelete, onEdit }) {
         try {
             const postData = new FormData();
             postData.append('SeriesID', seriesId);
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=deleteSeries', { method: 'POST', body: postData });
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=deleteSeries', { method: 'POST', body: postData });
             const result = await response.json();
             alert(result.message);
             if (result.success) {

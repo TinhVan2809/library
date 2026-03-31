@@ -42,7 +42,7 @@ function BookDetail() {
 
     // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
     const getFullImageUrl = (path) => {
-        const SERVER_BASE = 'http://localhost/Library/';
+        const SERVER_BASE = 'http://localhost/library/Library/';
         if (!path) return null;
         if (/^https?:\/\//i.test(path)) return path; // Đã là URL tuyệt đối
         return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -73,7 +73,7 @@ function BookDetail() {
     // Hàm fetch danh sách review
     const fetchReviews = async (currentBookId) => {
         try {
-            const reviewResponse = await fetch(`http://localhost/Library/Connection/actions/actionForReview.php?action=getReviewsByBookId&BooksID=${currentBookId}`);
+            const reviewResponse = await fetch(`http://localhost/library/Library/Connection/actions/actionForReview.php?action=getReviewsByBookId&BooksID=${currentBookId}`);
             const reviewResult = await reviewResponse.json();
             if (reviewResult.success && Array.isArray(reviewResult.data)) {
                 setReviews(reviewResult.data);
@@ -108,7 +108,7 @@ function BookDetail() {
             setMainImage(null); // Reset ảnh chính
             setError(null); // Reset lỗi
             try {
-                const response = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBookById&BooksID=${bookId}`); 
+                const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBookById&BooksID=${bookId}`); 
                 if (!response.ok) {
                     throw new Error(`Lỗi HTTP ${response.status}: Không thể tải dữ liệu sách.`);
                 }
@@ -134,7 +134,7 @@ function BookDetail() {
                     // --- Fetch sách liên quan NGAY SAU KHI có chi tiết sách chính ---
                     // API getBookById phải trả về CategoryID để đoạn code này hoạt động.
                     if (mainBookData.CategoryID) {
-                        const relatedResponse = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&categoryId=${mainBookData.CategoryID}`);
+                        const relatedResponse = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&categoryId=${mainBookData.CategoryID}`);
                         const relatedResult = await relatedResponse.json();
                         if (relatedResult.success && Array.isArray(relatedResult.data)) {
                             // Lọc bỏ sách hiện tại và chỉ lấy 4 sách liên quan
@@ -149,7 +149,7 @@ function BookDetail() {
 
                     // --- Fetch sách cùng tác giả ---
                     if (mainBookData.AuthorID) {
-                        const authorBooksResponse = await fetch(`http://localhost/Library/Connection/actions/actionForAuthors.php?action=getBooksByAuthor&AuthorID=${mainBookData.AuthorID}&currentBookID=${bookId}`);
+                        const authorBooksResponse = await fetch(`http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=getBooksByAuthor&AuthorID=${mainBookData.AuthorID}&currentBookID=${bookId}`);
                         const authorBooksResult = await authorBooksResponse.json();
                         if (authorBooksResult.success && Array.isArray(authorBooksResult.data)) {
                             // Chuẩn hóa URL ảnh cho sách cùng tác giả
@@ -162,7 +162,7 @@ function BookDetail() {
 
                     // --- Fetch sách cùng bộ ---
                     if (mainBookData.SeriesID) {
-                        const seriesBooksResponse = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooksBySeriesId&SeriesID=${mainBookData.SeriesID}&currentBookID=${bookId}`);
+                        const seriesBooksResponse = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooksBySeriesId&SeriesID=${mainBookData.SeriesID}&currentBookID=${bookId}`);
                         const seriesBooksResult = await seriesBooksResponse.json();
                         if (seriesBooksResult.success && Array.isArray(seriesBooksResult.data)) {
                             // Chuẩn hóa URL ảnh cho sách cùng bộ
@@ -177,7 +177,7 @@ function BookDetail() {
 
                     // --- Fetch trạng thái yêu thích ---
                     // Chỉ fetch nếu người dùng đã đăng nhập để lấy is_favorited
-                    const favoriteStatusUrl = `http://localhost/Library/Connection/actions/actionForFavorites.php?action=getFavoriteStatus&BooksID=${bookId}${user ? `&StudentID=${user.StudentID}` : ''}`;
+                    const favoriteStatusUrl = `http://localhost/library/Library/Connection/actions/actionForFavorites.php?action=getFavoriteStatus&BooksID=${bookId}${user ? `&StudentID=${user.StudentID}` : ''}`;
                     const favoriteStatusResponse = await fetch(favoriteStatusUrl);
                     const favoriteStatusResult = await favoriteStatusResponse.json();
                     if (favoriteStatusResult.success) {
@@ -241,7 +241,7 @@ function BookDetail() {
         postData.append('BooksID', book.BooksID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=addBookLoanRequest', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=addBookLoanRequest', {
                 method: 'POST',
                 body: postData, 
             });
@@ -274,7 +274,7 @@ function BookDetail() {
         postData.append('BooksID', book.BooksID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForMyList.php?action=addToList', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForMyList.php?action=addToList', {
                 method: 'POST',
                 body: postData,
             });
@@ -312,7 +312,7 @@ function BookDetail() {
         postData.append('BooksID', book.BooksID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=toggleFavorite', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForFavorites.php?action=toggleFavorite', {
                 method: 'POST',
                 body: postData,
             });
@@ -362,7 +362,7 @@ function BookDetail() {
         postData.append('Comment', comment);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForReview.php?action=addReview', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForReview.php?action=addReview', {
                 method: 'POST',
                 body: postData,
             });

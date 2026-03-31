@@ -23,7 +23,7 @@ function HandleMyListBook() {
             setError(null);
             try {
                 // 4. Thêm StudentID vào URL và sửa lại tên action
-                const response = await fetch(`http://localhost/Library/Connection/actions/actionForMyList.php?action=getListByStudent&StudentID=${user.StudentID}`);
+                const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForMyList.php?action=getListByStudent&StudentID=${user.StudentID}`);
                 if (!response.ok) {
                     throw new Error(`Lỗi HTTP: ${response.status}`);
                 }
@@ -45,7 +45,7 @@ function HandleMyListBook() {
     }, [user]); 
 
        const getFullImageUrl = (path) => {
-        const SERVER_BASE = 'http://localhost/Library/';
+        const SERVER_BASE = 'http://localhost/library/Library/';
         if (!path) return '/default-avatar.png'; // Ảnh mặc định
         if (/^https?:\/\//i.test(path) || path.startsWith('blob:')) return path;
         return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -59,7 +59,7 @@ function HandleMyListBook() {
             params.append('action', 'deleteFromList');
             params.append('ListID', String(ListID));
 
-            const res = await fetch('http://localhost/Library/Connection/actions/actionForMyList.php', {
+            const res = await fetch('http://localhost/library/Library/Connection/actions/actionForMyList.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString(),

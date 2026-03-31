@@ -23,7 +23,7 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
 
   // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
   const getFullImageUrl = (path) => {
-    const SERVER_BASE = 'http://localhost/Library/';
+    const SERVER_BASE = 'http://localhost/library/Library/';
     if (!path) return null;
     if (/^https?:\/\//i.test(path)) return path;
     return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -40,10 +40,10 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
       }
 
       const [bookLoansRes, studentsRes, booksRes] = await Promise.all([
-        fetch(`http://localhost/Library/Connection/actions/actionForBookLoans.php?action=GetBookLoans&page=${currentPage}`),
-        fetch('http://localhost/Library/Connection/actions/actionForStudent.php?action=GetStudent'),
+        fetch(`http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=GetBookLoans&page=${currentPage}`),
+        fetch('http://localhost/library/Library/Connection/actions/actionForStudent.php?action=GetStudent'),
         // nếu có endpoint lấy sách, sửa đường dẫn cho đúng
-        fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks')
+        fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks')
       ]);
 
       const bookLoansData = await bookLoansRes.json();
@@ -116,7 +116,7 @@ function BookLoanList({ onBookAdded, onCancel }) { // eslint-disable-line
     postData.append('BookLoanID', bookloanId);
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=DeleteBookLoan', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=DeleteBookLoan', {
         method: 'POST',
         body: postData,
       });
@@ -241,7 +241,7 @@ function BookLoanForm({ students = [], books = [], onAdded }) {
       if (returnDate) postData.append('ReturnDate', returnDate);
       postData.append('Status', status);
 
-      const resp = await fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=AddBookLoan', {
+      const resp = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=AddBookLoan', {
         method: 'POST',
         body: postData,
       });
@@ -347,7 +347,7 @@ function BookLoanRequestList() {
       postData.append('Status', newStatus);
 
       try {
-        const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=updateRequestStatus', {
+        const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=updateRequestStatus', {
           method: 'POST',
           body: postData,
         });
@@ -372,7 +372,7 @@ function BookLoanRequestList() {
 
     // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
     const getFullImageUrl = (path) => {
-      const SERVER_BASE = 'http://localhost/Library/';
+      const SERVER_BASE = 'http://localhost/library/Library/';
       if (!path) return null; // Hoặc trả về ảnh mặc định
       if (/^https?:\/\//i.test(path)) return path; // Đã là URL tuyệt đối
       return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -385,7 +385,7 @@ function BookLoanRequestList() {
         } else {
           setRqIsLoadingMore(true);
         }
-        const response = await fetch(`http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getAllBookLoanRQ&page=${rqCurrentPage}`);
+        const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=getAllBookLoanRQ&page=${rqCurrentPage}`);
         if (!response.ok) {
           throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
         }

@@ -12,7 +12,7 @@ function MyBrrows() {
 
     // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
     const getFullImageUrl = (path) => {
-        const SERVER_BASE = 'http://localhost/Library/';
+        const SERVER_BASE = 'http://localhost/library/Library/';
         if (!path) return '/placeholder.png'; // Đã nhất quán, không cần thay đổi
         if (/^https?:\/\//i.test(path)) return path;
         return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -26,8 +26,8 @@ function MyBrrows() {
                 setError('');
                 try {
                     const [borrowedRes, requestedRes] = await Promise.all([
-                        fetch(`http://localhost/Library/Connection/actions/actionForBookLoans.php?action=getBookLoansByStudent&StudentID=${user.StudentID}`),
-                        fetch(`http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getBookLoanRQByStudent&StudentID=${user.StudentID}`)
+                        fetch(`http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=getBookLoansByStudent&StudentID=${user.StudentID}`),
+                        fetch(`http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=getBookLoanRQByStudent&StudentID=${user.StudentID}`)
                     ]);
 
                     if (!borrowedRes.ok || !requestedRes.ok) {
@@ -80,7 +80,7 @@ function MyBrrows() {
         postData.append('StudentID', user.StudentID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=cancelBookLoanRequest', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=cancelBookLoanRequest', {
                 method: 'POST',
                 body: postData,
             });

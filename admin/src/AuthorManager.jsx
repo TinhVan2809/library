@@ -16,8 +16,8 @@ const AuthorManager = () => {
 
       try {
         const [authorRes, countAuthorRes] = await Promise.all([
-          fetch("http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors"),
-          fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
+          fetch("http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=GetAuthors"),
+          fetch('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
         ]);
 
         if(!authorRes.ok) throw new Error(`Lỗi khi tải authors: ${authorRes.status}`);

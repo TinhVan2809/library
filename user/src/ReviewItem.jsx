@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 
-const SERVER_BASE = 'http://localhost/Library/';
+const SERVER_BASE = 'http://localhost/library/Library/';
 
 const getFullImageUrl = (path) => {
     if (!path) return null;
@@ -41,7 +41,7 @@ function ReviewItem({ review, bookId, onReviewAdded }) {
         postData.append('ParentReviewID', review.ReviewID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForReview.php?action=addReview', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForReview.php?action=addReview', {
                 method: 'POST',
                 body: postData,
             });
@@ -69,7 +69,7 @@ function ReviewItem({ review, bookId, onReviewAdded }) {
         postData.append('StudentID', user.StudentID);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForReview.php?action=deleteReview', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForReview.php?action=deleteReview', {
                 method: 'POST',
                 body: postData,
             });
@@ -101,7 +101,7 @@ function ReviewItem({ review, bookId, onReviewAdded }) {
         postData.append('Comment', editComment);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForReview.php?action=updateReview', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForReview.php?action=updateReview', {
                 method: 'POST',
                 body: postData,
             });

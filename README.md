@@ -58,13 +58,13 @@ The database connection configuration file is located at `Connection/connectDB.p
 ### 5. Run the Application
 
 1.  Start **Apache** and **MySQL** from the XAMPP control panel.
-2.  Open your browser and navigate to: `http://localhost/Library/`
+2.  Open your browser and navigate to: `http://localhost/library/Library/`
 
 ## 📖 API Usage
 
 All API requests are handled through action files in the `Connection/actions/` directory. Each file handles a specific group of functions.
 
-**Main Endpoint:** `http://localhost/Library/Connection/actions/{action_file}.php?action={action_name}`
+**Main Endpoint:** `http://localhost/library/Library/Connection/actions/{action_file}.php?action={action_name}`
 
 
 # Frontend - Library Management System (React)
@@ -124,7 +124,7 @@ npm install
 
 ### 4. Configure API Endpoints
 
-API endpoints are hardcoded in the source (e.g., `http://localhost/Library/...`). If your backend is running on a different address, you will need to find and replace these URLs in the component files (e.g., `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
+API endpoints are hardcoded in the source (e.g., `http://localhost/library/Library/...`). If your backend is running on a different address, you will need to find and replace these URLs in the component files (e.g., `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
 
 **Recommendation:** For better management, consider creating a `src/apiConfig.js` file to store the base URL and import it into your components.
 

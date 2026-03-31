@@ -59,13 +59,13 @@ The database connection configuration file is located at `Connection/connectDB.p
 ### 5. Run the Application
 
 1.  Start **Apache** and **MySQL** from the XAMPP control panel.
-2.  Open your browser and navigate to: `http://localhost/Library/`
+2.  Open your browser and navigate to: `http://localhost/library/Library/`
 
 ## 📖 API Usage
 
 All API requests are handled through action files in the `Connection/actions/` directory. Each file handles a specific group of functions.
 
-**Main Endpoint:** `http://localhost/Library/Connection/actions/{action_file}.php?action={action_name}`
+**Main Endpoint:** `http://localhost/library/Library/Connection/actions/{action_file}.php?action={action_name}`
 
 ---
 
@@ -235,13 +235,13 @@ Tệp cấu hình kết nối cơ sở dữ liệu nằm tại `Connection/conne
 ### 5. Chạy ứng dụng
 
 1.  Khởi động **Apache** và **MySQL** từ bảng điều khiển XAMPP.
-2.  Mở trình duyệt và truy cập vào địa chỉ: `http://localhost/Library/`
+2.  Mở trình duyệt và truy cập vào địa chỉ: `http://localhost/library/Library/`
 
 ## 📖 Cách sử dụng API
 
 Tất cả các yêu cầu API được xử lý thông qua các tệp action trong thư mục `Connection/actions/`. Mỗi tệp xử lý một nhóm chức năng cụ thể.
 
-**Endpoint chính:** `http://localhost/Library/Connection/actions/{action_file}.php?action={action_name}`
+**Endpoint chính:** `http://localhost/library/Library/Connection/actions/{action_file}.php?action={action_name}`
 
 ---
 

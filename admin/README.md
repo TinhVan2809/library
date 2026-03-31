@@ -56,7 +56,7 @@ npm install
 
 ### 4. Configure API Endpoints
 
-API endpoints are hardcoded in the source (e.g., `http://localhost/Library/...`). If your backend is running on a different address, you will need to find and replace these URLs in the component files (e.g., `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
+API endpoints are hardcoded in the source (e.g., `http://localhost/library/Library/...`). If your backend is running on a different address, you will need to find and replace these URLs in the component files (e.g., `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
 
 **Recommendation:** For better management, consider creating a `src/apiConfig.js` file to store the base URL and import it into your components.
 
@@ -130,7 +130,7 @@ npm install
 
 ### 4. Cấu hình API Endpoint
 
-Các địa chỉ API được gọi trong code (ví dụ: `http://localhost/Library/...`). Nếu backend của bạn chạy ở một địa chỉ khác, bạn cần tìm và thay thế các URL này trong các file component (ví dụ: `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
+Các địa chỉ API được gọi trong code (ví dụ: `http://localhost/library/Library/...`). Nếu backend của bạn chạy ở một địa chỉ khác, bạn cần tìm và thay thế các URL này trong các file component (ví dụ: `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
 
 **Gợi ý:** Để quản lý tốt hơn, bạn có thể tạo một file `src/apiConfig.js` để lưu trữ URL gốc và import vào các component.
 

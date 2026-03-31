@@ -4,5 +4,8 @@
     "express": "^5.1.0",
     "mysql2": "^3.15.3",
     "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.10.12"
   }
 }

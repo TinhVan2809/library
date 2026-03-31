@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const SERVER_BASE = 'http://localhost/Library/';
+const SERVER_BASE = 'http://localhost/library/Library/';
 const GLOBAL_DEFAULT_PLACEHOLDER = '/placeholder.png'; // Ảnh mặc định toàn cục
 
 // Hàm xử lý URL, có thể được sử dụng nội bộ hoặc export ra ngoài nếu cần

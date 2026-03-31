@@ -31,9 +31,9 @@ function StudentList() {
     try {
       setLoading(true);
       const [studentsRes, majorsRes, facultiesRes] = await Promise.all([
-        fetch('http://localhost/Library/Connection/actions/actionForStudent.php?action=GetStudent'),
-        fetch('http://localhost/Library/Connection/actions/actionForMajor.php?action=getMajors'),
-        fetch('http://localhost/Library/Connection/actions/actionForFaculty.php?action=getFaculties')
+        fetch('http://localhost/library/Library/Connection/actions/actionForStudent.php?action=GetStudent'),
+        fetch('http://localhost/library/Library/Connection/actions/actionForMajor.php?action=getMajors'),
+        fetch('http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=getFaculties')
       ]);
       const studentsData = await studentsRes.json();
       const majorsData = await majorsRes.json();
@@ -82,7 +82,7 @@ function StudentList() {
     }
 
     try {
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForStudent.php?action=${action}`, {
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForStudent.php?action=${action}`, {
         method: 'POST',
         body: postData,
       });
@@ -107,7 +107,7 @@ function StudentList() {
   const handleGetStudentById = async (studentId) => {
     setEditingStudent(null); // Đóng form sửa khi xem chi tiết
     try { // Sửa lỗi chính tả: getStudentyById -> getStudentById
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForStudent.php?action=getStudentById&StudentID=${studentId}`);
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForStudent.php?action=getStudentById&StudentID=${studentId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -137,7 +137,7 @@ function StudentList() {
     postData.append('StudentID', studentId);
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForStudent.php?action=DeleteStudent', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForStudent.php?action=DeleteStudent', {
         method: 'POST',
         body: postData,
       });
@@ -343,8 +343,8 @@ function MajorManager() {
     try {
       setLoading(true);
       const [majorsRes, facultiesRes] = await Promise.all([
-        fetch('http://localhost/Library/Connection/actions/actionForMajor.php?action=getMajors'),
-        fetch('http://localhost/Library/Connection/actions/actionForFaculty.php?action=getFaculties')
+        fetch('http://localhost/library/Library/Connection/actions/actionForMajor.php?action=getMajors'),
+        fetch('http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=getFaculties')
       ]);
       const majorsData = await majorsRes.json();
       const facultiesData = await facultiesRes.json();
@@ -386,7 +386,7 @@ function MajorManager() {
     if (editingMajor) postData.append('MajorID', editingMajor.MajorID);
 
     try {
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForMajor.php?action=${action}`, {
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForMajor.php?action=${action}`, {
         method: 'POST', body: postData,
       });
       const result = await response.json();
@@ -411,7 +411,7 @@ function MajorManager() {
     const postData = new FormData();
     postData.append('MajorID', majorId);
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForMajor.php?action=deleteMajor', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForMajor.php?action=deleteMajor', {
         method: 'POST', body: postData,
       });
       const result = await response.json();
@@ -426,7 +426,7 @@ function MajorManager() {
   const handleGetMajorById = async (majorId) => {
     setEditingMajor(null); // Đóng form sửa khi xem chi tiết
     try {
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForMajor.php?action=getMajorById&MajorID=${majorId}`);
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForMajor.php?action=getMajorById&MajorID=${majorId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -532,7 +532,7 @@ function FacultyManager() {
   const fetchFaculties = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForFaculty.php?action=getFaculties');
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=getFaculties');
       const data = await response.json();
       if (data.success) {
       setFaculties(Array.isArray(data.data) ? data.data : []);
@@ -573,7 +573,7 @@ function FacultyManager() {
         postData.append('FacultyID', editingFaculty.FacultyID);
       }
 
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForFaculty.php?action=${action}`, {
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=${action}`, {
         method: 'POST',
         body: postData,
       });
@@ -623,7 +623,7 @@ function FacultyManager() {
   const handleGetFacultyById = async (facultyId) => {
     setEditingFaculty(null); // Đóng form sửa khi xem chi tiết
     try {
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForFaculty.php?action=getFacultyById&FacultyID=${facultyId}`);
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=getFacultyById&FacultyID=${facultyId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -653,7 +653,7 @@ function FacultyManager() {
     postData.append('FacultyID', facultyId);
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForFaculty.php?action=deleteFaculty', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForFaculty.php?action=deleteFaculty', {
         method: 'POST',
         body: postData,
       });

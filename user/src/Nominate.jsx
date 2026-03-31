@@ -12,7 +12,7 @@ function Nominate() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=getFullMostBookLoan');
+                const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=getFullMostBookLoan');
                 if (!response.ok) {
                     throw new Error(`Lỗi HTTP: ${response.status}`);
                 }

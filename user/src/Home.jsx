@@ -146,7 +146,7 @@ function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
       setIsSearching(true);
       try {
         // Gọi API với limit nhỏ để lấy gợi ý
-        const response = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=1&limit=7&search=${encodeURIComponent(debouncedSearchTerm)}`);
+        const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&page=1&limit=7&search=${encodeURIComponent(debouncedSearchTerm)}`);
         const result = await response.json();
         if (result.success && Array.isArray(result.data)) {
           setLiveSearchResults(result.data);
@@ -178,22 +178,22 @@ function BookList({ theme, setTheme }) { // Nhận props theme và setTheme
       try {
         
         // "live search".
-        let booksApiUrl = `http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}&limit=${booksPerPage}`;
+        let booksApiUrl = `http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}&limit=${booksPerPage}`;
         if (selectedCategoryId) {
           booksApiUrl += `&categoryId=${selectedCategoryId}`;
         }
 
         const [booksRes, authorsRes, categoriesRes, publishersRes, mostbookloanRes, seriesRes, lowStockBooksRes, booksallRes, favortiesRes, bookloanSildeRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
           fetch(booksApiUrl),
-          fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'), //Lấy tác giả
-          fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'), // Lấy thể loại
-          fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'), // Lấy nhà xuất bản
-          fetch('http://localhost/Library/Connection/actions/actionForBookLoans.php?action=getMostBookLoanForSlideShow'), 
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks'), // Fetch dữ liệu bộ sách (series)
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getLowStockBooks'),  // lấy số lượng sách còn ít 
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'), // Lấy tất cả sách để chạy slide liên tục
-          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks'), // Lấy sách yêu thích nhất
-          fetch('http://localhost/Library/Connection/actions/actionForBookloans.php?action=getBookLoanNearly')// Lấy sách được mượn gần đây
+          fetch('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'), //Lấy tác giả
+          fetch('http://localhost/library/Library/Connection/actions/actionForCategories.php?action=getCategory'), // Lấy thể loại
+          fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'), // Lấy nhà xuất bản
+          fetch('http://localhost/library/Library/Connection/actions/actionForBookLoans.php?action=getMostBookLoanForSlideShow'), 
+          fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks'), // Fetch dữ liệu bộ sách (series)
+          fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getLowStockBooks'),  // lấy số lượng sách còn ít 
+          fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getAllBooks'), // Lấy tất cả sách để chạy slide liên tục
+          fetch('http://localhost/library/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks'), // Lấy sách yêu thích nhất
+          fetch('http://localhost/library/Library/Connection/actions/actionForBookloans.php?action=getBookLoanNearly')// Lấy sách được mượn gần đây
         ]);
 
         // kiểm tra tất cả response trước khi parse

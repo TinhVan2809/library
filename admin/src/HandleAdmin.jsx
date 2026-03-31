@@ -35,7 +35,7 @@ function AddAdminForm() {
     }
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/action.php?action=AddAdmin', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/action.php?action=AddAdmin', {
         method: 'POST',
         body: postData,
       });
@@ -124,7 +124,7 @@ function GetAdmin() {
 
   const handleGetAdminById = async (AdminID) => {
     try {
-      const response = await fetch(`http://localhost/Library/Connection/actions/action.php?action=getAdminById&AdminID=${AdminID}`);
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/action.php?action=getAdminById&AdminID=${AdminID}`);
       if (!response.ok) {
         throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
       }
@@ -151,7 +151,7 @@ function GetAdmin() {
     postData.append('AdminID', adminId);
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/action.php?action=DeleteAdmin', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/action.php?action=DeleteAdmin', {
         method: 'POST',
         body: postData,
       });
@@ -201,7 +201,7 @@ function GetAdmin() {
     }
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/action.php?action=UpdateAdmin', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/action.php?action=UpdateAdmin', {
         method: 'POST',
         body: postData,
       });
@@ -232,7 +232,7 @@ function GetAdmin() {
     const fetchAdmins = async () => {
       try {
         // Giả sử action để lấy danh sách admin là 'getAdmins'
-        const response = await fetch('http://localhost/Library/Connection/actions/action.php?action=getAdmins');
+        const response = await fetch('http://localhost/library/Library/Connection/actions/action.php?action=getAdmins');
         if (!response.ok) {
           throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
         }

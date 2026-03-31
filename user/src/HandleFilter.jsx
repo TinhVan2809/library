@@ -119,7 +119,7 @@ function HandleFilter() {
       setIsSearching(true);
       try {
         // Gọi API với limit nhỏ để lấy gợi ý
-        const response = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=1&limit=7&search=${encodeURIComponent(debouncedSearchTerm)}`);
+        const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&page=1&limit=7&search=${encodeURIComponent(debouncedSearchTerm)}`);
         const result = await response.json();
         if (result.success && Array.isArray(result.data)) {
           setLiveSearchResults(result.data);
@@ -148,7 +148,7 @@ function HandleFilter() {
       try {
         
         // "live search".
-        let booksApiUrl = `http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}&limit=${booksPerPage}`;
+        let booksApiUrl = `http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}&limit=${booksPerPage}`;
 
         if (selectedCategoryId) {
           booksApiUrl += `&categoryId=${selectedCategoryId}`;
@@ -162,10 +162,10 @@ function HandleFilter() {
 
         const [booksRes, categoriesRes, publishersRes, booksallRes, favortiesRes] = await Promise.all([ // Cập nhật API để hỗ trợ phân trang
           fetch(booksApiUrl),
-          fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
-          fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),   
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllBooks'),
-          fetch('http://localhost/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks')
+          fetch('http://localhost/library/Library/Connection/actions/actionForCategories.php?action=getCategory'),
+          fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),   
+          fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getAllBooks'),
+          fetch('http://localhost/library/Library/Connection/actions/actionForFavorites.php?action=getTopFavoritedBooks')
         ]);
 
         // kiểm tra tất cả response trước khi parse

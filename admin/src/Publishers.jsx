@@ -18,8 +18,8 @@ function HandlePublishers() {
         const fetchPublisherData = async () => {
             try{
                 const [publisherRes, countPublisherRes] = await Promise.all([
-                    fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
-                    fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
+                    fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
+                    fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
 
                 ]); 
 
@@ -114,7 +114,7 @@ function HandlePublishers() {
                 params.append(key, newPublisher[key]);
             }
 
-            const res = await fetch('http://localhost/Library/Connection/actions/actionForPublishers.php', {
+            const res = await fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString(),
@@ -165,7 +165,7 @@ function HandlePublishers() {
                 params.append(key, editFormData[key]);
             }
 
-            const res = await fetch('http://localhost/Library/Connection/actions/actionForPublishers.php', {
+            const res = await fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString(),
@@ -192,7 +192,7 @@ function HandlePublishers() {
             params.append('action', 'DeletePublisher');
             params.append('PublisherID', String(PublisherID));
 
-            const res = await fetch('http://localhost/Library/Connection/actions/actionForPublishers.php', {
+            const res = await fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
                 body: params.toString(),

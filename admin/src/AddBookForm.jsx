@@ -48,10 +48,10 @@ function AddBookForm({ onBookAdded }) {
     const loadAllData = async () => {
       setLoading(true);
       await Promise.all([
-        fetchData('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors', setAuthors),
-        fetchData('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory', setCategories),
-        fetchData('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers', setPublishers),
-        fetchData('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllSeries', setBookSeries), // Lấy danh sách bộ sách
+        fetchData('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=GetAuthors', setAuthors),
+        fetchData('http://localhost/library/Library/Connection/actions/actionForCategories.php?action=getCategory', setCategories),
+        fetchData('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers', setPublishers),
+        fetchData('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getAllSeries', setBookSeries), // Lấy danh sách bộ sách
       ]);
       setLoading(false);
     };
@@ -142,7 +142,7 @@ function AddBookForm({ onBookAdded }) {
           Swal.showLoading();
         },
       });
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=AddBook', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=AddBook', {
         method: 'POST',
         body: postData,
         // Không set Content-Type — để browser tự thiết lập multipart/form-data boundary
@@ -283,7 +283,7 @@ function GetBooks({ refreshKey }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // --- moved helper lên scope của GetBooks để các hàm khác có thể dùng ---
-  const SERVER_BASE = 'http://localhost/Library/'; // chỉnh nếu cần
+  const SERVER_BASE = 'http://localhost/library/Library/'; // chỉnh nếu cần
   const getFullImageUrl = (path) => {
     if (!path || typeof path !== 'string') return null;
     // Nếu đã là URL tuyệt đối, trả về ngay
@@ -306,11 +306,11 @@ function GetBooks({ refreshKey }) {
       try {
         const [booksRes, authorsRes, categoriesRes, publishersRes, bookSeriesRes] = await Promise.all([
           // Gọi API với trang hiện tại
-          fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}`),
-          fetch('http://localhost/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'),
-          fetch('http://localhost/Library/Connection/actions/actionForCategories.php?action=getCategory'),
-          fetch('http://localhost/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
-          fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=getAllSeries'),
+          fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBooks&page=${currentPage}`),
+          fetch('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=GetAuthors'),
+          fetch('http://localhost/library/Library/Connection/actions/actionForCategories.php?action=getCategory'),
+          fetch('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=GetPublishers'),
+          fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getAllSeries'),
         ]);
         
         if (!booksRes.ok) throw new Error(`Lỗi HTTP! Trạng thái: ${booksRes.status}`);
@@ -387,7 +387,7 @@ function GetBooks({ refreshKey }) {
   const handleGetBookById = async (bookId) => {
     try {
       setEditingBook(null);
-      const response = await fetch(`http://localhost/Library/Connection/actions/actionForBooks.php?action=getBookById&BooksID=${bookId}`);
+      const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getBookById&BooksID=${bookId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -422,7 +422,7 @@ function GetBooks({ refreshKey }) {
       params.append('action', 'DeleteBookById');
       params.append('BooksID', String(BooksID));
 
-      const res = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php', {
+      const res = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
@@ -515,7 +515,7 @@ function GetBooks({ refreshKey }) {
     }
 
     try {
-      const response = await fetch('http://localhost/Library/Connection/actions/actionForBooks.php?action=UpdateBook', {
+      const response = await fetch('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=UpdateBook', {
         method: 'POST',
         body: postData,
       });

@@ -91,11 +91,11 @@ function HandleDashbroad() {
             try {
                 const [statsRes, chatRes] = await Promise.all([
                     Promise.all([
-                        fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
-                        fetchStat('http://localhost/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
-                        fetchStat('http://localhost/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
-                        fetchStat('http://localhost/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
-                        fetchStat('http://localhost/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
+                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
+                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
+                        fetchStat('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
+                        fetchStat('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
+                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
                     ]),
                     fetch('http://localhost:3001/api/chat/messages')
                 ]);

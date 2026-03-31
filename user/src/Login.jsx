@@ -21,7 +21,7 @@ function LoginForm() {
         postData.append('Password', password);
 
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForStudent.php?action=login', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForStudent.php?action=login', {
                 method: 'POST',
                 body: postData,
             });

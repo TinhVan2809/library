@@ -31,7 +31,7 @@ function HandleChatMessage() {
             setError(null);
             try {
                 // Lấy danh sách admin
-                const adminResponse = await fetch('http://localhost/Library/Connection/actions/action.php?action=getAdmins');
+                const adminResponse = await fetch('http://localhost/library/Library/Connection/actions/action.php?action=getAdmins');
                 const adminResult = await adminResponse.json();
                 if (adminResult.success) {
                     setAdmin(adminResult.data);

@@ -369,7 +369,7 @@ case 'AddBook':
                     $deleteSuppStmt = $db->prepare("DELETE FROM book_supplementary_images WHERE BooksID = ? AND image_url_sp = ?");
                     foreach ($deletedImages as $imgUrl) {
                         // Chuyển đổi URL tuyệt đối từ client về đường dẫn tương đối
-                        $relativePath = str_replace('http://localhost/Library/', '', $imgUrl);
+                        $relativePath = str_replace('http://localhost/library/Library/', '', $imgUrl);
                         $deleteSuppStmt->execute([$bookId, $relativePath]);
                         // Xóa file vật lý
                         if (file_exists(__DIR__ . '/../../' . $relativePath)) {

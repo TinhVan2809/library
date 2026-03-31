@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 const BookcaseContext = createContext(null);
 
 const getFullImageUrl = (path) => {
-    const SERVER_BASE = 'http://localhost/Library/';
+    const SERVER_BASE = 'http://localhost/library/Library/';
     if (!path) return null;
     if (/^https?:\/\//i.test(path)) return path;
     return `${SERVER_BASE}${path.replace(/^\/+/, '')}`;
@@ -19,7 +19,7 @@ export const BookcaseProvider = ({ children }) => {
         if (!user) return;
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost/Library/Connection/actions/actionForMyList.php?action=getListByStudent&StudentID=${user.StudentID}`);
+            const response = await fetch(`http://localhost/library/Library/Connection/actions/actionForMyList.php?action=getListByStudent&StudentID=${user.StudentID}`);
             const result = await response.json();
             if (result.success) {
                 const normalizedData = result.data.map(item => ({
@@ -61,7 +61,7 @@ export const BookcaseProvider = ({ children }) => {
         const postData = new FormData();
         postData.append('ListID', listId);
         try {
-            const response = await fetch('http://localhost/Library/Connection/actions/actionForMyList.php?action=deleteFromList', {
+            const response = await fetch('http://localhost/library/Library/Connection/actions/actionForMyList.php?action=deleteFromList', {
                 method: 'POST',
                 body: postData,
             });
