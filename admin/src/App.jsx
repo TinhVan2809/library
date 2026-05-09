@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import './css/App.css';
-import './css/HandleAdmin.css';
-import './css/home.css'
-import AdminManager from './HandleAdmin.jsx';
-import Home from './Home.jsx';
-import StudentManager from './StudentManager.jsx';
-import BookloansManager from './BookloansManager.jsx';
-import './css/StudentManager.css';
-import './css/Dashbroad.css'; 
-import './css/HandleSeries.css';
-import './css/Book.css';
-import './css/BookLoans.css';
+import './styles/App.css';
+import './styles/HandleAdmin.css';
+import './styles/home.css'
+import AdminManager from './pages/HandleAdmin.jsx';
+import Home from './pages/Home.jsx';
+import StudentManager from './pages/StudentManager.jsx';
+import BookloansManager from './pages/BookloansManager.jsx';
+import './styles/StudentManager.css';
+import './styles/Dashbroad.css'; 
+import './styles/HandleSeries.css';
+import './styles/Book.css';
+import './styles/BookLoans.css';
 
 
 // Một object để map tên tab với component tương ứng

@@ -6,7 +6,7 @@ import Slider from 'react-slick'; // Import Slider
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-import Image from './Image'; // Import component Image mới
+import Image from '../components/Image'; // Import component Image mới
 
 // Component Modal đơn giản
 function Modal({ isOpen, onClose, children, title }) {  // eslint-disable-line

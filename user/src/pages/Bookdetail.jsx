@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Slider from 'react-slick'; // Import Slider
 import Swal from 'sweetalert2';
-import { useAuth } from './AuthContext';
-import ReviewItem from './ReviewItem';
+import { useAuth } from '../contexts/AuthContext';
+import ReviewItem from '../components/ReviewItem';
 
 // Import CSS cho react-slick
 import "slick-carousel/slick/slick.css"; 

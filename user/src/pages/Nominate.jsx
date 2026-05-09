@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Image from './Image'; // Sử dụng lại component Image
+import Image from '../components/Image'; // Sử dụng lại component Image
 
 function Nominate() {
     const [topBooks, setTopBooks] = useState([]);

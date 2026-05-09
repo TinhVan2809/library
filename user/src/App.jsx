@@ -1,43 +1,43 @@
 import { useState, useEffect } from 'react';
-import BookList from './Home';
-import Footer from './Footer';
-import LoginForm from './Login';
+import BookList from './pages/Home';
+import Footer from './components/Footer';
+import LoginForm from './pages/Login';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
-import MyBrrows from './Mybrrows';
-import BookDetail from './Bookdetail';
-import ProtectedRoute from './ProtectedRoute';
-import SeriesPage from './SeriesPage'; // Import component mới
-import { AuthProvider, useAuth } from './AuthContext'; 
-import Nominnate from './Nominate';
-import ContactUs from './ContactUs';
-import './cssuser/theme.css';
-// import ThemeToggle from './ThemeToggle';
-import CreateAccount from './CreateAccount';
-import Profile from './Profile';
-import HandleMyListBook from './MyListBook';
-import HandleFilter from './HandleFilter';
-import HandleNotification from './Notification';
-import HandleChatMessage  from './Chat';
-import HandleSidebar from './Sidebar';
-import HandleAbout from './about/About';
+import MyBrrows from './pages/Mybrrows';
+import BookDetail from './pages/Bookdetail';
+import ProtectedRoute from './components/ProtectedRoute';
+import SeriesPage from './pages/SeriesPage'; // Import component mới
+import { AuthProvider, useAuth } from './contexts/AuthContext'; 
+import Nominnate from './pages/Nominate';
+import ContactUs from './pages/ContactUs';
+import './styles/theme.css';
+// import ThemeToggle from './components/ThemeToggle';
+import CreateAccount from './pages/CreateAccount';
+import Profile from './pages/Profile';
+import HandleMyListBook from './pages/MyListBook';
+import HandleFilter from './pages/HandleFilter';
+import HandleNotification from './pages/Notification';
+import HandleChatMessage  from './components/Chat';
+import HandleSidebar from './components/Sidebar';
+import HandleAbout from './pages/about/About';
 
-import './cssuser/App.css'
-import './cssuser/Home.css'
-import './cssuser/footer.css'
-import './cssuser/Login.css'
-import './cssuser/Nominate.css'
-import './cssuser/BookDetail.css'
-import './cssuser/ContactUs.css'
-import './cssuser/SeriesPage.css' 
-import './cssuser/Filter.css'
-import './cssuser/Profile.css'
-import './cssuser/MyList.css'
-import './cssuser/Sidebar.css'
-import './cssuser/about.css'
+import './styles/App.css'
+import './styles/Home.css'
+import './styles/footer.css'
+import './styles/Login.css'
+import './styles/Nominate.css'
+import './styles/BookDetail.css'
+import './styles/ContactUs.css'
+import './styles/SeriesPage.css' 
+import './styles/Filter.css'
+import './styles/Profile.css'
+import './styles/MyList.css'
+import './styles/Sidebar.css'
+import './styles/about.css'
 
-import Image from './Image'; // Import component Image mới
+import Image from './components/Image'; // Import component Image mới
 
-import { BookcaseProvider, useBookcase } from './BookcaseContext';
+import { BookcaseProvider, useBookcase } from './contexts/BookcaseContext';
 function Navigation() {
   // Người dùng
     const navigate = useNavigate();

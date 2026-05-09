@@ -1,95 +1,95 @@
 
 # Backend - Library Management System 
 
-A simple library management system built with PHP, React, and a MySQL/MariaDB database. This project provides core functionalities to manage books, students, and book loans in a school library environment.
+Đây là một hệ thống quản lý thư viện đơn giản được xây dựng bằng React và cơ sở dữ liệu MySQL/MariaDB. Dự án cung cấp các chức năng cốt lõi để quản lý sách, học sinh và việc mượn sách trong môi trường thư viện trường học.
 
 ## ✨ Key Features
 
--   **Book Management:** Add, edit, delete, and view detailed information of books (ISBN, author, publisher, stock quantity).
--   **Student & Admin Management:** Manage user accounts for students and administrators.
+-   **Book Management:** Thêm, sửa, xóa và xem thông tin chi tiết của sách (ISBN, author, publisher, stock quantity).
+-   **Student & Admin Management:** Quản lý tài khoản người dùng cho học sinh và quản trị viên.
 -   **Book Loan/Return System:**
-    -   Students can submit requests to borrow books.
-    -   Administrators can approve or reject requests.
-    -   Track book status: borrowed, returned, overdue.
+    -   Học sinh có thể gửi yêu cầu mượn sách.
+    -   Quản trị viên có thể duyệt hoặc từ chối yêu cầu.
+    -   Theo dõi trạng thái sách: borrowed, returned, overdue.
 -   **User Interaction:**
-    -   Search and filter books by various criteria.
-    -   Add books to a favorites list.
-    -   Write and view book reviews.
-    -   Receive notifications about book loan statuses.
--   **API Backend:** Provides structured endpoints to communicate with the database.
+    -   Tìm kiếm và lọc sách theo nhiều tiêu chí.
+    -   Thêm sách vào danh sách favorites.
+    -   Viết và xem đánh giá sách.
+    -   Nhận thông báo về trạng thái mượn sách.
+-   **API Backend:** Cung cấp các endpoint có cấu trúc để giao tiếp với cơ sở dữ liệu.
 
 ## 🛠️ Tech Stack
 
 -   **Backend:** PHP
 -   **Database:** MySQL / MariaDB
--   **Web Server:** Apache (recommended to use within a XAMPP environment)
+-   **Web Server:** Apache (khuyến nghị sử dụng trong môi trường XAMPP)
 
 ## 🚀 Setup and Run Instructions
 
-Follow these steps to install and run the project on your local machine.
+Làm theo các bước sau để cài đặt và chạy dự án trên máy local của bạn.
 
 ### 1. Prerequisites
 
-Ensure you have a local web server environment installed, such as **XAMPP** or **WAMP**.
+Đảm bảo bạn đã cài đặt môi trường web server local, ví dụ **XAMPP** hoặc **WAMP**.
 
 ### 2. Clone the Repository
 
-Clone this repository into the `htdocs` directory of XAMPP:
+Clone repository này vào thư mục `htdocs` của XAMPP:
 ```bash
 git clone <YOUR_REPOSITORY_URL> C:/xampp/htdocs/Library
 ```
 
 ### 3. Database Setup
 
-1.  Open **phpMyAdmin** from the XAMPP control panel.
-2.  Create a new database named `library`.
-3.  Select the newly created `library` database, then go to the **Import** tab.
-4.  Choose the `library.sql` file from the project's root directory and click **Import** to import the structure and sample data.
+1.  Mở **phpMyAdmin** từ XAMPP control panel.
+2.  Tạo một database mới tên là `library`.
+3.  Chọn database `library` vừa tạo, sau đó vào tab **Import**.
+4.  Chọn file `library.sql` ở thư mục root của dự án và bấm **Import** để import cấu trúc cùng dữ liệu mẫu.
 
 ### 4. Connection Configuration
 
-The database connection configuration file is located at `Connection/connectDB.php`. Open this file and ensure the following information is correct for your environment:
+File cấu hình kết nối database nằm tại `Connection/connectDB.php`. Hãy mở file này và đảm bảo các thông tin sau đúng với môi trường của bạn:
 
 -   `$this->db_name = 'library';`
 -   `$this->db_user = 'root';`
--   `$this->db_pass = '';` // The default password for XAMPP is empty
+-   `$this->db_pass = '';` // Password mặc định của XAMPP là rỗng
 -   `$this->db_host = 'localhost';`
 
 ### 5. Run the Application
 
-1.  Start **Apache** and **MySQL** from the XAMPP control panel.
-2.  Open your browser and navigate to: `http://localhost/library/Library/`
+1.  Khởi động **Apache** và **MySQL** từ XAMPP control panel.
+2.  Mở trình duyệt và truy cập: `http://localhost/library/Library/`
 
 ## 📖 API Usage
 
-All API requests are handled through action files in the `Connection/actions/` directory. Each file handles a specific group of functions.
+Tất cả API request được xử lý thông qua các action file trong thư mục `Connection/actions/`. Mỗi file phụ trách một nhóm chức năng cụ thể.
 
 **Main Endpoint:** `http://localhost/library/Library/Connection/actions/{action_file}.php?action={action_name}`
 
 
 # Frontend - Library Management System (React)
 
-This is the frontend part of the **Library Management System** project, built entirely with **React**. This application provides an intuitive, modern, and user-friendly interface for users (students) and administrators to interact with the library's features, connecting to a PHP-built backend.
+Đây là phần frontend của dự án **Library Management System**, được xây dựng hoàn toàn bằng **React**. Ứng dụng cung cấp giao diện trực quan, hiện đại và thân thiện cho người dùng (học sinh) và quản trị viên tương tác với các tính năng của thư viện, kết nối với backend viết bằng PHP.
 
 ## ✨ Key Features
 
 ### For Administrators
 -   **Book Management (CRUD):**
-    -   An interface to add new books with complete information: ISBN, author, publisher, cover image, supplementary images, book series, etc.
-    -   View, edit, and delete books from the system.
-    -   Forms are pre-populated with lists (authors, categories, publishers) for quick data entry.
--   **Account Management:** An interface to add, edit, and delete administrator accounts.
--   **Dynamic Interaction:** Uses alerts (SweetAlert2) to confirm actions and provide immediate user feedback.
+    -   Giao diện thêm sách mới với đầy đủ thông tin: ISBN, author, publisher, cover image, supplementary images, book series, v.v.
+    -   Xem, chỉnh sửa và xóa sách khỏi hệ thống.
+    -   Form được pre-populated với các danh sách (authors, categories, publishers) để nhập liệu nhanh hơn.
+-   **Account Management:** Giao diện thêm, sửa, xóa tài khoản quản trị viên.
+-   **Dynamic Interaction:** Sử dụng alert (SweetAlert2) để xác nhận thao tác và phản hồi tức thì cho người dùng.
 
 ### For Users (Students)
 -   **Book Discovery:**
-    -   View detailed book information, including descriptions, cover images, and multiple supplementary photos.
-    -   View related books (same category, same author, same series) in an intuitive slider format.
+    -   Xem thông tin chi tiết sách, bao gồm mô tả, cover image và nhiều supplementary photos.
+    -   Xem sách liên quan (cùng category, cùng author, cùng series) dưới dạng slider trực quan.
 -   **Book Interaction:**
-    -   Submit book loan requests.
-    -   Add books to a favorites list with real-time effects and like-count updates.
-    -   Write and submit reviews (star ratings and comments).
--   **Modern UI:** Utilizes `react-slick` for book sliders and `react-router-dom` for smooth page navigation.
+    -   Gửi yêu cầu mượn sách.
+    -   Thêm sách vào danh sách favorites với hiệu ứng real-time và cập nhật like-count.
+    -   Viết và gửi review (star ratings và comments).
+-   **Modern UI:** Sử dụng `react-slick` cho book slider và `react-router-dom` để điều hướng trang mượt mà.
 
 ## 🛠️ Tech Stack
 
@@ -101,12 +101,12 @@ This is the frontend part of the **Library Management System** project, built en
 
 ## 🚀 Setup and Run Instructions
 
-Follow these steps to set up and run the frontend on your local machine.
+Làm theo các bước sau để cài đặt và chạy frontend trên máy local của bạn.
 
 ### 1. Prerequisites
 
--   Node.js (version 16.x or later) and npm installed.
--   The **PHP Backend** must be installed and running (see the `README.md` in the backend directory).
+-   Đã cài Node.js (version 16.x trở lên) và npm.
+-   **PHP Backend** phải được cài đặt và đang chạy (xem `README.md` trong thư mục backend).
 
 ### 2. Clone the Repository
 
@@ -117,20 +117,20 @@ cd my-library-app
 
 ### 3. Install Dependencies
 
-Open a terminal in the project directory and run:
+Mở terminal trong thư mục dự án và chạy:
 ```bash
 npm install
 ```
 
 ### 4. Configure API Endpoints
 
-API endpoints are hardcoded in the source (e.g., `http://localhost/library/Library/...`). If your backend is running on a different address, you will need to find and replace these URLs in the component files (e.g., `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
+API endpoint đang được hardcoded trong source (ví dụ: `http://localhost/library/Library/...`). Nếu backend của bạn chạy ở địa chỉ khác, bạn cần tìm và thay thế các URL này trong các component file (ví dụ: `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
 
-**Recommendation:** For better management, consider creating a `src/apiConfig.js` file to store the base URL and import it into your components.
+**Recommendation:** Để quản lý tốt hơn, bạn có thể tạo file `src/apiConfig.js` để lưu base URL rồi import vào các component.
 
 ### 5. Run the Application
 
-After installation, run the following command to start the development server:
+Sau khi cài đặt, chạy command sau để khởi động development server:
 ```bash
 cd user || admin
 npm run dev
@@ -142,9 +142,5 @@ cd nodejs_express
 node server.js
 ```
 
-The application will automatically open in your browser at `http://localhost:3000`.
-
-
-
-![image_alt](https://github.com/TinhVan2809/library/blob/8a5d5f2e106f9b4dd59c9ac847d6e26e66278064/Screenshot%202025-11-03%20193925.png)
+![image_alt](/user/public/img.png)
 

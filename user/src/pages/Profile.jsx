@@ -1,5 +1,5 @@
 import { useState, useEffect, use } from "react";
-import { useAuth } from "./AuthContext"; // 1. Import useAuth
+import { useAuth } from "../contexts/AuthContext"; // 1. Import useAuth
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 

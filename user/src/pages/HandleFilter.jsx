@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import Image from './Image'; // Sử dụng component Image để xử lý ảnh
+import Image from '../components/Image'; // Sử dụng component Image để xử lý ảnh
 
 // Component phân trang
 function Pagination({ currentPage, totalPages, onPageChange, pageNeighbours = 1 }) {

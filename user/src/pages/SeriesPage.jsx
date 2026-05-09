@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Image from './Image'; // Sử dụng component Image để xử lý ảnh
-import './cssuser/SeriesPage.css'; // File CSS mới cho trang này
+import Image from '../components/Image'; // Sử dụng component Image để xử lý ảnh
+import '../styles/SeriesPage.css'; // File CSS mới cho trang này
 
 function SeriesPage() {
     const [seriesList, setSeriesList] = useState([]);
