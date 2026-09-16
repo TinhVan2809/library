@@ -87,7 +87,7 @@ function HandleSidebar() {
 
     // Fetch ads from an API (try multiple candidate URLs)
     useEffect(() => {
-        const ADS_API_CANDIDATES = ['/api/ads', 'http://libraryuni.free.nf:3000/api/ads', 'http://libraryuni.free.nf:4000/api/ads'];
+        const ADS_API_CANDIDATES = ['/api/ads', 'https://libraryuni.free.nf:3000/api/ads', 'https://libraryuni.free.nf:4000/api/ads'];
         let mounted = true;
         const controller = new AbortController();
 

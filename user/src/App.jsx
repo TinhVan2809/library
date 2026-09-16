@@ -58,7 +58,7 @@ function Navigation() {
 
 
 
-    const SERVER_BASE = 'http://libraryuni.free.nf/library/Library/';
+    const SERVER_BASE = 'https://libraryuni.free.nf/library/Library/';
     // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh, sử dụng proxy script
     const getFullImageUrl = (path) => {
       if (!path) return null;
@@ -75,7 +75,7 @@ function Navigation() {
 
         const fetchNotifications = async () => {
             try {
-                const response = await fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=getUnread&StudentID=${user.StudentID}`);
+                const response = await fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=getUnread&StudentID=${user.StudentID}`);
                
                 const result = await response.json();
                 if (result.success) {
@@ -101,7 +101,7 @@ function Navigation() {
         postData.append('StudentID', user.StudentID);
 
         try {
-            await fetch('http://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=markAsRead', {
+            await fetch('https://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=markAsRead', {
                 method: 'POST',
                 body: postData,
             });

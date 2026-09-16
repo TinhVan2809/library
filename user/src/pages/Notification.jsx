@@ -23,7 +23,7 @@ function HandleNotification() {
         try{
 
                const [notificationRes] = await Promise.all([
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=getNotificationsByStudent&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForNotifications.php?action=getNotificationsByStudent&StudentID=${user.StudentID}`),
                    
                 ]);
 

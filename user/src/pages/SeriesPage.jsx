@@ -13,7 +13,7 @@ function SeriesPage() {
         const fetchSeriesData = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://libraryuni.free.nf/library/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks');
+                const response = await fetch('https://libraryuni.free.nf/library/Library/Connection/actions/actionForBooks.php?action=getSeriesWithBooks');
                 if (!response.ok) {
                     throw new Error(`Lỗi HTTP: ${response.status}`);
                 }

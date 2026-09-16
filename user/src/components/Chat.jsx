@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import io from 'socket.io-client';
 
 
-const socket = io('http://libraryuni.free.nf:3001');
+const socket = io('https://libraryuni.free.nf:3001');
 
 function HandleChatMessage() {
     const { user } = useAuth();
@@ -31,7 +31,7 @@ function HandleChatMessage() {
             setError(null);
             try {
                 // Lấy danh sách admin
-                const adminResponse = await fetch('http://libraryuni.free.nf/library/Library/Connection/actions/action.php?action=getAdmins');
+                const adminResponse = await fetch('https://libraryuni.free.nf/library/Library/Connection/actions/action.php?action=getAdmins');
                 const adminResult = await adminResponse.json();
                 if (adminResult.success) {
                     setAdmin(adminResult.data);
@@ -39,7 +39,7 @@ function HandleChatMessage() {
 
                 // Lấy lịch sử tin nhắn (nếu đã đăng nhập)
                 if (user?.StudentID) {
-                    const messagesResponse = await fetch(`http://libraryuni.free.nf:3001/api/chat/messages?studentID=${user.StudentID}`);
+                    const messagesResponse = await fetch(`https://libraryuni.free.nf:3001/api/chat/messages?studentID=${user.StudentID}`);
                     const messagesResult = await messagesResponse.json();
                     if (messagesResult.success) {
                         setMessages(messagesResult.data);
@@ -175,7 +175,7 @@ function HandleChatMessage() {
         setRecallingIds(prev => [...prev, chatId]);
         setError(null);
         try {
-            const resp = await fetch(`http://libraryuni.free.nf:3001/api/chat/delete/${chatId}`, {
+            const resp = await fetch(`https://libraryuni.free.nf:3001/api/chat/delete/${chatId}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' }
             });

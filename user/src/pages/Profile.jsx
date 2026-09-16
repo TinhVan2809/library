@@ -39,10 +39,10 @@ function Profile() {
             // Gộp cả hai fetch vào một Promise.all để tối ưu
             try {
                 const [profileRes, countRes, coutBookLoanRes, countReviewRes] = await Promise.all([ // Chỉ dùng cho hành động get
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForStudent.php?action=getStudentById&StudentID=${user.StudentID}`),
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForFavorites.php?action=getCountFavoritesByStudentId&StudentID=${user.StudentID}`),
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getCountBookLoanByStudentId&StudentID=${user.StudentID}`),
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getCountReviewByStudent&StudentID=${user.StudentID}`)
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForStudent.php?action=getStudentById&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForFavorites.php?action=getCountFavoritesByStudentId&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getCountBookLoanByStudentId&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getCountReviewByStudent&StudentID=${user.StudentID}`)
                 ]);
 
                 if (!profileRes.ok) throw new Error(`Lỗi tải profile: ${profileRes.status}`);
@@ -87,7 +87,7 @@ function Profile() {
         fetchProfileData();
     }, [user]); // 7. Thêm user vào dependency array
 
-    const SERVER_BASE = 'http://libraryuni.free.nf/library/Library/';
+    const SERVER_BASE = 'https://libraryuni.free.nf/library/Library/';
 
     // Hàm trợ giúp để tạo URL tuyệt đối cho hình ảnh
   const getFullImageUrl = (path) => {
@@ -124,7 +124,7 @@ function Profile() {
         formData.append('avatar', avatarFile);
 
         try {
-            const response = await fetch('http://libraryuni.free.nf/library/Library/Connection/actions/actionForStudent.php?action=updateAvatar', {
+            const response = await fetch('https://libraryuni.free.nf/library/Library/Connection/actions/actionForStudent.php?action=updateAvatar', {
                 method: 'POST',
                 body: formData,
             });
@@ -313,7 +313,7 @@ function HandleLike({ onBack }) {
         setError(null);
         try{
             
-            const response = await fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForFavorites.php?action=getFavoritesByStudentId&StudentID=${user.StudentID}`);
+            const response = await fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForFavorites.php?action=getFavoritesByStudentId&StudentID=${user.StudentID}`);
             if (!response.ok) {
                 throw new Error(`Lỗi HTTP: ${response.status}`);
             }
@@ -337,7 +337,7 @@ function HandleLike({ onBack }) {
 
    }, [user]);
 
-           const SERVER_BASE = 'http://libraryuni.free.nf/library/Library/';
+           const SERVER_BASE = 'https://libraryuni.free.nf/library/Library/';
 
             const getFullImageUrl = (path) => {
                 if (!path) return null;
@@ -420,8 +420,8 @@ function HandleBrowed({ onBack }) {
 
             try{
                 const [browedRes, countRes] = await Promise.all([
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getBookLoansByStudent&StudentID=${user.StudentID}`),
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getCountBookLoanByStudentId&StudentID=${user.StudentID}`)
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getBookLoansByStudent&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoans.php?action=getCountBookLoanByStudentId&StudentID=${user.StudentID}`)
                 ]);
 
                 if(!browedRes.ok) throw new Error(`Lỗi khi tải danh sách đã mượn: ${browedRes.status}`);
@@ -455,7 +455,7 @@ function HandleBrowed({ onBack }) {
     }, [user]);
 
     
-    const SERVER_BASE = 'http://libraryuni.free.nf/library/Library/';
+    const SERVER_BASE = 'https://libraryuni.free.nf/library/Library/';
 
 const getFullImageUrl = (path) => {
     if (!path) return null;
@@ -527,8 +527,8 @@ function HandleReviewed({ onBack }) {
 
             try{
                 const [reviewRes, countReviewRes] = await Promise.all([
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getReviewByStudentId&StudentID=${user.StudentID}`),
-                    fetch(`http://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getCountReviewByStudent&StudentID=${user.StudentID}`)
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getReviewByStudentId&StudentID=${user.StudentID}`),
+                    fetch(`https://libraryuni.free.nf/library/Library/Connection/actions/actionForReview.php?action=getCountReviewByStudent&StudentID=${user.StudentID}`)
                 ]);
 
                 if(!reviewRes.ok) throw new Error(`Lỗi tải review: ${reviewRes.status}`);
@@ -562,7 +562,7 @@ function HandleReviewed({ onBack }) {
         fetchReviewData();
     }, [user]);
 
-    const SERVER_BASE = 'http://libraryuni.free.nf/library/Library/';
+    const SERVER_BASE = 'https://libraryuni.free.nf/library/Library/';
 
 const getFullImageUrl = (path) => {
     if (!path) return null;
