@@ -53,18 +53,18 @@ File cấu hình kết nối database nằm tại `Connection/connectDB.php`. H�
 -   `$this->db_name = 'library';`
 -   `$this->db_user = 'root';`
 -   `$this->db_pass = '';` // Password mặc định của XAMPP là rỗng
--   `$this->db_host = 'localhost';`
+-   `$this->db_host = 'libraryuni.free.nf';`
 
 ### 5. Run the Application
 
 1.  Khởi động **Apache** và **MySQL** từ XAMPP control panel.
-2.  Mở trình duyệt và truy cập: `http://localhost/library/Library/`
+2.  Mở trình duyệt và truy cập: `http://libraryuni.free.nf/library/Library/`
 
 ## 📖 API Usage
 
 Tất cả API request được xử lý thông qua các action file trong thư mục `Connection/actions/`. Mỗi file phụ trách một nhóm chức năng cụ thể.
 
-**Main Endpoint:** `http://localhost/library/Library/Connection/actions/{action_file}.php?action={action_name}`
+**Main Endpoint:** `http://libraryuni.free.nf/library/Library/Connection/actions/{action_file}.php?action={action_name}`
 
 
 # Frontend - Library Management System (React)
@@ -124,7 +124,7 @@ npm install
 
 ### 4. Configure API Endpoints
 
-API endpoint đang được hardcoded trong source (ví dụ: `http://localhost/library/Library/...`). Nếu backend của bạn chạy ở địa chỉ khác, bạn cần tìm và thay thế các URL này trong các component file (ví dụ: `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
+API endpoint đang được hardcoded trong source (ví dụ: `http://libraryuni.free.nf/library/Library/...`). Nếu backend của bạn chạy ở địa chỉ khác, bạn cần tìm và thay thế các URL này trong các component file (ví dụ: `src/AddBookForm.jsx`, `src/Bookdetail.jsx`).
 
 **Recommendation:** Để quản lý tốt hơn, bạn có thể tạo file `src/apiConfig.js` để lưu base URL rồi import vào các component.
 

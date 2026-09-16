@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import io from 'socket.io-client';
 
 // Kết nối tới server socket.io
-const socket = io('http://localhost:3001');
+const socket = io('http://libraryuni.free.nf:3001');
 
 function HandleDashbroad() {
     const [conversations, setConversations] = useState({});
@@ -91,13 +91,13 @@ function HandleDashbroad() {
             try {
                 const [statsRes, chatRes] = await Promise.all([
                     Promise.all([
-                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
-                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
-                        fetchStat('http://localhost/library/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
-                        fetchStat('http://localhost/library/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
-                        fetchStat('http://localhost/library/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
+                        fetchStat('http://libraryuni.free.nf/library/Library/Connection/actions/actionForBooks.php?action=getCountBooks'),
+                        fetchStat('http://libraryuni.free.nf/library/Library/Connection/actions/actionForBooks.php?action=getCountSeries'),
+                        fetchStat('http://libraryuni.free.nf/library/Library/Connection/actions/actionForAuthors.php?action=getCountAuthors'),
+                        fetchStat('http://libraryuni.free.nf/library/Library/Connection/actions/actionForPublishers.php?action=getCountPublishers'),
+                        fetchStat('http://libraryuni.free.nf/library/Library/Connection/actions/actionForBookLoanRQ.php?action=getCountRequests'),
                     ]),
-                    fetch('http://localhost:3001/api/chat/messages')
+                    fetch('http://libraryuni.free.nf:3001/api/chat/messages')
                 ]);
 
                 const [books, series, authors, publishers, loanRequests] = statsRes;

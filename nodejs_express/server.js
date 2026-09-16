@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 // Cấu hình socket.io
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175", "http://localhost:3000"], // Cho phép frontend React kết nối
+        origin: ["http://libraryuni.free.nf:5173", "http://libraryuni.free.nf:5174", "http://libraryuni.free.nf:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175", "http://libraryuni.free.nf:3000"], // Cho phép frontend React kết nối
         methods: ["GET", "POST"],
         credentials: true
     },
@@ -26,7 +26,7 @@ const io = new Server(server, {
 // --- Middleware ---
 // Cho phép các yêu cầu từ domain khác (ví dụ: từ frontend React của bạn)
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175", "http://localhost:3000"],
+    origin: ["http://libraryuni.free.nf:5173", "http://libraryuni.free.nf:5174", "http://libraryuni.free.nf:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175", "http://libraryuni.free.nf:3000"],
     credentials: true
 }));
 // Phân tích các request có body là JSON
@@ -102,5 +102,5 @@ io.on('connection', (socket) => {
 
 // Khởi động server
 server.listen(PORT, () => {
-    console.log(`Server đang chạy trên cổng http://localhost:${PORT}`);
+    console.log(`Server đang chạy trên cổng http://libraryuni.free.nf:${PORT}`);
 });

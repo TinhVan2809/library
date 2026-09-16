@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise');
 // Tạo một "pool" kết nối thay vì một kết nối đơn lẻ.
 // Pool sẽ quản lý nhiều kết nối để tăng hiệu suất và độ tin cậy.
 const pool = mysql.createPool({
-    host: 'localhost',
+    host: 'libraryuni.free.nf',
     user: 'root',
     password: '', 
     database: 'library', 
