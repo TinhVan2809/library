@@ -3,7 +3,7 @@
 
 Đây là một hệ thống quản lý thư viện đơn giản được xây dựng bằng React và cơ sở dữ liệu MySQL/MariaDB. Dự án cung cấp các chức năng cốt lõi để quản lý sách, học sinh và việc mượn sách trong môi trường thư viện trường học.
 
-## ✨ Key Features
+## Key Features
 
 -   **Book Management:** Thêm, sửa, xóa và xem thông tin chi tiết của sách (ISBN, author, publisher, stock quantity).
 -   **Student & Admin Management:** Quản lý tài khoản người dùng cho học sinh và quản trị viên.
@@ -24,7 +24,7 @@
 -   **Database:** MySQL / MariaDB
 -   **Web Server:** Apache (khuyến nghị sử dụng trong môi trường XAMPP)
 
-## 🚀 Setup and Run Instructions
+## Setup and Run Instructions
 
 Làm theo các bước sau để cài đặt và chạy dự án trên máy local của bạn.
 
@@ -60,7 +60,7 @@ File cấu hình kết nối database nằm tại `Connection/connectDB.php`. H�
 1.  Khởi động **Apache** và **MySQL** từ XAMPP control panel.
 2.  Mở trình duyệt và truy cập: `http://libraryuni.free.nf/library/Library/`
 
-## 📖 API Usage
+## API Usage
 
 Tất cả API request được xử lý thông qua các action file trong thư mục `Connection/actions/`. Mỗi file phụ trách một nhóm chức năng cụ thể.
 
@@ -71,7 +71,7 @@ Tất cả API request được xử lý thông qua các action file trong thư 
 
 Đây là phần frontend của dự án **Library Management System**, được xây dựng hoàn toàn bằng **React**. Ứng dụng cung cấp giao diện trực quan, hiện đại và thân thiện cho người dùng (học sinh) và quản trị viên tương tác với các tính năng của thư viện, kết nối với backend viết bằng PHP.
 
-## ✨ Key Features
+## Key Features
 
 ### For Administrators
 -   **Book Management (CRUD):**
@@ -91,7 +91,7 @@ Tất cả API request được xử lý thông qua các action file trong thư 
     -   Viết và gửi review (star ratings và comments).
 -   **Modern UI:** Sử dụng `react-slick` cho book slider và `react-router-dom` để điều hướng trang mượt mà.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 -   **Core Library:** React
 -   **Routing:** React Router
@@ -99,7 +99,7 @@ Tất cả API request được xử lý thông qua các action file trong thư 
 -   **Sliders & Carousels:** React Slick
 -   **State Management:** React Hooks (useState, useEffect, useContext)
 
-## 🚀 Setup and Run Instructions
+## Setup and Run Instructions
 
 Làm theo các bước sau để cài đặt và chạy frontend trên máy local của bạn.
 
